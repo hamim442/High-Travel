@@ -116,7 +116,7 @@ async def signin(
 
 @router.get("/authenticate")
 async def authenticate(
-    user: UserResponse = Depends(try_get_jwt_user_data),
+    user: UserResponse | None = Depends(try_get_jwt_user_data),
 ) -> UserResponse:
     """
     This function returns the user if the user is logged in.
