@@ -1,7 +1,7 @@
 steps = [
     [
         # "Up" SQL statement
-        """
+        """--sql
         CREATE TABLE users (
             id SERIAL PRIMARY KEY NOT NULL,
             username VARCHAR(100) NOT NULL UNIQUE,
@@ -9,7 +9,7 @@ steps = [
         );
         """,
         # "Down" SQL statement
-        """
+        """--sql
         DROP TABLE users;
         """,
     ],
