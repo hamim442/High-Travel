@@ -1,12 +1,13 @@
 """
 Pydantic Models for Users.
 """
+
 from pydantic import BaseModel
 
 
 class UserRequest(BaseModel):
     """
-    Represents a the parameters needed to create a new user
+    Represents the parameters needed to create a new user
     """
 
     username: str
