@@ -1,6 +1,7 @@
 """
 Entry point for the FastAPI Application
 """
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routers import auth_router
@@ -27,6 +28,6 @@ def launch_details():
             "week": 17,
             "day": 5,
             "hour": 19,
-            "min": "00"
+            "min": "00",
         }
     }
