@@ -5,8 +5,3 @@ Please keep all of your individual journals in this directory.
 Each team member is required to keep a development journal, which should be a single markdown file with an entry for each day the project was worked on.
 
 Recommended naming convention is `first_last.md`.
-
-8/1/2024
-Cloned Repository
-Used wireframe to brainstorm endpoints
-Collaborated and created api endpoints
