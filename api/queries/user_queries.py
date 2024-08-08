@@ -1,6 +1,7 @@
 """
 Database Queries for Users
 """
+
 import os
 import psycopg
 from psycopg_pool import ConnectionPool
@@ -36,7 +37,7 @@ class UserQueries:
             with pool.connection() as conn:
                 with conn.cursor(row_factory=class_row(UserWithPw)) as cur:
                     cur.execute(
-                        """
+                        """--sql
                             SELECT
                                 *
                             FROM users
@@ -62,7 +63,7 @@ class UserQueries:
             with pool.connection() as conn:
                 with conn.cursor(row_factory=class_row(UserWithPw)) as cur:
                     cur.execute(
-                        """
+                        """--sql
                             SELECT
                                 *
                             FROM users
@@ -89,7 +90,7 @@ class UserQueries:
             with pool.connection() as conn:
                 with conn.cursor(row_factory=class_row(UserWithPw)) as cur:
                     cur.execute(
-                        """
+                        """--sql
                         INSERT INTO users (
                             username,
                             password
