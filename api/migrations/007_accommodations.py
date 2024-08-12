@@ -12,12 +12,12 @@ steps = [
             country VARCHAR(100) NOT NULL,
             phone VARCHAR(20) NULL,
             email VARCHAR(300) NULL,
-            check_in_date DATETIME NOT NULL,
-            check_out_date DATETIME NOT NULL,
+            check_in_date TIMESTAMP NOT NULL,
+            check_out_date TIMESTAMP NOT NULL,
             number_of_guests INTEGER NOT NULL,
             total_price DECIMAL NOT NULL,
             notes TEXT NULL,
-            trip_id INTEGER NOT NULL REFERENCES trip (id),
+            trip_id INTEGER NOT NULL REFERENCES trips (id)
         );
         """,
         # "Down" SQL statement

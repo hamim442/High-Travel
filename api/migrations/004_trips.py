@@ -5,8 +5,8 @@ steps = [
         CREATE TABLE trips (
             id SERIAL PRIMARY KEY NOT NULL,
             city_id INTEGER NULL REFERENCES cities (id),
-            start_date DATETIME NOT NULL,
-            end_date DATETIME NOT NULL,
+            start_date TIMESTAMP NOT NULL,
+            end_date TIMESTAMP NOT NULL
         );
         """,
         # "Down" SQL statement

@@ -25,7 +25,7 @@ steps = [
         ('Four Seasons Hotel', 'https://images.pexels.com/photos/20758006/pexels-photo-20758006/free-photo-of-four-seasons-hotel-in-madrid-at-night.jpeg?auto=compress&cs=tinysrgb&w=600'),
         ('Hyatt', 'https://images.pexels.com/photos/15999434/pexels-photo-15999434/free-photo-of-hotel-among-palm-trees.jpeg?auto=compress&cs=tinysrgb&w=600'),
         ('Burj Al Arab', 'https://images.pexels.com/photos/2041556/pexels-photo-2041556.jpeg?auto=compress&cs=tinysrgb&w=600'),
-        ('Hotel Felice', 'https://images.pexels.com/photos/10453855/pexels-photo-10453855.jpeg?auto=compress&cs=tinysrgb&w=600'),
+        ('Hotel Felice', 'https://images.pexels.com/photos/10453855/pexels-photo-10453855.jpeg?auto=compress&cs=tinysrgb&w=600');
         """,
         # "Down" SQL statement
         """--sql
