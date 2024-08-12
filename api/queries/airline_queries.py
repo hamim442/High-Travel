@@ -63,21 +63,43 @@ class AirlineQueries:
         try:
             with pool.connection() as conn:
                 with conn.cursor(row_factory=class_row(Airline)) as cur:
+
+                    cur.execute(
+                        """--sql
+                            SELECT 1
+                            FROM airlines
+                            WHERE name = %s;
+                        """,
+                        (airline.name,),
+                    )
+                    existing_airline = cur.fetchone()
+
+                    if existing_airline:
+                        raise AirlineCreationError(
+                            f"Airline name '{airline.name}' already exists."
+                        )
+
                     result = cur.execute(
                         """--sql
-                        INSERT INTO airlines (name, logo_picture_url)
-                        VALUES (%(name)s, %(logo_picture_url)s)
-                        RETURNING *;
+                            INSERT INTO airlines (name, logo_picture_url)
+                            VALUES (%(name)s, %(logo_picture_url)s)
+                            RETURNING *;
                         """,
                         {
                             "name": airline.name,
                             "logo_picture_url": airline.logo_picture_url,
                         },
                     )
+
                     new_airline = result.fetchone()
+
                     if new_airline is None:
                         raise AirlineCreationError("Error creating airline")
                     return new_airline
+
+        except AirlineCreationError as e:
+            raise e
+
         except psycopg.Error as e:
             print(f"Error creating airline: {e}")
             raise AirlineDatabaseError("Error creating airline")

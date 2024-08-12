@@ -43,9 +43,8 @@ steps = [
     ('Iberia', 'https://logo.clearbit.com/iberia.com'),
     ('Finnair', 'https://logo.clearbit.com/finnair.com');
     """,
-    # "Down" SQL statement to delete all airlines
-
-    """--sql
+        # "Down" SQL statement to delete all airlines
+        """--sql
     DELETE FROM airlines WHERE name IN (
         'American Airlines', 'Delta Air Lines', 'United Airlines', 'Emirates',
         'Lufthansa', 'Air France', 'British Airways', 'Southwest Airlines',
@@ -59,5 +58,5 @@ steps = [
         """--sql
         DROP TABLE airlines;
         """,
-    ]
+    ],
 ]

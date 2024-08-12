@@ -43,7 +43,7 @@ def create_airline(
     try:
         new_airline = queries.create_airline(airline)
         return new_airline
-    except AirlineCreationError:
-        raise HTTPException(status_code=400, detail="Error creating airline.")
-    except AirlineDatabaseError:
-        raise HTTPException(status_code=500, detail="Error creating airline.")
+    except AirlineCreationError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except AirlineDatabaseError as e:
+        raise HTTPException(status_code=500, detail=str(e))
