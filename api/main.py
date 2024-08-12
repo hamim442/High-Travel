@@ -5,6 +5,8 @@ Entry point for the FastAPI Application
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routers import auth_router
+from routers.airline_router import router as airline_router
+
 import os
 
 app = FastAPI()
@@ -18,6 +20,7 @@ app.add_middleware(
 )
 
 app.include_router(auth_router.router)
+app.include_router(airline_router)
 
 
 @app.get("/api/launch-details")
