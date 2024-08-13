@@ -10,7 +10,7 @@ from utils.exceptions import (
     DatabaseURLException,
 )
 
-
+#Allows everyone to see create trips. Make it only authorized
 database_url = os.environ.get("DATABASE_URL")
 if database_url is None:
     raise DatabaseURLException(
