@@ -9,6 +9,6 @@ steps = [
         """,
         """
         DROP TABLE users_trips
-        """
+        """,
     ]
 ]

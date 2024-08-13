@@ -31,5 +31,5 @@ steps = [
         """--sql
         DELETE FROM stays WHERE id BETWEEN 1 AND 25;
         """,
-    ]
+    ],
 ]

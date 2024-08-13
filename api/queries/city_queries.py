@@ -66,8 +66,18 @@ class CityQueries:
                 with conn.cursor(row_factory=class_row(City)) as cur:
                     result = cur.execute(
                         """--sql
-                            INSERT INTO cities (name, administrative_division, country, picture_url)
-                            VALUES (%(name)s, %(administrative_division)s, %(country)s, %(picture_url)s)
+                            INSERT INTO cities (
+                                name,
+                                administrative_division,
+                                country,
+                                picture_url
+                            )
+                            VALUES (
+                                %(name)s,
+                                %(administrative_division)s,
+                                %(country)s,
+                                %(picture_url)s
+                            )
                             RETURNING *;
                         """,
                         {
@@ -83,7 +93,7 @@ class CityQueries:
                     return new_city
         except UniqueViolation:
             raise CityCreationError(
-                f"A city named '{city.name}' already exists in '{city.country}'."
+                f"City '{city.name}' already exists in '{city.country}'."
             )
         except psycopg.Error as e:
             print(f"Error creating city: {e}.")
