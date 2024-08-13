@@ -2,6 +2,7 @@ import os
 import psycopg
 from psycopg.rows import class_row
 from psycopg_pool import ConnectionPool
+from psycopg.errors import UniqueViolation
 from models.airlines import Airline, AirlineRequest
 from utils.exceptions import (
     AirlineDatabaseError,
@@ -63,22 +64,6 @@ class AirlineQueries:
         try:
             with pool.connection() as conn:
                 with conn.cursor(row_factory=class_row(Airline)) as cur:
-
-                    cur.execute(
-                        """--sql
-                            SELECT 1
-                            FROM airlines
-                            WHERE name = %s;
-                        """,
-                        (airline.name,),
-                    )
-                    existing_airline = cur.fetchone()
-
-                    if existing_airline:
-                        raise AirlineCreationError(
-                            f"Airline name '{airline.name}' already exists."
-                        )
-
                     result = cur.execute(
                         """--sql
                             INSERT INTO airlines (name, logo_picture_url)
@@ -97,8 +82,10 @@ class AirlineQueries:
                         raise AirlineCreationError("Error creating airline")
                     return new_airline
 
-        except AirlineCreationError as e:
-            raise e
+        except UniqueViolation:
+            raise AirlineCreationError(
+                f"Airline name '{airline.name}' already exists."
+            )
 
         except psycopg.Error as e:
             print(f"Error creating airline: {e}")

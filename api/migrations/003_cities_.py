@@ -2,51 +2,76 @@ steps = [
     [
         # "Up" SQL statement
         """--sql
-        CREATE TABLE cities (
-            id SERIAL PRIMARY KEY NOT NULL,
-            name VARCHAR(100) NOT NULL,
-            administrative_division VARCHAR(200),
-            country VARCHAR(100),
-            picture_url VARCHAR(300)
-        );
+            CREATE TABLE cities (
+                id SERIAL PRIMARY KEY NOT NULL,
+                name VARCHAR(100) NOT NULL,
+                administrative_division VARCHAR(200),
+                country VARCHAR(100),
+                picture_url VARCHAR(300),
+                UNIQUE(name, country)
+            );
         """,
         # "Down" SQL statement
         """--sql
-        DROP TABLE cities;
+            DROP TABLE cities;
         """,
     ],
     [
         """--sql
-        INSERT INTO cities (name, administrative_division, country, picture_url) VALUES
-            ('Tokyo', 'Tokyo Metropolis', 'Japan', 'https://media.istockphoto.com/id/1390815938/photo/tokyo-city-in-japan.webp?b=1&s=170667a&w=0&k=20&c=YVI8iGWf-w_cLyQNcWA57Ll9eXv_s_SHfoM0MufEMMQ='),
-            ('Delhi', 'National Capital Territory', 'India', 'https://media.cnn.com/api/v1/images/stellar/prod/181105110720-03-delhi-india-what-to-see-photos-swaminarayan-akshardham.jpg?q=w_1920,h_1080,x_0,y_0,c_fill'),
-            ('Shanghai', 'Shanghai Municipality', 'China', 'https://static.independent.co.uk/2023/08/07/12/iStock-587787576%20shanghai.jpg?width=1200&height=1200&fit=crop'),
-            ('São Paulo', 'São Paulo', 'Brazil', 'https://www.thesmoothescape.com/wp-content/uploads/2019/03/Sao-Paulo-skyline-header.jpg'),
-            ('Mexico City', 'Mexico City', 'Mexico', 'https://www.fodors.com/wp-content/uploads/2021/05/UltimateMexicoCity__HERO_shutterstock_1058054480.jpg'),
-            ('Cairo', 'Cairo Governorate', 'Egypt', 'https://images.adsttc.com/media/images/64a2/cdae/cb9c/464f/a63a/9764/large_jpg/cairo-architecture-city-guide-exploring-the-unique-architectural-blend-of-historical-and-contemporary-in-egypts-bustling-capital_23.jpg?1688391095'),
-            ('Dhaka', 'Dhaka Division', 'Bangladesh', 'https://cdn.britannica.com/97/189797-050-1FC0041B/Night-view-Dhaka-Bangladesh.jpg'),
-            ('Mumbai', 'Maharashtra', 'India', 'https://static01.nyt.com/images/2024/04/06/travel/28hours-mumbai-01-qkwb/28hours-mumbai-01-qkwb-videoSixteenByNine3000.jpg'),
-            ('Beijing', 'Beijing Municipality', 'China', 'https://www.tripsavvy.com/thmb/kcIwUgDXnduZ9k4ljo4K2eA87M4=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/forbidden-city-beijing-8775c18670bd412d9b54daecba137c5c.jpg'),
-            ('Osaka', 'Osaka Prefecture', 'Japan', 'https://blog.sakura.co/wp-content/uploads/2023/03/Sakuraco_osaka6-1.jpg'),
-            ('Karachi', 'Sindh', 'Pakistan', 'https://oshkoshnorthstar.org/wp-content/uploads/2020/11/Karachi-1.jpg'),
-            ('Chongqing', 'Chongqing Municipality', 'China', 'https://facts.net/wp-content/uploads/2023/06/31-facts-about-chongqing-1688111338.jpeg'),
-            ('Istanbul', 'Istanbul Province', 'Turkey', 'https://imageio.forbes.com/specials-images/imageserve/61730c93fc56ba9cc0b0c7f2/Blue-Mosque-in-Istanbul/960x0.jpg?format=jpg&width=960'),
-            ('Buenos Aires', 'Autonomous City of Buenos Aires', 'Argentina', 'https://www.travelandleisure.com/thmb/zvWBxyJ3Nj56uHYXH73NXXgC3iA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/world-class-design-buenos-aires-BAVISIT0418-5e990a610aab499bb9991771dac5fb54.jpg'),
-            ('Kolkata', 'West Bengal', 'India', 'https://cdn.britannica.com/91/110191-050-7BCFD56B/Victoria-Memorial-Hall-Kolkata-India.jpg'),
-            ('Kinshasa', 'Kinshasa', 'Democratic Republic of the Congo', 'https://upload.wikimedia.org/wikipedia/commons/b/b9/La_ville_de_Kinshasa.jpg'),
-            ('Lagos', 'Lagos State', 'Nigeria', 'https://media.newyorker.com/photos/5909523dc14b3c606c103bac/master/pass/Victoria-Island-580.jpg'),
-            ('Manila', 'Metro Manila', 'Philippines', 'https://cdn.audleytravel.com/2559/1828/79/1015820-manila-skyline.jpg'),
-            ('Rio de Janeiro', 'Rio de Janeiro', 'Brazil', 'https://i.natgeofe.com/n/560b293d-80b2-4449-ad6c-036a249d46f8/rio-de-janeiro-travel_3x4.jpg'),
-            ('Guangzhou', 'Guangdong', 'China', 'https://cdn.britannica.com/12/128212-050-85240B92/Nighttime-view-Guangzhou-Guangdong-China.jpg'),
-            ('Los Angeles', 'California', 'United States', 'https://a.travel-assets.com/findyours-php/viewfinder/images/res70/475000/475464-Los-Angeles.jpg'),
-            ('Moscow', 'Moscow', 'Russia', 'https://content.r9cdn.net/rimg/dimg/b0/1c/7746c81c-city-14713-163f5192361.jpg?width=1366&height=768&xhint=1535&yhint=594&crop=true'),
-            ('Shenzhen', 'Guangdong', 'China', 'https://content.r9cdn.net/rimg/dimg/d6/b4/fd470797-city-9007-16886833eb0.jpg?width=1366&height=768&xhint=2474&yhint=1921&crop=true'),
-            ('Lahore', 'Punjab', 'Pakistan', 'https://mediaim.expedia.com/destination/1/7d01ed01c22a1685a1f2046a37ac7f1f.jpg'),
-            ('Bangalore', 'Karnataka', 'India', 'https://i.kinja-img.com/image/upload/c_fill,h_900,q_60,w_1600/1432fedb88c0d1cc56f4c496a80f251c.jpg');
+            INSERT INTO cities (name, administrative_division, country, picture_url)
+            VALUES
+            ('Bangkok', 'Bangkok', 'Thailand', 'https://upload.wikimedia.org/wikipedia/commons/5/5b/Bangkok_skytrain_sunset.jpg'),
+            ('Paris', 'Île-de-France', 'France', 'https://upload.wikimedia.org/wikipedia/commons/a/af/Tour_Eiffel_Wikimedia_Commons_%28cropped%29.jpg'),
+            ('London', 'England', 'United Kingdom', 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Palace_of_Westminster_from_the_dome_on_Methodist_Central_Hall.jpg'),
+            ('Dubai', 'Dubai', 'United Arab Emirates', 'https://upload.wikimedia.org/wikipedia/commons/8/83/Dubai_skyline_from_Jumeirah_Beach.jpg'),
+            ('Singapore', 'Central Region', 'Singapore', 'https://upload.wikimedia.org/wikipedia/commons/5/57/Singapore_Skyline_at_Dusk.jpg'),
+            ('New York City', 'New York', 'United States', 'https://upload.wikimedia.org/wikipedia/commons/c/c7/Lower_Manhattan_skyline_-_June_2017.jpg'),
+            ('Kuala Lumpur', 'Federal Territory of Kuala Lumpur', 'Malaysia', 'https://upload.wikimedia.org/wikipedia/commons/6/65/Petronas_Twin_Towers_viewed_from_Menara_KL.JPG'),
+            ('Tokyo', 'Tokyo Metropolis', 'Japan', 'https://upload.wikimedia.org/wikipedia/commons/1/18/Tokyo_Tower_and_surrounding_buildings_at_night.jpg'),
+            ('Istanbul', 'Istanbul Province', 'Turkey', 'https://upload.wikimedia.org/wikipedia/commons/8/83/Bosphorus_Bridge_%28Istanbul%29.jpg'),
+            ('Antalya', 'Antalya Province', 'Turkey', 'https://upload.wikimedia.org/wikipedia/commons/4/47/Antalya_Harbour_view.jpg'),
+            ('Seoul', 'Seoul', 'South Korea', 'https://upload.wikimedia.org/wikipedia/commons/c/c9/Seoul_skyline_at_night_%282015%29.jpg'),
+            ('Osaka', 'Osaka Prefecture', 'Japan', 'https://upload.wikimedia.org/wikipedia/commons/3/38/Osaka_Castle_02bs3200.jpg'),
+            ('Makkah', 'Makkah Province', 'Saudi Arabia', 'https://upload.wikimedia.org/wikipedia/commons/f/f9/Masjid_al-Haram_Mecca_Grand_Mosque.jpg'),
+            ('Phuket', 'Phuket Province', 'Thailand', 'https://upload.wikimedia.org/wikipedia/commons/4/49/Patong_Beach_Phuket.jpg'),
+            ('Pattaya', 'Chonburi Province', 'Thailand', 'https://upload.wikimedia.org/wikipedia/commons/e/e1/Pattaya_Thailand.jpg'),
+            ('Hong Kong', 'Hong Kong Island', 'Hong Kong', 'https://upload.wikimedia.org/wikipedia/commons/a/aa/Hong_Kong_Skyline_Restitch_-_Dec_2007.jpg'),
+            ('Milan', 'Lombardy', 'Italy', 'https://upload.wikimedia.org/wikipedia/commons/a/a1/Piazza_Duomo%2C_Milan.jpg'),
+            ('Barcelona', 'Catalonia', 'Spain', 'https://upload.wikimedia.org/wikipedia/commons/7/71/Barcelona_Sagrada_Familia_01.jpg'),
+            ('Rome', 'Lazio', 'Italy', 'https://upload.wikimedia.org/wikipedia/commons/5/5d/Colosseum_in_Rome%2C_Italy_-_April_2007.jpg'),
+            ('Bali', 'Bali', 'Indonesia', 'https://upload.wikimedia.org/wikipedia/commons/6/63/Pura_Ulun_Danu_Bratan%2C_Bali.jpg'),
+            ('Las Vegas', 'Nevada', 'United States', 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Welcome_to_Fabulous_Las_Vegas.jpg'),
+            ('Shanghai', 'Shanghai Municipality', 'China', 'https://upload.wikimedia.org/wikipedia/commons/c/c2/Shanghai_Skyline_2020.jpg'),
+            ('Amsterdam', 'North Holland', 'Netherlands', 'https://upload.wikimedia.org/wikipedia/commons/f/f2/Amsterdam_Canal.jpg'),
+            ('Vienna', 'Vienna', 'Austria', 'https://upload.wikimedia.org/wikipedia/commons/4/4a/Schloss_Sch%C3%B6nbrunn_Wien_2014_%28200%29.JPG'),
+            ('Los Angeles', 'California', 'United States', 'https://upload.wikimedia.org/wikipedia/commons/8/8c/Los_Angeles_Skyline_from_Griffith_Observatory_2013.jpg'),
+            ('Madrid', 'Community of Madrid', 'Spain', 'https://upload.wikimedia.org/wikipedia/commons/7/75/Madrid_skyline_Cuatro_Torres_Business_Area.jpg'),
+            ('Berlin', 'Berlin', 'Germany', 'https://upload.wikimedia.org/wikipedia/commons/a/a7/Berlin_Reichstag_dome_with_flag.jpg'),
+            ('Prague', 'Prague', 'Czech Republic', 'https://upload.wikimedia.org/wikipedia/commons/a/a4/Prague_Castle_and_Charles_Bridge_2010.jpg'),
+            ('Miami', 'Florida', 'United States', 'https://upload.wikimedia.org/wikipedia/commons/5/57/Miami_Skyline_20180129.jpg'),
+            ('Munich', 'Bavaria', 'Germany', 'https://upload.wikimedia.org/wikipedia/commons/f/f6/Marienplatz_Muenchen.jpg'),
+            ('Florence', 'Tuscany', 'Italy', 'https://upload.wikimedia.org/wikipedia/commons/6/6a/Florence_Cathedral_from_Michelangelo_square.jpg'),
+            ('Sydney', 'New South Wales', 'Australia', 'https://upload.wikimedia.org/wikipedia/commons/0/0e/Sydney_Opera_House_viewed_from_Harbour_Bridge.jpg'),
+            ('Buenos Aires', 'Autonomous City of Buenos Aires', 'Argentina', 'https://upload.wikimedia.org/wikipedia/commons/e/eb/Buenos_Aires_-_Recoleta.jpg'),
+            ('San Francisco', 'California', 'United States', 'https://upload.wikimedia.org/wikipedia/commons/0/0c/San_Francisco_-_Golden_Gate_Bridge_and_Cityscape.jpg'),
+            ('Mexico City', 'Mexico City', 'Mexico', 'https://upload.wikimedia.org/wikipedia/commons/4/41/Angel_of_Independence_Mexico_City.jpg'),
+            ('Moscow', 'Moscow', 'Russia', 'https://upload.wikimedia.org/wikipedia/commons/d/d1/RedSquareMoscow.jpg'),
+            ('Toronto', 'Ontario', 'Canada', 'https://upload.wikimedia.org/wikipedia/commons/c/c6/Toronto_skyline_at_night_-a.jpg'),
+            ('Orlando', 'Florida', 'United States', 'https://upload.wikimedia.org/wikipedia/commons/5/58/Walt_Disney_World_-_Disney%27s_Animal_Kingdom_-_Tree_of_Life_%281%29.jpg'),
+            ('Rio de Janeiro', 'Rio de Janeiro', 'Brazil', 'https://upload.wikimedia.org/wikipedia/commons/4/41/Rio_de_Janeiro.jpg'),
+            ('Beijing', 'Beijing Municipality', 'China', 'https://upload.wikimedia.org/wikipedia/commons/a/af/Beijing_Skyline_CBD_2016.jpg'),
+            ('Cape Town', 'Western Cape', 'South Africa', 'https://upload.wikimedia.org/wikipedia/commons/a/a7/Cape_Town_and_Table_Mountain.jpg'),
+            ('Lisbon', 'Lisbon District', 'Portugal', 'https://upload.wikimedia.org/wikipedia/commons/e/e3/Lisbon_Cityscape_from_Castle_of_S%C3%A3o_Jorge.jpg'),
+            ('Venice', 'Veneto', 'Italy', 'https://upload.wikimedia.org/wikipedia/commons/0/00/Venice_Grand_Canal.jpg'),
+            ('Brussels', 'Brussels', 'Belgium', 'https://upload.wikimedia.org/wikipedia/commons/6/60/Grand_Place_Brussels_Evening.jpg'),
+            ('Cairo', 'Cairo Governorate', 'Egypt', 'https://upload.wikimedia.org/wikipedia/commons/e/ef/Cairo_City_Skyline_2021.jpg'),
+            ('Zurich', 'Zurich', 'Switzerland', 'https://upload.wikimedia.org/wikipedia/commons/7/75/Zurich_Cityscape.jpg'),
+            ('Mumbai', 'Maharashtra', 'India', 'https://upload.wikimedia.org/wikipedia/commons/6/6e/Mumbai_Skyline_at_night.jpg'),
+            ('Delhi', 'National Capital Territory', 'India', 'https://upload.wikimedia.org/wikipedia/commons/a/a2/India_Gate_in_New_Delhi_03-2016.jpg'),
+            ('Copenhagen', 'Capital Region', 'Denmark', 'https://upload.wikimedia.org/wikipedia/commons/a/af/Nyhavn_Copenhagen.jpg');
         """,
-
         """--sql
-        DROP TABLE cities;
+            DROP TABLE cities;
         """,
-    ]
+    ],
 ]

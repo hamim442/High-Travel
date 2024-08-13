@@ -2,6 +2,7 @@ import os
 import psycopg
 from psycopg.rows import class_row
 from psycopg_pool import ConnectionPool
+from psycopg.errors import UniqueViolation
 from models.cities import City, CityRequest
 from utils.exceptions import (
     DatabaseURLException,
@@ -80,6 +81,10 @@ class CityQueries:
                     if new_city is None:
                         raise CityCreationError("Error creating city.")
                     return new_city
+        except UniqueViolation:
+            raise CityCreationError(
+                f"A city named '{city.name}' already exists in '{city.country}'."
+            )
         except psycopg.Error as e:
             print(f"Error creating city: {e}.")
             raise CityDatabaseError("Error creating city.")
