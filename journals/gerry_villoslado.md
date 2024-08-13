@@ -1,5 +1,17 @@
 ## Gerry's Journal
 
+### Monday 8/12
+
+I built our first API endpoint for airlines (models, queries, router, and exceptions). The team was following as I was tryping and I was looking at the Superhero app as reference.
+
+### Friday 8/9
+
+I was out sick. Missed Project Gamma.
+
+### Thursday 8/8
+
+We continued working on our database design as we got valuable feedback from Bart. The design is now complete.
+
 ### Wednesday 8/7
 
 Held our first standup. We worked on our database design, using our API endpoints as a reference and guide.
