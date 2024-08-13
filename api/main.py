@@ -1,11 +1,11 @@
-"""
-Entry point for the FastAPI Application
-"""
-
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import auth_router
-from routers.airline_router import router as airline_router
+from routers import (
+    auth_router,
+    airline_router,
+    city_router,
+    trip_router,
+)
 
 import os
 
@@ -20,7 +20,9 @@ app.add_middleware(
 )
 
 app.include_router(auth_router.router)
-app.include_router(airline_router)
+app.include_router(airline_router.router)
+app.include_router(city_router.router)
+app.include_router(trip_router.router)
 
 
 @app.get("/api/launch-details")

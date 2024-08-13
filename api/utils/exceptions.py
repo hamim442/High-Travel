@@ -21,3 +21,27 @@ class AirlineDatabaseError(Exception):
 
 class AirlineDoesNotExist(Exception):
     pass
+
+
+class CityCreationError(Exception):
+    pass
+
+
+class CityDatabaseError(Exception):
+    pass
+
+
+class CityDoesNotExist(Exception):
+    pass
+
+
+class TripCreationError(Exception):
+    pass
+
+
+class TripDatabaseError(Exception):
+    pass
+
+
+class TripDoesNotExist(Exception):
+    pass
