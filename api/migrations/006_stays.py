@@ -5,7 +5,7 @@ steps = [
         CREATE TABLE stays (
             id SERIAL PRIMARY KEY NOT NULL,
             name VARCHAR(100) NOT NULL UNIQUE,
-            logo_picture_url VARCHAR(500) NOT NULL
+            logo_picture_url VARCHAR(300) NOT NULL
         );
         """,
         # "Down" SQL statement

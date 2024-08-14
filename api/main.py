@@ -6,6 +6,7 @@ from routers import (
     city_router,
     trip_router,
     stay_router,
+    accommodation_router,
 )
 
 import os
@@ -25,6 +26,7 @@ app.include_router(airline_router.router)
 app.include_router(city_router.router)
 app.include_router(trip_router.router)
 app.include_router(stay_router.router)
+app.include_router(accommodation_router.router)
 
 
 @app.get("/api/launch-details")
