@@ -69,3 +69,11 @@ class AccommodationDatabaseError(Exception):
 
 class AccommodationDoesNotExist(Exception):
     pass
+
+
+class UserTripDatabaseError(Exception):
+    pass
+
+
+class UserTripCreationError(Exception):
+    pass
