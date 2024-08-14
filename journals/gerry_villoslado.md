@@ -1,5 +1,9 @@
 ## Gerry's Journal
 
+### Tuesday 8/13
+
+I merge-requested for airlines, cities, and trips. We delegated the rest of the API endpoints to work in parallel. I spent the day pair-programming with Jason as we work towards completing the trips API endpoint to allow only authenticated users to see and create their own trips.
+
 ### Monday 8/12
 
 I built our first API endpoint for airlines (models, queries, router, and exceptions). The team was following as I was tryping and I was looking at the Superhero app as reference.

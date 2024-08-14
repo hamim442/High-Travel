@@ -7,6 +7,7 @@ class Trip(BaseModel):
     city_id: int | None
     start_date: datetime
     end_date: datetime
+    user_id: int
 
 
 class TripRequest(BaseModel):
