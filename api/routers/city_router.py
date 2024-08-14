@@ -44,3 +44,16 @@ def create_city(city: CityRequest, queries: CityQueries = Depends()) -> City:
         raise HTTPException(status_code=400, detail=str(e))
     except CityDatabaseError as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.delete("/{id}")
+def delete_city(id: int, queries: CityQueries = Depends()) -> dict:
+    try:
+        success = queries.delete_city(id)
+        if not success:
+            raise CityDoesNotExist(f"City with id {id} does not exist.")
+        return {"status": "City deleted successfully."}
+    except CityDoesNotExist:
+        raise HTTPException(status_code=404, detail="City not found.")
+    except CityDatabaseError:
+        raise HTTPException(status_code=500, detail="Error deleting city.")

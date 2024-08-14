@@ -47,3 +47,19 @@ def create_airline(
         raise HTTPException(status_code=400, detail=str(e))
     except AirlineDatabaseError as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.delete("/{id}")
+def delete_airline(
+    id: int,
+    queries: AirlineQueries = Depends(),
+) -> dict:
+    try:
+        success = queries.delete_airline(id)
+        if not success:
+            raise AirlineDoesNotExist(f"Airline with id {id} does not exist.")
+        return {"status": "Airline deleted successfully."}
+    except AirlineDoesNotExist:
+        raise HTTPException(status_code=404, detail="Airline not found.")
+    except AirlineDatabaseError:
+        raise HTTPException(status_code=500, detail="Error deleting airline.")

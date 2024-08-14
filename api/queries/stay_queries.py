@@ -92,3 +92,21 @@ class StayQueries:
         except psycopg.Error as e:
             print(f"Error creating stay: {e}.")
             raise StayDatabaseError("Error creating stay.")
+
+    def delete_stay(self, id: int) -> bool:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(
+                        """--sql
+                            DELETE FROM stays
+                            WHERE id = %s;
+                        """,
+                        (id,),
+                    )
+                    return cur.rowcount > 0
+        except psycopg.Error as e:
+            print(f"Error deleting stay with id {id}: {e}.")
+            raise StayDatabaseError(
+                f"Error deleting stay with id {id}."
+            )

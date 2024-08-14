@@ -90,3 +90,19 @@ class AirlineQueries:
         except psycopg.Error as e:
             print(f"Error creating airline: {e}")
             raise AirlineDatabaseError("Error creating airline")
+
+    def delete_airline(self, id: int) -> bool:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(
+                        """--sql
+                            DELETE FROM airlines
+                            WHERE id = %s;
+                        """,
+                        (id,),
+                    )
+                    return cur.rowcount > 0
+        except psycopg.Error as e:
+            print(f"Error deleting airline with id {id}: {e}")
+            raise AirlineDatabaseError(f"Error deleting airline with id {id}")
