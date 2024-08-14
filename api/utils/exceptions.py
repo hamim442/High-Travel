@@ -45,3 +45,15 @@ class TripDatabaseError(Exception):
 
 class TripDoesNotExist(Exception):
     pass
+
+
+class StayCreationError(Exception):
+    pass
+
+
+class StayDatabaseError(Exception):
+    pass
+
+
+class StayDoesNotExist(Exception):
+    pass
