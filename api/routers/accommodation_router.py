@@ -57,3 +57,24 @@ def create_accommodation(
         raise HTTPException(status_code=400, detail=str(e))
     except AccommodationDatabaseError as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.delete("/{id}")
+def delete_accommodation(
+    id: int,
+    user: JWTUserData = Depends(try_get_jwt_user_data),
+    queries: AccommodationQueries = Depends(),
+) -> dict:
+    try:
+        success = queries.delete_accommodation(id, user.id)
+        if not success:
+            raise AccommodationDoesNotExist(
+                f"Accommodation with id {id} does not exist."
+            )
+        return {"status": "Accommodation deleted successfully."}
+    except AccommodationDoesNotExist:
+        raise HTTPException(status_code=404, detail="Accommodation not found.")
+    except AccommodationDatabaseError:
+        raise HTTPException(
+            status_code=500, detail="Error deleting accommodation."
+        )

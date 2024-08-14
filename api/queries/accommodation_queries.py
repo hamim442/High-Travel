@@ -98,3 +98,23 @@ class AccommodationQueries:
         except psycopg.Error as e:
             print(f"Error creating accommodation: {e}.")
             raise AccommodationDatabaseError("Error creating accommodation.")
+
+    def delete_accommodation(self, id: int, user_id: int) -> bool:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(
+                        """--sql
+                            DELETE FROM accommodations
+                            USING trips
+                            WHERE accommodations.id = %s AND trips.user_id = %s
+                            AND accommodations.trip_id = trips.id;
+                        """,
+                        (id, user_id),
+                    )
+                    return cur.rowcount > 0
+        except psycopg.Error as e:
+            print(f"Error deleting accommodation with id {id}: {e}.")
+            raise AccommodationDatabaseError(
+                f"Error deleting accommodation with id {id}."
+            )
