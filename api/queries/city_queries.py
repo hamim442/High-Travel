@@ -98,3 +98,19 @@ class CityQueries:
         except psycopg.Error as e:
             print(f"Error creating city: {e}.")
             raise CityDatabaseError("Error creating city.")
+
+    def delete_city(self, id: int) -> bool:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(
+                        """--sql
+                            DELETE FROM cities
+                            WHERE id = %s;
+                        """,
+                        (id,),
+                    )
+                    return cur.rowcount > 0
+        except psycopg.Error as e:
+            print(f"Error deleting city with id {id}: {e}.")
+            raise CityDatabaseError(f"Error deleting city with id {id}.")

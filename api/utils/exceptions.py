@@ -57,3 +57,23 @@ class StayDatabaseError(Exception):
 
 class StayDoesNotExist(Exception):
     pass
+
+
+class AccommodationCreationError(Exception):
+    pass
+
+
+class AccommodationDatabaseError(Exception):
+    pass
+
+
+class AccommodationDoesNotExist(Exception):
+    pass
+
+
+class UserTripDatabaseError(Exception):
+    pass
+
+
+class UserTripCreationError(Exception):
+    pass
