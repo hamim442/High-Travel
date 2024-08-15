@@ -4,8 +4,8 @@ steps = [
         """--sql
         CREATE TABLE stays (
             id SERIAL PRIMARY KEY NOT NULL,
-            name VARCHAR(100) NOT NULL,
-            logo_picture_url VARCHAR(500) NOT NULL
+            name VARCHAR(100) NOT NULL UNIQUE,
+            logo_picture_url VARCHAR(300) NOT NULL
         );
         """,
         # "Down" SQL statement
@@ -16,16 +16,56 @@ steps = [
     [
         """--sql
         INSERT INTO stays (name, logo_picture_url) VALUES
-        ('The Ritz-Carlton', 'https://images.pexels.com/photos/16761915/pexels-photo-16761915/free-photo-of-entrance-to-carlton-hotel-cannes-france.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
-        ('The Hilton', 'https://images.pexels.com/photos/20147867/pexels-photo-20147867/free-photo-of-hilton-hotel-in-ho-chi-minh-city.jpeg?auto=compress&cs=tinysrgb&w=600'),
-        ('AirBnb', 'https://images.pexels.com/photos/5077042/pexels-photo-5077042.jpeg?auto=compress&cs=tinysrgb&w=600'),
-        ('Sheraton', 'https://images.pexels.com/photos/19734603/pexels-photo-19734603/free-photo-of-a-skyscraper-sheraton-hotel-against-a-dramatic-sunset-sky.jpeg?auto=compress&cs=tinysrgb&w=600'),
-        ('Holiday Inn', 'https://images.pexels.com/photos/12149151/pexels-photo-12149151.jpeg?auto=compress&cs=tinysrgb&w=600'),
-        ('Mt.Whitney Motel', 'https://images.pexels.com/photos/13993405/pexels-photo-13993405.jpeg?auto=compress&cs=tinysrgb&w=600'),
-        ('Four Seasons Hotel', 'https://images.pexels.com/photos/20758006/pexels-photo-20758006/free-photo-of-four-seasons-hotel-in-madrid-at-night.jpeg?auto=compress&cs=tinysrgb&w=600'),
-        ('Hyatt', 'https://images.pexels.com/photos/15999434/pexels-photo-15999434/free-photo-of-hotel-among-palm-trees.jpeg?auto=compress&cs=tinysrgb&w=600'),
-        ('Burj Al Arab', 'https://images.pexels.com/photos/2041556/pexels-photo-2041556.jpeg?auto=compress&cs=tinysrgb&w=600'),
-        ('Hotel Felice', 'https://images.pexels.com/photos/10453855/pexels-photo-10453855.jpeg?auto=compress&cs=tinysrgb&w=600');
+       ('Marriott International', 'https://logo.clearbit.com/marriott.com'),
+    ('Hilton Hotels & Resorts', 'https://logo.clearbit.com/hilton.com'),
+    ('Hyatt', 'https://logo.clearbit.com/hyatt.com'),
+    ('InterContinental Hotels Group (IHG)', 'https://logo.clearbit.com/ihg.com'),
+    ('Wyndham Hotels & Resorts', 'https://logo.clearbit.com/wyndhamhotels.com'),
+    ('AccorHotels', 'https://logo.clearbit.com/accorhotels.com'),
+    ('Radisson Hotel Group', 'https://logo.clearbit.com/radissonhotels.com'),
+    ('Best Western Hotels & Resorts', 'https://logo.clearbit.com/bestwestern.com'),
+    ('Choice Hotels', 'https://logo.clearbit.com/choicehotels.com'),
+    ('Four Seasons Hotels and Resorts', 'https://logo.clearbit.com/fourseasons.com'),
+    ('Mandarin Oriental', 'https://logo.clearbit.com/mandarinoriental.com'),
+    ('Shangri-La Hotels and Resorts', 'https://logo.clearbit.com/shangri-la.com'),
+    ('Fairmont Hotels and Resorts', 'https://logo.clearbit.com/fairmont.com'),
+    ('Ritz-Carlton', 'https://logo.clearbit.com/ritzcarlton.com'),
+    ('Rosewood Hotels & Resorts', 'https://logo.clearbit.com/rosewoodhotels.com'),
+    ('St. Regis Hotels & Resorts', 'https://logo.clearbit.com/stregis.com'),
+    ('Aman Resorts', 'https://logo.clearbit.com/aman.com'),
+    ('Banyan Tree Hotels & Resorts', 'https://logo.clearbit.com/banyantree.com'),
+    ('Six Senses Hotels Resorts Spas', 'https://logo.clearbit.com/sixsenses.com'),
+    ('Jumeirah Group', 'https://logo.clearbit.com/jumeirah.com'),
+    ('Mövenpick Hotels & Resorts', 'https://logo.clearbit.com/movenpick.com'),
+    ('Langham Hospitality Group', 'https://logo.clearbit.com/langhamhotels.com'),
+    ('Kempinski Hotels', 'https://logo.clearbit.com/kempinski.com'),
+    ('Loews Hotels', 'https://logo.clearbit.com/loewshotels.com'),
+    ('Oberoi Hotels & Resorts', 'https://logo.clearbit.com/oberoihotels.com'),
+    ('Taj Hotels Resorts and Palaces', 'https://logo.clearbit.com/tajhotels.com'),
+    ('LHW (Leading Hotels of the World)', 'https://logo.clearbit.com/lhw.com'),
+    ('Soneva', 'https://logo.clearbit.com/soneva.com'),
+    ('Alila Hotels and Resorts', 'https://logo.clearbit.com/alilahotels.com'),
+    ('Anantara Hotels, Resorts & Spas', 'https://logo.clearbit.com/anantara.com'),
+    ('Club Med', 'https://logo.clearbit.com/clubmed.com'),
+    ('Relais & Châteaux', 'https://logo.clearbit.com/relaischateaux.com'),
+    ('Viceroy Hotels and Resorts', 'https://logo.clearbit.com/viceroyhotelsandresorts.com'),
+    ('Airbnb', 'https://logo.clearbit.com/airbnb.com'),
+    ('Vrbo', 'https://logo.clearbit.com/vrbo.com'),
+    ('Expedia', 'https://logo.clearbit.com/expedia.com'),
+    ('Booking.com', 'https://logo.clearbit.com/booking.com'),
+    ('Hotels.com', 'https://logo.clearbit.com/hotels.com'),
+    ('Trivago', 'https://logo.clearbit.com/trivago.com'),
+    ('Kayak', 'https://logo.clearbit.com/kayak.com'),
+    ('Orbitz', 'https://logo.clearbit.com/orbitz.com'),
+    ('Travelocity', 'https://logo.clearbit.com/travelocity.com'),
+    ('Priceline', 'https://logo.clearbit.com/priceline.com'),
+    ('Agoda', 'https://logo.clearbit.com/agoda.com'),
+    ('TripAdvisor', 'https://logo.clearbit.com/tripadvisor.com'),
+    ('Hopper', 'https://logo.clearbit.com/hopper.com'),
+    ('OYO Rooms', 'https://logo.clearbit.com/oyorooms.com'),
+    ('TUI Group', 'https://logo.clearbit.com/tui.com'),
+    ('Ctrip', 'https://logo.clearbit.com/ctrip.com'),
+    ('HRS Hotel Reservation Service', 'https://logo.clearbit.com/hrs.com');
         """,
         # "Down" SQL statement
         """--sql
