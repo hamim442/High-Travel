@@ -33,13 +33,33 @@ function Nav() {
                             </NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link" to="/placeholder1">
-                                Placeholder1
+                            <NavLink className="nav-link" to="/createplan">
+                                Create a Plan
                             </NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link" to="/placeholder2">
-                                Placeholder2
+                            <NavLink className="nav-link" to="/yourplans">
+                                Your Most Recent Plans
+                            </NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="/destinations">
+                                Popular Destinations
+                            </NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="/signin">
+                                Sign In
+                            </NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="/signout">
+                                Sign Out
+                            </NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="/signup">
+                                Sign Up
                             </NavLink>
                         </li>
                     </ul>
@@ -48,3 +68,5 @@ function Nav() {
         </nav>
     )
 }
+
+export default Nav
