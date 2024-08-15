@@ -45,3 +45,12 @@ class TripDatabaseError(Exception):
 
 class TripDoesNotExist(Exception):
     pass
+
+class FlightDatabaseError(Exception):
+    pass
+
+class FlightDoesNotExist(Exception):
+    pass
+
+class FlightCreationError(Exception):
+    pass
