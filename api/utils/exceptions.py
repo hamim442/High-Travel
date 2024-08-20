@@ -46,6 +46,38 @@ class TripDatabaseError(Exception):
 class TripDoesNotExist(Exception):
     pass
 
+
+class StayCreationError(Exception):
+    pass
+
+
+class StayDatabaseError(Exception):
+    pass
+
+
+class StayDoesNotExist(Exception):
+    pass
+
+
+class AccommodationCreationError(Exception):
+    pass
+
+
+class AccommodationDatabaseError(Exception):
+    pass
+
+
+class AccommodationDoesNotExist(Exception):
+    pass
+
+
+class UserTripDatabaseError(Exception):
+    pass
+
+
+class UserTripCreationError(Exception):
+    pass
+
 class FlightDatabaseError(Exception):
     pass
 

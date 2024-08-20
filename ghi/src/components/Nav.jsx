@@ -1,72 +1,48 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom';
+import { useState } from 'react';
 
 function Nav() {
+    const [searchQuery, setSearchQuery] = useState('');
+
+    const handleSearchChange = (event) => {
+        setSearchQuery(event.target.value);
+    };
+
+    const handleSearchSubmit = (event) => {
+        event.preventDefault();
+        console.log('Search query:', searchQuery);
+    };
+
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-success">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid">
                 <NavLink className="navbar-brand" to="/">
-                    High Travel
+                    <img src="logo.png" alt="High Travel" height="40" style={{ borderRadius: '8px' }} />
                 </NavLink>
-                <button
-                    className="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                >
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <div
-                    className="collapse navbar-collapse"
-                    id="navbarSupportedContent"
-                >
-                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                <div className="collapse navbar-collapse" id="navbarNavDropdown">
+                    <form className="d-flex" onSubmit={handleSearchSubmit}>
+                        <input
+                            className="form-control me-2"
+                            type="search"
+                            placeholder="Search"
+                            aria-label="Search"
+                            value={searchQuery}
+                            onChange={handleSearchChange}
+                        />
+                        <button className="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                    <ul className="navbar-nav ms-auto">
                         <li className="nav-item">
-                            <NavLink
-                                className="nav-link active"
-                                aria-current="page"
-                                to="/"
-                            >
-                                Home
-                            </NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink className="nav-link" to="/createplan">
-                                Create a Plan
-                            </NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink className="nav-link" to="/yourplans">
-                                Your Most Recent Plans
-                            </NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink className="nav-link" to="/destinations">
-                                Popular Destinations
-                            </NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink className="nav-link" to="/signin">
-                                Sign In
-                            </NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink className="nav-link" to="/signout">
-                                Sign Out
-                            </NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink className="nav-link" to="/signup">
-                                Sign Up
-                            </NavLink>
+                            <NavLink className="nav-link fs-6" to="/">Sign In/Out</NavLink>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
-    )
+    );
 }
 
-export default Nav
+export default Nav;
