@@ -41,10 +41,10 @@ function App() {
 
     return (
         <div className="App">
-            <header className="App-header">
-                <Nav />
-            </header>
-            <Outlet />
+            <Nav />
+            <main className="App-main">
+                <Outlet />
+            </main>
             <ErrorNotification error={error} />
         </div>
     )

@@ -49,7 +49,7 @@ export default function MainPage() {
             <div style={overlayStyle}></div>
             <div style={contentStyle}>
                 <h1 className="display-4 fw-bold mb-4">
-                    Explore the World with High Travel
+                    Explore the World with HighTravel
                 </h1>
                 <p className="lead">Your Adventure Starts Here</p>
                 <button type="button" className="btn btn-success">

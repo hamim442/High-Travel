@@ -1,5 +1,9 @@
 ## Gerry's Journal
 
+### Tuesday 8/20
+
+Incorporated Nav (h/t Maximus) and MainPage into the app. Merge requested the initial draft, which looks clean and neat now.
+
 ### Monday 8/19
 
 Resolved a conflict whereby someone had erroneously uploaded to main Nav and MainPage components. Worked on the new MainPage.
