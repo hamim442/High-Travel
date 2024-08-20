@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
-
+import Nav from './components/Nav'
 import ErrorNotification from './components/ErrorNotification'
-import Construct from './components/Construct'
-
 import './App.css'
 
 // When using environment variables, you should do a check to see if
@@ -15,7 +13,7 @@ if (!API_HOST) {
 }
 
 function App() {
-    const [launchInfo, setLaunchInfo] = useState()
+    // const [launchInfo, setLaunchInfo] = useState()
     const [error, setError] = useState(null)
 
     useEffect(() => {
@@ -43,10 +41,11 @@ function App() {
 
     return (
         <div className="App">
-            <header className="App-header">{/* <Nav /> */}</header>
+            <header className="App-header">
+                <Nav />
+            </header>
             <Outlet />
             <ErrorNotification error={error} />
-            <Construct info={launchInfo} />
         </div>
     )
 }
