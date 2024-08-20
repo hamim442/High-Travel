@@ -1,4 +1,4 @@
-import MadridHero from '/assets/HeroImages/MadridHero.jpg'
+// import MadridHero from '/assets/HeroImages/MadridHero.jpg'
 
 export default function MainPage() {
     const containerStyle = {
@@ -20,7 +20,7 @@ export default function MainPage() {
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundImage: `url(${MadridHero})`,
+        // backgroundImage: `url(${MadridHero})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
