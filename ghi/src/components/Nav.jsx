@@ -36,7 +36,7 @@ function Nav() {
                     </form>
                     <ul className="navbar-nav ms-auto">
                         <li className="nav-item">
-                            <NavLink className="nav-link fs-6" to="/">Sign In/Out</NavLink>
+                            <NavLink className="nav-link fs-6" to="/signin">Sign In</NavLink>
                         </li>
                     </ul>
                 </div>
