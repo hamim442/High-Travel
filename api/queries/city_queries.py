@@ -30,7 +30,7 @@ class CityQueries:
                 with conn.cursor(row_factory=class_row(City)) as cur:
                     result = cur.execute(
                         """--sql
-                            SELECT *
+                            SELECT id, name, administrative_division, country, picture_url, description
                             FROM cities;
                         """
                     )
@@ -46,7 +46,7 @@ class CityQueries:
                 with conn.cursor(row_factory=class_row(City)) as cur:
                     result = cur.execute(
                         """--sql
-                            SELECT *
+                            SELECT id, name, administrative_division, country, picture_url, description
                             FROM cities
                             WHERE id = %s;
                         """,
@@ -70,13 +70,15 @@ class CityQueries:
                                 name,
                                 administrative_division,
                                 country,
-                                picture_url
+                                picture_url,
+                                description
                             )
                             VALUES (
                                 %(name)s,
                                 %(administrative_division)s,
                                 %(country)s,
-                                %(picture_url)s
+                                %(picture_url)s,
+                                %(description)s
                             )
                             RETURNING *;
                         """,
@@ -85,6 +87,7 @@ class CityQueries:
                             "administrative_division": city.administrative_division,
                             "country": city.country,
                             "picture_url": city.picture_url,
+                            "description": city.description,
                         },
                     )
                     new_city = result.fetchone()
