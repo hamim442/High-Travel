@@ -7,6 +7,7 @@ class City(BaseModel):
     administrative_division: str | None
     country: str
     picture_url: str
+    description: str | None
 
 
 class CityRequest(BaseModel):
@@ -14,3 +15,4 @@ class CityRequest(BaseModel):
     administrative_division: str | None
     country: str
     picture_url: str
+    description: str | None

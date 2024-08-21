@@ -4,6 +4,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import SignInForm from './components/SignInForm'
 import SignUpForm from './components/SignUpForm'
 import MainPage from './components/MainPage'
+import CityPage from './components/CityPage'
 import FlightForm from './components/FlightForm'
 import App from './App'
 import AuthProvider from './components/AuthProvider'
@@ -31,6 +32,10 @@ const router = createBrowserRouter(
                 {
                     path: 'signin',
                     element: <SignInForm />,
+                },
+                {
+                    path: 'city/:cityId',
+                    element: <CityPage />,
                 },
                 {
                     path: 'transportation',
