@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function FlightForm() {
+export default function FlightForm() {
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -51,80 +51,88 @@ function FlightForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>Name:</label>
+    <form onSubmit={handleSubmit} className="container mt-4">
+      <div className="mb-3">
+        <h2>Trip Name</h2>
+      </div>
+      <div className="mb-3">
+        <label className="form-label">Name:</label>
         <input
           type="text"
           name="name"
           value={formData.name}
           onChange={handleChange}
+          className="form-control"
           required
         />
       </div>
-      <div>
-        <label>Description:</label>
+      <div className="mb-3">
+        <label className="form-label">Description:</label>
         <input
           type="text"
           name="description"
           value={formData.description}
           onChange={handleChange}
+          className="form-control"
           required
         />
       </div>
-      <div>
-        <label>Departure Time:</label>
+      <div className="mb-3">
+        <label className="form-label">Departure Time:</label>
         <input
           type="datetime-local"
           name="departure_time"
           value={formData.departure_time}
           onChange={handleChange}
+          className="form-control"
           required
         />
       </div>
-      <div>
-        <label>Arrival Time:</label>
+      <div className="mb-3">
+        <label className="form-label">Arrival Time:</label>
         <input
           type="datetime-local"
           name="arrival_time"
           value={formData.arrival_time}
           onChange={handleChange}
+          className="form-control"
           required
         />
       </div>
-      <div>
-        <label>Departure Airport:</label>
+      <div className="mb-3">
+        <label className="form-label">Departure Airport:</label>
         <input
           type="text"
           name="departure_airport"
           value={formData.departure_airport}
           onChange={handleChange}
+          className="form-control"
           required
         />
       </div>
-      <div>
-        <label>Arrival Airport:</label>
+      <div className="mb-3">
+        <label className="form-label">Arrival Airport:</label>
         <input
           type="text"
           name="arrival_airport"
           value={formData.arrival_airport}
           onChange={handleChange}
+          className="form-control"
           required
         />
       </div>
-      <div>
-        <label>Flight Number:</label>
+      <div className="mb-3">
+        <label className="form-label">Flight Number:</label>
         <input
           type="number"
           name="flight_number"
           value={formData.flight_number}
           onChange={handleChange}
+          className="form-control"
           required
         />
       </div>
-      <button type="submit">Add Flight</button>
+      <button type="submit" className="btn btn-primary">Add Flight</button>
     </form>
   );
 }
-
-export default FlightForm;
