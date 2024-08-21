@@ -1,5 +1,6 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import './styles/Nav.css'
 
 export default function Nav() {
     const [searchQuery, setSearchQuery] = useState('')
@@ -64,7 +65,7 @@ export default function Nav() {
                     id="navbarNavDropdown"
                 >
                     <div className="navbar-nav ms-auto me-auto">
-                        <form className="d-flex">
+                        <form className="d-flex search-container style={{ flexGrow: 1, maxWidth: '300px' }}">
                             <input
                                 className="form-control me-2"
                                 type="search"
@@ -73,21 +74,23 @@ export default function Nav() {
                                 value={searchQuery}
                                 onChange={handleSearchChange}
                             />
-                            <ul
-                                className="list-group"
-                                style={{ position: 'absolute', zIndex: 1000 }}
-                            >
-                                {searchResults.map((city) => (
-                                    <li
-                                        key={city.id}
-                                        className="list-group-item"
-                                        onClick={() => handleSearchSelect(city)}
-                                    >
-                                        {city.name},{' '}
-                                        {city.administrative_division}
-                                    </li>
-                                ))}
-                            </ul>
+                            {searchResults.length > 0 && (
+                                <ul className="list-group search-results">
+                                    {searchResults.map((city) => (
+                                        <li
+                                            key={city.id}
+                                            className="list-group-item search-result-item"
+                                            onClick={() =>
+                                                handleSearchSelect(city)
+                                            }
+                                        >
+                                            {city.name},{' '}
+                                            {city.administrative_division},{' '}
+                                            {city.country}
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
                         </form>
                     </div>
                     <ul className="navbar-nav">

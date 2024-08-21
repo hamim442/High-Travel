@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import useAuthService from '../hooks/useAuthService'
+import './styles/CityPage.css'
 
 export default function CityPage() {
     const { cityId } = useParams()
@@ -36,24 +37,20 @@ export default function CityPage() {
     }
 
     return (
-        <div className="container-fluid p-0">
+        <div className="city-container">
             <div
                 className="city-hero"
                 style={{ backgroundImage: `url(${city.picture_url})` }}
             >
-                <div className="city-watermark">
-                    <h1 className="text-light">{city.name}</h1>
-                </div>
+                <div className="city-header">{city.name}</div>
             </div>
-            <div className="city-description">
-                <p>{city.description}</p>
-                <button
-                    className="btn btn-success"
-                    onClick={handleCreatePlanClick}
-                >
-                    Create Your Plan
-                </button>
-            </div>
+            <div className="city-description">{city.description}</div>
+            <button
+                className="city-plan-button"
+                onClick={handleCreatePlanClick}
+            >
+                Create Your Plan
+            </button>
         </div>
     )
 }

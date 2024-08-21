@@ -1,53 +1,15 @@
 import MadridHero from '../assets/MadridHero.jpg'
+import './styles/MainPage.css'
 
 export default function MainPage() {
-    const containerStyle = {
-        position: 'relative',
-        height: '100vh',
-        width: '100%',
-        overflow: 'hidden',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        color: '#FFFFFF',
-        textShadow: '1px 1px 3px rgba(0,0,0,0.7)',
-    }
-
-    const backgroundStyle = {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundImage: `url(${MadridHero})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        zIndex: 0,
-    }
-
-    const overlayStyle = {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.5)', // black translucent overlay
-        zIndex: 1,
-    }
-
-    const contentStyle = {
-        padding: '2rem',
-        textAlign: 'center',
-        zIndex: 2,
-    }
-
     return (
-        <div style={containerStyle}>
-            <div style={backgroundStyle}></div>
-            <div style={overlayStyle}></div>
-            <div style={contentStyle}>
+        <div className="main-container">
+            <div
+                className="background"
+                style={{ backgroundImage: `url(${MadridHero})` }}
+            ></div>
+            <div className="overlay"></div>
+            <div className="content">
                 <h1 className="display-4 fw-bold mb-4">
                     Explore the World with HighTravel
                 </h1>
