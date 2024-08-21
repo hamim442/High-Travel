@@ -11,13 +11,11 @@ from utils.exceptions import (
     CityDoesNotExist,
 )
 
-
 database_url = os.environ.get("DATABASE_URL")
 if database_url is None:
     raise DatabaseURLException(
         "You forgot to define DATABASE_URL in your environment."
     )
-
 
 pool = ConnectionPool(database_url)
 
@@ -59,6 +57,24 @@ class CityQueries:
         except psycopg.Error as e:
             print(f"Error retrieving city with id {id}: {e}.")
             raise CityDatabaseError(f"Error retrieving city with id {id}.")
+
+    def search_cities(self, search: str) -> list[City]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor(row_factory=class_row(City)) as cur:
+                    cur.execute(
+                        """--sql
+                        SELECT id, name, administrative_division, country, picture_url, description
+                        FROM cities
+                        WHERE name ILIKE %s
+                        LIMIT 10;
+                        """,
+                        (f"%{search}%",),
+                    )
+                    return cur.fetchall()
+        except psycopg.Error as e:
+            print(f"Error searching cities: {e}")
+            raise CityDatabaseError("Error searching cities.")
 
     def create_city(self, city: CityRequest) -> City:
         try:
