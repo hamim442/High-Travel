@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Navigate } from 'react-router-dom'
-
 import useAuthService from '../hooks/useAuthService'
 
 export default function SignInForm() {
