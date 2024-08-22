@@ -12,6 +12,22 @@ router = APIRouter(tags=["City"], prefix="/api/cities")
 
 
 @router.get("/")
+def search_cities(
+    search: str = "", queries: CityQueries = Depends()
+) -> list[City]:
+    try:
+        if search:
+            cities = queries.search_cities(search)
+        else:
+            cities = queries.get_all_cities()
+        return cities
+    except CityDatabaseError:
+        raise HTTPException(
+            status_code=500, detail="Failed to retrieve cities."
+        )
+
+
+@router.get("/")
 async def get_all_cities(
     queries: CityQueries = Depends(),
 ) -> list[City]:

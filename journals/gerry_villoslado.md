@@ -1,5 +1,21 @@
 ## Gerry's Journal
 
+### Tuesday 8/20
+
+Incorporated Nav (h/t Maximus) and MainPage into the app. Merge requested the initial draft, which looks clean and neat now.
+
+### Monday 8/19
+
+Resolved a conflict whereby someone had erroneously uploaded to main Nav and MainPage components. Worked on the new MainPage.
+
+### Thursday 8/15
+
+I was out for the day.
+
+### Wednesday 8/14
+
+I merge-requested for accommodations and user-trips APIs. I started working on the Nav and MainPage components, but we delegated Nav to Maximus and I continued working on the MainPage.
+
 ### Tuesday 8/13
 
 I merge-requested for airlines, cities, and trips. We delegated the rest of the API endpoints to work in parallel. I spent the day pair-programming with Jason as we work towards completing the trips API endpoint to allow only authenticated users to see and create their own trips.
