@@ -1,3 +1,11 @@
+8/15/24
+
+8/14/24
+Added DELETE endpoint to stays. Updated stays database. Started working on Trip Advisor API endpoint.
+
+8/13/24
+Built stays API endpoint with GET one stay based off of id, GET all stays, and POST a stay.
+
 8/7/24
 Designed database table schema.
 
