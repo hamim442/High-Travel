@@ -56,9 +56,9 @@ export default function CityPage() {
 
     const handleCreatePlanClick = () => {
         if (user) {
-            navigate('/create-your-travel') // authenticated redirects to Create Plan page
+            navigate('/create-your-travel') // authenticated will redirect to Create Plan page
         } else {
-            navigate('/signin') // Not authenticated redirects to Sign-in page
+            navigate('/signin') // not authenticated will redirect to Sign-in page
         }
     }
 

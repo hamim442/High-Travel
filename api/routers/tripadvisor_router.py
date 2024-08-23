@@ -11,14 +11,11 @@ router = APIRouter()
 @router.get("/tripadvisor/attractions")
 async def get_attractions(city: str = Query(...), country: str = Query(...)):
     data = search_location(city, country, "attractions")
-    print(f"TripAdvisor Attractions Response: {data}")  # Log response
     if data:
         attractions = data.get("data", [])
-        print(f"Parsed Attractions Data: {attractions}")  # Log parsed data
 
         for attraction in attractions:
             details = get_location_details(attraction["location_id"])
-            print(f"Attraction Details: {details}")  # Log details
             attraction["details"] = details
 
             photos = get_location_photos(attraction["location_id"])
