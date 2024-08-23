@@ -1,40 +1,133 @@
+/* Main Container */
 .main-container {
-    position: relative;
-    height: 100vh;
     width: 100%;
-    overflow: hidden;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: #ffffff;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
 }
 
-.background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+/* Hero Section */
+.jumbotron {
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
-    z-index: 0;
-}
-
-.overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1;
-}
-
-.content {
+    color: white;
     padding: 2rem;
-    text-align: center;
-    z-index: 2;
+    border-radius: 0;
+    margin-bottom: 2rem;
+    height: 300px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+}
+
+.hero-text-container {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px 20px;
+    display: inline-block;
+}
+
+.hero-text {
+    color: white;
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.jumbotron .btn {
+    background-color: #28a745;
+    color: white;
+    margin-top: 15px;
+}
+
+/* Popular Destinations Container */
+.popular-destinations-container {
+    width: 100%;
+    padding: 40px 20px;
+    box-sizing: border-box;
+}
+
+/* Popular Destinations Title */
+.popular-destinations-title {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.popular-destinations-title h3 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Card Container */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* Card Styling */
+.card {
+    flex: 0 0 calc(20% - 16px); /* 20% width minus the gap */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 10px;
+}
+
+.card-title {
+    font-weight: bold;
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.card-text {
+    font-size: 0.8rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .card {
+        flex: 0 0 calc(25% - 15px); /* 4 cards per row */
+    }
+}
+
+@media (max-width: 992px) {
+    .card {
+        flex: 0 0 calc(33.33% - 13.33px); /* 3 cards per row */
+    }
+}
+
+@media (max-width: 768px) {
+    .card {
+        flex: 0 0 calc(50% - 10px); /* 2 cards per row */
+    }
+    .hero-text {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .card {
+        flex: 0 0 100%; /* Full width on small screens */
+    }
+    .hero-text {
+        font-size: 1.5rem;
+    }
 }

@@ -1,5 +1,13 @@
 ## Gerry's Journal
 
+### Thursday 8/22
+
+Worked on the MainPage.jsx component. Managed to create a div in the bottom section that shows 5 random popular destinations drawing information from our database. These random destinations last for 24 hours, and then they refresh to show a new set.
+
+### Wednesday 8/21
+
+Worked on the CityPage.jsx and the Nav.jsx components. Created a div in the top section that shows the City, picture, and a description paragraph. The Nav search bar now shows results of cities. I did a merge-request and alerted the team for them to git pull/merge so they could have the latest version.
+
 ### Tuesday 8/20
 
 Incorporated Nav (h/t Maximus) and MainPage into the app. Merge requested the initial draft, which looks clean and neat now.
