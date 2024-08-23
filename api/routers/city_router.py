@@ -1,3 +1,5 @@
+import random
+import time
 from fastapi import APIRouter, Depends, HTTPException
 from queries.city_queries import (
     CityQueries,
@@ -9,6 +11,27 @@ from models.cities import City, CityRequest
 
 
 router = APIRouter(tags=["City"], prefix="/api/cities")
+
+
+cached_cities = []
+cache_time = 0
+CACHE_DURATION = 86400  # 24 hours in secs
+
+
+@router.get("/random")
+def get_random_cities(queries: CityQueries = Depends()) -> list[City]:
+    global cached_cities, cache_time
+    current_time = time.time()
+
+    if current_time - cache_time > CACHE_DURATION or not cached_cities:
+        all_cities = queries.get_all_cities()
+        if len(all_cities) >= 5:
+            cached_cities = random.sample(all_cities, 5)
+        else:
+            cached_cities = all_cities
+        cache_time = current_time
+
+    return cached_cities
 
 
 @router.get("/")
