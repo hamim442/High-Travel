@@ -1,11 +1,13 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import useAuthService from '../hooks/useAuthService'
 import './styles/Nav.css'
 
 export default function Nav() {
     const [searchQuery, setSearchQuery] = useState('')
     const [searchResults, setSearchResults] = useState([])
     const navigate = useNavigate()
+    const { user, signout, isLoggedIn } = useAuthService()
 
     const handleSearchChange = async (event) => {
         setSearchQuery(event.target.value)
@@ -30,6 +32,11 @@ export default function Nav() {
         setSearchQuery('')
         setSearchResults([])
         navigate(`/city/${city.id}`)
+    }
+
+    const handleLogout = async () => {
+        await signout()
+        navigate('/')
     }
 
     return (
@@ -65,7 +72,10 @@ export default function Nav() {
                     id="navbarNavDropdown"
                 >
                     <div className="navbar-nav ms-auto me-auto">
-                        <form className="d-flex search-container style={{ flexGrow: 1, maxWidth: '300px' }}">
+                        <form
+                            className="d-flex search-container"
+                            style={{ flexGrow: 1, maxWidth: '300px' }}
+                        >
                             <input
                                 className="form-control me-2"
                                 type="search"
@@ -94,15 +104,48 @@ export default function Nav() {
                         </form>
                     </div>
                     <ul className="navbar-nav">
-                        <li className="nav-item">
-                            <NavLink
-                                className="nav-link fs-6"
-                                to="/signin"
-                                style={{ color: '#212529' }}
-                            >
-                                Sign In
-                            </NavLink>
-                        </li>
+                        {isLoggedIn ? (
+                            <>
+                                <li className="nav-item">
+                                    <span
+                                        className="nav-link fs-6"
+                                        style={{ color: '#212529' }}
+                                    >
+                                        {user.username}
+                                    </span>
+                                </li>
+                                <li className="nav-item">
+                                    <button
+                                        className="nav-link fs-6 btn btn-link"
+                                        onClick={handleLogout}
+                                        style={{ color: '#212529' }}
+                                    >
+                                        Logout
+                                    </button>
+                                </li>
+                            </>
+                        ) : (
+                            <>
+                                <li className="nav-item">
+                                    <NavLink
+                                        className="nav-link fs-6"
+                                        to="/signin"
+                                        style={{ color: '#212529' }}
+                                    >
+                                        Sign In
+                                    </NavLink>
+                                </li>
+                                <li className="nav-item">
+                                    <NavLink
+                                        className="nav-link fs-6"
+                                        to="/signup"
+                                        style={{ color: '#212529' }}
+                                    >
+                                        Sign Up
+                                    </NavLink>
+                                </li>
+                            </>
+                        )}
                     </ul>
                 </div>
             </div>

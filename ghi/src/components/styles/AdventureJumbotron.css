@@ -1,0 +1,37 @@
+.adventure-jumbotron {
+    background-size: cover;
+    background-position: center;
+    color: white;
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Added shadow below the jumbotron */
+}
+
+.hero-text-container {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px 30px;
+    border-radius: 8px;
+    margin-top: 2rem;
+}
+
+.hero-text {
+    color: white;
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .hero-text {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-text {
+        font-size: 1.75rem;
+    }
+}
