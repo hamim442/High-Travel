@@ -108,10 +108,7 @@ export default function BigFooter() {
                 className="text-center p-4"
                 style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}
             >
-                © 2024 Copyright:{' '}
-                <a className="text-reset fw-bold" href="#!">
-                    HighTravel.com
-                </a>
+                © 2024 Copyright: HighTravel.com
             </div>
         </footer>
     )
