@@ -1,6 +1,11 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Container, Row, Col, Form, Spinner, Card } from 'react-bootstrap'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import Spinner from 'react-bootstrap/Spinner'
+import Card from 'react-bootstrap/Card'
+import Form from 'react-bootstrap/Form'
 import AddStayForm from './AddStayForm'
 
 function StaysList() {
@@ -85,7 +90,7 @@ function StaysList() {
                                     <Card className="cardHover">
                                         <Card.Link
                                             as={Link}
-                                            to={`/stays/${stay.id}`}
+                                            to={`/stays/${stays.id}`}
                                         >
                                             <Card.Img
                                                 variant="top"
