@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import useAuthService from '../hooks/useAuthService'
+import SmallFooter from './SmallFooter'
 import './styles/CityPage.css'
 
 export default function CityPage() {
@@ -56,20 +57,26 @@ export default function CityPage() {
     }
 
     return (
-        <div className="city-container">
-            <div
-                className="city-hero"
-                style={{ backgroundImage: `url(${city.picture_url})` }}
-            >
-                <div className="city-header">{city.name}</div>
+        <>
+            {/* Hero Section */}
+            <div className="city-container">
+                <div
+                    className="city-hero"
+                    style={{ backgroundImage: `url(${city.picture_url})` }}
+                >
+                    <div className="city-header">{city.name}</div>
+                </div>
+                <div className="city-description">{city.description}</div>
+                <button
+                    className="city-plan-button"
+                    onClick={handleCreatePlanClick}
+                >
+                    Create Your Plan
+                </button>
             </div>
-            <div className="city-description">{city.description}</div>
-            <button
-                className="city-plan-button"
-                onClick={handleCreatePlanClick}
-            >
-                Create Your Plan
-            </button>
-        </div>
+
+            {/* Footer */}
+            <SmallFooter />
+        </>
     )
 }
