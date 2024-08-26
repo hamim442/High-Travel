@@ -11,3 +11,8 @@ Worked with Gerry to make trips and accomodations.
 Tested trips and accomodations on fastapi and they worked.
 Made Basic Nav Component
 Gave code to Gerry who then downloaded bootstrap and got us a basic website.
+
+8/26/2024
+Made the Create Travel Plans Page and pushed.
+Made a random 5 stays generator for CityPage.
+Going to work on CSS
