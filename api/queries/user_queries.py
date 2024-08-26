@@ -9,6 +9,7 @@ from psycopg.rows import class_row
 from typing import Optional
 from models.users import UserWithPw
 from utils.exceptions import UserDatabaseException
+from pydantic import EmailStr 
 
 DATABASE_URL = os.environ.get("DATABASE_URL")
 if not DATABASE_URL:
@@ -80,7 +81,7 @@ class UserQueries:
 
         return user
 
-    def create_user(self, username: str, hashed_password: str) -> UserWithPw:
+    def create_user(self, username: str, hashed_password: str, email: EmailStr, first_name: str, last_name: str, profile_image: Optional[str] = None) -> UserWithPw:
         """
         Creates a new user in the database
 
@@ -93,15 +94,23 @@ class UserQueries:
                         """--sql
                         INSERT INTO users (
                             username,
-                            password
+                            password,
+                            email,
+                            profile_image,
+                            first_name,
+                            last_name
                         ) VALUES (
-                            %s, %s
+                            %s, %s, %s, %s, %s, %s
                         )
                         RETURNING *;
                         """,
                         [
                             username,
                             hashed_password,
+                            email,
+                            profile_image,
+                            first_name,
+                            last_name
                         ],
                     )
                     user = cur.fetchone()
