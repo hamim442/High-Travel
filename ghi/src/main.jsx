@@ -39,6 +39,18 @@ const router = createBrowserRouter(
                     path: 'city/:cityId',
                     element: <CityPage />,
                 },
+                {
+                    path: 'stays',
+                    element: <StaysList />,
+                },
+                {
+                    path: 'stays',
+                    element: <AddStayForm />,
+                },
+                {
+                    path: 'create',
+                    element: <CreateTravelPlan />,
+                },
             ],
         },
     ],
