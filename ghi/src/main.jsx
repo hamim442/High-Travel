@@ -5,6 +5,7 @@ import SignInForm from './components/SignInForm'
 import SignUpForm from './components/SignUpForm'
 import MainPage from './components/MainPage'
 import CityPage from './components/CityPage'
+import CreateTravelPlan from './components/CreateTravelPlan'
 import StaysList from './components/StaysList'
 import App from './App'
 import AuthProvider from './components/AuthProvider'
@@ -37,14 +38,6 @@ const router = createBrowserRouter(
                 {
                     path: 'city/:cityId',
                     element: <CityPage />,
-                },
-                {
-                    path: 'stays',
-                    element: <StaysList />,
-                },
-                {
-                    path: 'stays',
-                    element: <AddStayForm />,
                 },
             ],
         },

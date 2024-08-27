@@ -2,8 +2,15 @@ import './styles/MainPage.css'
 import MadridHero from '../assets/MadridHero.jpg'
 import BigFooter from './BigFooter'
 import RandomDestinations from './RandomDestinations'
+import { useNavigate } from 'react-router-dom'
 
 export default function MainPage() {
+    const navigate = useNavigate()
+
+    const handleCreatePlanClick = () => {
+        navigate('/create')
+    }
+
     return (
         <div className="main-container">
             {/* Hero Section */}
@@ -18,7 +25,10 @@ export default function MainPage() {
                         </h1>
                     </div>
                     <p className="lead">
-                        <button className="btn btn-success btn-md">
+                        <button
+                            className="btn btn-success btn-md"
+                            onClick={handleCreatePlanClick}
+                        >
                             Create Your Next Plan
                         </button>
                     </p>

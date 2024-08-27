@@ -9,6 +9,7 @@ export default function CityPage() {
     const { user } = useAuthService()
     const navigate = useNavigate()
     const [city, setCity] = useState(null)
+    const [stays, setStays] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
 
@@ -25,6 +26,17 @@ export default function CityPage() {
                 }
                 const data = await response.json()
                 setCity(data)
+
+                const staysResponse = await fetch(
+                    `${import.meta.env.VITE_API_HOST}/api/stays`
+                )
+                if (!response.ok) {
+                    throw new Error('Failed to fetch stays data')
+                }
+                const staysData = await staysResponse.json()
+
+                const shuffledStays = staysData.sort(() => 0.5 - Math.random())
+                setStays(shuffledStays.slice(0, 5))
             } catch (error) {
                 console.error('Error fetching city data: ', error)
                 setError('Failed to load city data. Please try again later.')
@@ -38,7 +50,7 @@ export default function CityPage() {
 
     const handleCreatePlanClick = () => {
         if (user) {
-            navigate('/create-your-travel')
+            navigate('/create', { state: { city } })
         } else {
             navigate('/signin')
         }
@@ -73,6 +85,25 @@ export default function CityPage() {
                 >
                     Create Your Plan
                 </button>
+            </div>
+
+            {/* Stays Section */}
+            <div className="stays-container">
+                <div>
+                    <h2>Stay Recommendations</h2>
+                    <div className="stays">
+                        {stays.map((stay) => (
+                            <div key={stay.id} className="stays-id">
+                                <img
+                                    src={stay.logo_picture_url}
+                                    alt={stay.name}
+                                    className="stay-image"
+                                />
+                                <p className="stays-name">{stay.name}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </div>
 
             {/* Footer */}

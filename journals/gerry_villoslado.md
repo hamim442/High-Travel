@@ -1,5 +1,9 @@
 ## Gerry's Journal
 
+### Monday 8/26
+
+Traded components with Jason (Create Travel Plan). I worked on refactoring and ensuring the Create Travel Plan component worked and created a trip.
+
 ### Friday 8/23
 
 Componentized the Random Destinations so it could be reused. Built a simple footer for other components to use. Explored the TripAdvisor API but it's not behaving as expected. Will move to OSS and Google Places APIs. I did a merge request to save the work above described. Alerted team of this.
