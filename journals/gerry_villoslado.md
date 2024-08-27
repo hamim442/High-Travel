@@ -1,5 +1,9 @@
 ## Gerry's Journal
 
+### Friday 8/23
+
+Componentized the Random Destinations so it could be reused. Built a simple footer for other components to use. Explored the TripAdvisor API but it's not behaving as expected. Will move to OSS and Google Places APIs. I did a merge request to save the work above described. Alerted team of this.
+
 ### Thursday 8/22
 
 Worked on the MainPage.jsx component. Managed to create a div in the bottom section that shows 5 random popular destinations drawing information from our database. These random destinations last for 24 hours, and then they refresh to show a new set.
