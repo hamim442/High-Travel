@@ -24,18 +24,6 @@ class SignupRequest(BaseModel):
     last_name: str
 
 
-class UserRequest(BaseModel):
-    """
-    Represents the parameters needed to create a new user
-    """
-
-    username: str
-    email: EmailStr
-    profile_image: Optional[str] = None
-    first_name: str
-    last_name: str
-
-
 class UserResponse(BaseModel):
     """
     Represents a user, with the password not included

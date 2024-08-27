@@ -14,7 +14,7 @@ export default function SignUpForm() {
 
     async function handleFormSubmit(e) {
         e.preventDefault()
-        await signup({ username, password, email, fitst_name: firstName, last_name: lastName, profile_image: profileImage })
+        await signup({ username, password, email, first_name: firstName, last_name: lastName, profile_image: profileImage })
     }
 
     if (user) {
