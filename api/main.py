@@ -1,6 +1,6 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from models.users import UserResponse
+
 from routers import (
     auth_router,
     airline_router,
@@ -26,7 +26,3 @@ app.include_router(airline_router.router)
 app.include_router(city_router.router)
 app.include_router(trip_router.router)
 app.include_router(stay_router.router)
-
-
-
-
