@@ -24,14 +24,6 @@ class SignupRequest(BaseModel):
     last_name: str
 
 
-class UserRequest(BaseModel):
-    username: str
-    email: EmailStr
-    profile_image: Optional[str] = None
-    first_name: str
-    last_name: str
-
-
 class UserResponse(BaseModel):
     id: int
     username: str
