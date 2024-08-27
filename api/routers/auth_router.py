@@ -15,7 +15,11 @@ from queries.user_queries import (
 )
 
 from utils.exceptions import UserDatabaseException
-from models.users import UserRequest, UserResponse
+from models.users import (
+    UserResponse,
+    SigninRequest,
+    SignupRequest,
+)
 
 from utils.authentication import (
     try_get_jwt_user_data,
@@ -24,6 +28,8 @@ from utils.authentication import (
     verify_password,
 )
 
+from models.jwt import JWTUserData
+
 # Note we are using a prefix here,
 # This saves us typing in all the routes below
 router = APIRouter(tags=["Authentication"], prefix="/api/auth")
@@ -31,7 +37,7 @@ router = APIRouter(tags=["Authentication"], prefix="/api/auth")
 
 @router.post("/signup")
 async def signup(
-    new_user: UserRequest,
+    new_user: SignupRequest,
     request: Request,
     response: Response,
     queries: UserQueries = Depends(),
@@ -44,7 +50,14 @@ async def signup(
 
     # Create the user in the database
     try:
-        user = queries.create_user(new_user.username, hashed_password)
+        user = queries.create_user(
+            new_user.username,
+            hashed_password,
+            new_user.email,
+            new_user.first_name,
+            new_user.last_name,
+            new_user.profile_image,
+        )
     except UserDatabaseException as e:
         print(e)
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
@@ -71,7 +84,7 @@ async def signup(
 
 @router.post("/signin")
 async def signin(
-    user_request: UserRequest,
+    user_request: SigninRequest,
     request: Request,
     response: Response,
     queries: UserQueries = Depends(),
@@ -111,12 +124,22 @@ async def signin(
     )
 
     # Convert the UserWithPW to a UserOut
-    return UserResponse(id=user.id, username=user.username)
+    return UserResponse(
+        id=user.id,
+        username=user.username,
+        email=user.email,
+        first_name=user.first_name,
+        last_name=user.last_name,
+        profile_image=user.profile_image,
+    )
 
 
 @router.get("/authenticate")
 async def authenticate(
-    user: UserResponse | None = Depends(try_get_jwt_user_data),
+    jwt_user: JWTUserData | None = Depends(
+        try_get_jwt_user_data,
+    ),
+    queries: UserQueries = Depends(),
 ) -> UserResponse:
     """
     This function returns the user if the user is logged in.
@@ -129,11 +152,25 @@ async def authenticate(
     This can be used in your frontend to determine if a user
     is logged in or not
     """
+    if not jwt_user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Not logged in"
+        )
+    user = queries.get_by_id(jwt_user.id)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="Not logged in"
         )
-    return user
+
+    # Convert the UserWithPW to a UserOut
+    return UserResponse(
+        id=user.id,
+        username=user.username,
+        email=user.email,
+        first_name=user.first_name,
+        last_name=user.last_name,
+        profile_image=user.profile_image,
+    )
 
 
 @router.delete("/signout")
