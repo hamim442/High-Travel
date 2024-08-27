@@ -1,3 +1,4 @@
+/* Adventure Jumbotron */
 .adventure-jumbotron {
     background-size: cover;
     background-position: center;
@@ -7,7 +8,7 @@
     align-items: flex-start;
     justify-content: center;
     padding-top: 2rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Added shadow below the jumbotron */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .hero-text-container {

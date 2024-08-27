@@ -7,6 +7,7 @@ import MainPage from './components/MainPage'
 import CityPage from './components/CityPage'
 import TransportationPage from './components/TransportationPage'
 import MainTravelPlan from './components/MainTravelPlan'
+import CreateTravelPlan from './components/CreateTravelPlan'
 import App from './App'
 import AuthProvider from './components/AuthProvider'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -47,6 +48,10 @@ const router = createBrowserRouter(
                     element: <MainTravelPlan />,
                 },
 
+                {
+                    path: 'create',
+                    element: <CreateTravelPlan />,
+                },
             ],
         },
     ],
