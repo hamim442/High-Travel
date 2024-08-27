@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import useAuthService from '../hooks/useAuthService'
+import AdventureJumbotron from './AdventureJumbotron'
+import './styles/Sign.css'
 
-export default function SignInForm() {
+export default function SignUpForm() {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
