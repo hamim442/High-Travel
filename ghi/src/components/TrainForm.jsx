@@ -1,14 +1,12 @@
 import { useState } from 'react';
 
-export default function FlightForm() {
+export default function TrainForm() {
   const [formData, setFormData] = useState({
-    name: '',
-    description: '',
+    train_number: '',
     departure_time: '',
     arrival_time: '',
-    departure_airport: '',
-    arrival_airport: '',
-    flight_number: '',
+    departure_station: '',
+    arrival_station: '',
     price: ''
   });
 
@@ -24,7 +22,7 @@ export default function FlightForm() {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:8000/api/flights', {
+      const response = await fetch('http://localhost:8000/api/trains', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -33,18 +31,16 @@ export default function FlightForm() {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to add flight');
+        throw new Error('Failed to add train');
       }
 
-      console.log('Flight added successfully');
+      console.log('Train added successfully');
       setFormData({
-        name: '',
-        description: '',
+        train_number: '',
         departure_time: '',
         arrival_time: '',
-        departure_airport: '',
-        arrival_airport: '',
-        flight_number: '',
+        departure_station: '',
+        arrival_station: '',
         price: ''
       });
     } catch (error) {
@@ -55,25 +51,14 @@ export default function FlightForm() {
   return (
     <form onSubmit={handleSubmit} className="container mt-4">
       <div className="mb-3">
-        <h2>Add Flight</h2>
+        <h2>Add Train Ride</h2>
       </div>
       <div className="mb-3">
-        <label className="form-label">Name:</label>
+        <label className="form-label">Train Number:</label>
         <input
           type="text"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          className="form-control"
-          required
-        />
-      </div>
-      <div className="mb-3">
-        <label className="form-label">Description:</label>
-        <input
-          type="text"
-          name="description"
-          value={formData.description}
+          name="train_number"
+          value={formData.train_number}
           onChange={handleChange}
           className="form-control"
           required
@@ -102,33 +87,22 @@ export default function FlightForm() {
         />
       </div>
       <div className="mb-3">
-        <label className="form-label">Departure Airport:</label>
+        <label className="form-label">Departure Station:</label>
         <input
           type="text"
-          name="departure_airport"
-          value={formData.departure_airport}
+          name="departure_station"
+          value={formData.departure_station}
           onChange={handleChange}
           className="form-control"
           required
         />
       </div>
       <div className="mb-3">
-        <label className="form-label">Arrival Airport:</label>
+        <label className="form-label">Arrival Station:</label>
         <input
           type="text"
-          name="arrival_airport"
-          value={formData.arrival_airport}
-          onChange={handleChange}
-          className="form-control"
-          required
-        />
-      </div>
-      <div className="mb-3">
-        <label className="form-label">Flight Number:</label>
-        <input
-          type="number"
-          name="flight_number"
-          value={formData.flight_number}
+          name="arrival_station"
+          value={formData.arrival_station}
           onChange={handleChange}
           className="form-control"
           required
@@ -145,7 +119,7 @@ export default function FlightForm() {
           required
         />
       </div>
-      <button type="submit" className="btn btn-primary">Add Flight</button>
+      <button type="submit" className="btn btn-primary">Add Train</button>
     </form>
   );
 }

@@ -1,14 +1,13 @@
 import { useState } from 'react';
 
-export default function FlightForm() {
+export default function CarForm() {
   const [formData, setFormData] = useState({
-    name: '',
-    description: '',
-    departure_time: '',
-    arrival_time: '',
-    departure_airport: '',
-    arrival_airport: '',
-    flight_number: '',
+    car_model: '',
+    rental_company: '',
+    pickup_time: '',
+    dropoff_time: '',
+    pickup_location: '',
+    dropoff_location: '',
     price: ''
   });
 
@@ -24,7 +23,7 @@ export default function FlightForm() {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:8000/api/flights', {
+      const response = await fetch('http://localhost:8000/api/cars', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -33,18 +32,17 @@ export default function FlightForm() {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to add flight');
+        throw new Error('Failed to add car');
       }
 
-      console.log('Flight added successfully');
+      console.log('Car added successfully');
       setFormData({
-        name: '',
-        description: '',
-        departure_time: '',
-        arrival_time: '',
-        departure_airport: '',
-        arrival_airport: '',
-        flight_number: '',
+        car_model: '',
+        rental_company: '',
+        pickup_time: '',
+        dropoff_time: '',
+        pickup_location: '',
+        dropoff_location: '',
         price: ''
       });
     } catch (error) {
@@ -55,80 +53,69 @@ export default function FlightForm() {
   return (
     <form onSubmit={handleSubmit} className="container mt-4">
       <div className="mb-3">
-        <h2>Add Flight</h2>
+        <h2>Add Car</h2>
       </div>
       <div className="mb-3">
-        <label className="form-label">Name:</label>
+        <label className="form-label">Car Model:</label>
         <input
           type="text"
-          name="name"
-          value={formData.name}
+          name="car_model"
+          value={formData.car_model}
           onChange={handleChange}
           className="form-control"
           required
         />
       </div>
       <div className="mb-3">
-        <label className="form-label">Description:</label>
+        <label className="form-label">Rental Company:</label>
         <input
           type="text"
-          name="description"
-          value={formData.description}
+          name="rental_company"
+          value={formData.rental_company}
           onChange={handleChange}
           className="form-control"
           required
         />
       </div>
       <div className="mb-3">
-        <label className="form-label">Departure Time:</label>
+        <label className="form-label">Pickup Time:</label>
         <input
           type="datetime-local"
-          name="departure_time"
-          value={formData.departure_time}
+          name="pickup_time"
+          value={formData.pickup_time}
           onChange={handleChange}
           className="form-control"
           required
         />
       </div>
       <div className="mb-3">
-        <label className="form-label">Arrival Time:</label>
+        <label className="form-label">Dropoff Time:</label>
         <input
           type="datetime-local"
-          name="arrival_time"
-          value={formData.arrival_time}
+          name="dropoff_time"
+          value={formData.dropoff_time}
           onChange={handleChange}
           className="form-control"
           required
         />
       </div>
       <div className="mb-3">
-        <label className="form-label">Departure Airport:</label>
+        <label className="form-label">Pickup Location:</label>
         <input
           type="text"
-          name="departure_airport"
-          value={formData.departure_airport}
+          name="pickup_location"
+          value={formData.pickup_location}
           onChange={handleChange}
           className="form-control"
           required
         />
       </div>
       <div className="mb-3">
-        <label className="form-label">Arrival Airport:</label>
+        <label className="form-label">Dropoff Location:</label>
         <input
           type="text"
-          name="arrival_airport"
-          value={formData.arrival_airport}
-          onChange={handleChange}
-          className="form-control"
-          required
-        />
-      </div>
-      <div className="mb-3">
-        <label className="form-label">Flight Number:</label>
-        <input
-          type="number"
-          name="flight_number"
-          value={formData.flight_number}
+          name="dropoff_location"
+          value={formData.dropoff_location}
           onChange={handleChange}
           className="form-control"
           required
@@ -145,7 +132,7 @@ export default function FlightForm() {
           required
         />
       </div>
-      <button type="submit" className="btn btn-primary">Add Flight</button>
+      <button type="submit" className="btn btn-primary">Add Car</button>
     </form>
   );
 }

@@ -66,36 +66,42 @@ class FlightQueries:
                     result = cur.execute(
                         """--sql
                             INSERT INTO flights (
-                                name, description,
+                                name,
+                                description,
                                 departure_time,
                                 arrival_time,
                                 departure_airport,
                                 arrival_airport,
                                 flight_number,
                                 airline_id,
-                                trip_id
+                                trip_id,
+                                price  -- Added the price field
                             )
                             VALUES (
-                            %(name)s,
-                            %(departure_time)s,
-                            %(arrival_time)s,
-                            %(departure_airport)s,
-                            %(arrival_airport)s,
-                            %(flight_number)s,
-                            %(airline_id)s,
-                            %(trip_id)s
+                                %(name)s,
+                                %(description)s,
+                                %(departure_time)s,
+                                %(arrival_time)s,
+                                %(departure_airport)s,
+                                %(arrival_airport)s,
+                                %(flight_number)s,
+                                %(airline_id)s,
+                                %(trip_id)s,
+                                %(price)s  -- Added the price value
                             )
                             RETURNING *;
                         """,
                         {
                             "name": flight.name,
+                            "description": flight.description,
                             "departure_time": flight.departure_time,
                             "arrival_time": flight.arrival_time,
                             "departure_airport": flight.departure_airport,
                             "arrival_airport": flight.arrival_airport,
                             "flight_number": flight.flight_number,
                             "airline_id": flight.airline_id,
-                            "trip_id": flight.trip_id
+                            "trip_id": flight.trip_id,
+                            "price": flight.price
                         }
                     )
 
@@ -111,5 +117,5 @@ class FlightQueries:
             )
 
         except psycopg.Error as e:
-            print(f"Error creating flights: {e}")
+            print(f"Error creating flight: {e}")
             raise FlightDatabaseError("Error creating flight")

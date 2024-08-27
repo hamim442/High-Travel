@@ -10,6 +10,7 @@ class Flight(BaseModel):
     departure_airport: str
     arrival_airport: str
     flight_number: int
+    price: int
     airline_id: int
     trip_id: int
 
@@ -21,5 +22,6 @@ class FlightRequest(BaseModel):
     departure_airport: str
     arrival_airport: str
     flight_number: int
+    price: int
     airline_id: int
     trip_id: int
