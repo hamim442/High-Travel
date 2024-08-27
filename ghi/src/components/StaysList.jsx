@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -88,32 +87,27 @@ function StaysList() {
                             .map((stay) => (
                                 <Col md={4} key={stay.stay_id} className="mb-4">
                                     <Card className="cardHover">
-                                        <Card.Link
-                                            as={Link}
-                                            to={`/stays/${stays.id}`}
+                                        <Card.Img
+                                            variant="top"
+                                            src={
+                                                stay.logo_picture_url ||
+                                                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMAprBWRbfkDNEBHcqH_ZC_nVbr8ViRh6d-g&s'
+                                            }
+                                            alt={stay.name}
+                                            className="cardImage"
+                                        />
+                                        <Card.Body
+                                            className="text-center"
+                                            style={{
+                                                backgroundColor: '#B7BFAA',
+                                            }}
                                         >
-                                            <Card.Img
-                                                variant="top"
-                                                src={
-                                                    stay.logo_picture_url ||
-                                                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMAprBWRbfkDNEBHcqH_ZC_nVbr8ViRh6d-g&s'
-                                                }
-                                                alt={stay.name}
-                                                className="cardImage"
-                                            />
-                                            <Card.Body
-                                                className="text-center"
-                                                style={{
-                                                    backgroundColor: '#B7BFAA',
-                                                }}
+                                            <Card.Title
+                                                style={{ color: '#5A735B' }}
                                             >
-                                                <Card.Title
-                                                    style={{ color: '#5A735B' }}
-                                                >
-                                                    {stay.name}
-                                                </Card.Title>
-                                            </Card.Body>
-                                        </Card.Link>
+                                                {stay.name}
+                                            </Card.Title>
+                                        </Card.Body>
                                     </Card>
                                 </Col>
                             ))}
