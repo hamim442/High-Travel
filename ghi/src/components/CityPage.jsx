@@ -89,18 +89,20 @@ export default function CityPage() {
 
             {/* Stays Section */}
             <div className="stays-container">
-                <h1>Stay Recommendations</h1>
-                <div className="stays">
-                    {stays.map((stay) => (
-                        <div key={stay.id} className="stays-id">
-                            <img
-                                src={stay.logo_picture_url}
-                                alt={stay.name}
-                                className="stay-image"
-                            />
-                            <p className="stays-name">{stay.name}</p>
-                        </div>
-                    ))}
+                <div>
+                    <h2>Stay Recommendations</h2>
+                    <div className="stays">
+                        {stays.map((stay) => (
+                            <div key={stay.id} className="stays-id">
+                                <img
+                                    src={stay.logo_picture_url}
+                                    alt={stay.name}
+                                    className="stay-image"
+                                />
+                                <p className="stays-name">{stay.name}</p>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
 
