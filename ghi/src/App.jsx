@@ -2,6 +2,7 @@
 import { Outlet } from 'react-router-dom'
 import Nav from './components/Nav'
 import ErrorNotification from './components/ErrorNotification'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 
 const API_HOST = import.meta.env.VITE_API_HOST
