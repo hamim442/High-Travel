@@ -44,7 +44,7 @@ const router = createBrowserRouter(
                     element: <TransportationPage />,
                 },
                 {
-                    path: 'travel-plan',
+                    path: 'trip',
                     element: <MainTravelPlan />,
                 },
 
