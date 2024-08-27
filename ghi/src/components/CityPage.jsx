@@ -38,7 +38,7 @@ export default function CityPage() {
 
     const handleCreatePlanClick = () => {
         if (user) {
-            navigate('/create-your-travel')
+            navigate('/create', { state: { city } })
         } else {
             navigate('/signin')
         }
