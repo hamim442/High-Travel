@@ -28,6 +28,8 @@ from utils.authentication import (
     verify_password,
 )
 
+from models.jwt import JWTUserData
+
 # Note we are using a prefix here,
 # This saves us typing in all the routes below
 router = APIRouter(tags=["Authentication"], prefix="/api/auth")
@@ -134,7 +136,10 @@ async def signin(
 
 @router.get("/authenticate")
 async def authenticate(
-    user: UserResponse | None = Depends(try_get_jwt_user_data),
+    jwt_user: JWTUserData | None = Depends(
+        try_get_jwt_user_data,
+    ),
+    queries: UserQueries = Depends(),
 ) -> UserResponse:
     """
     This function returns the user if the user is logged in.
@@ -147,11 +152,25 @@ async def authenticate(
     This can be used in your frontend to determine if a user
     is logged in or not
     """
+    if not jwt_user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Not logged in"
+        )
+    user = queries.get_by_id(jwt_user.id)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="Not logged in"
         )
-    return user
+
+    # Convert the UserWithPW to a UserOut
+    return UserResponse(
+        id=user.id,
+        username=user.username,
+        email=user.email,
+        first_name=user.first_name,
+        last_name=user.last_name,
+        profile_image=user.profile_image,
+    )
 
 
 @router.delete("/signout")
