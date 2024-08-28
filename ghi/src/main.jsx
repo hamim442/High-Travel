@@ -5,6 +5,7 @@ import SignInForm from './components/SignInForm'
 import SignUpForm from './components/SignUpForm'
 import MainPage from './components/MainPage'
 import CityPage from './components/CityPage'
+import UserTravelPlans from './components/UsersTravelPlan'
 import App from './App'
 import AuthProvider from './components/AuthProvider'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -35,6 +36,10 @@ const router = createBrowserRouter(
                 {
                     path: 'city/:cityId',
                     element: <CityPage />,
+                },
+                {
+                    path: 'user-travel-plans',
+                    element: <UserTravelPlans />,
                 },
             ],
         },
