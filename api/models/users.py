@@ -2,7 +2,7 @@
 Pydantic Models for Users.
 """
 
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, HttpUrl
 from typing import Optional
 
 
@@ -32,7 +32,7 @@ class UserResponse(BaseModel):
     id: int
     username: str
     email: EmailStr
-    profile_image: Optional[str] = None
+    profile_image: HttpUrl
     first_name: str
     last_name: str
 
@@ -46,6 +46,6 @@ class UserWithPw(BaseModel):
     username: str
     password: str
     email: EmailStr
-    profile_image: Optional[str] = None
+    profile_image: HttpUrl
     first_name: str
     last_name: str

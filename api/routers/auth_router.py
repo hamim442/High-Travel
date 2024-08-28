@@ -9,6 +9,9 @@ from fastapi import (
     HTTPException,
     status,
     APIRouter,
+    File,
+    Form,
+    UploadFile,
 )
 from queries.user_queries import (
     UserQueries,
@@ -40,6 +43,12 @@ async def signup(
     new_user: SignupRequest,
     request: Request,
     response: Response,
+    username: str = Form(),
+    password: str = Form(),
+    email: str = Form(),
+    first_name: str = Form(...),
+    last_name: str = Form(...),
+    profile_image: UploadFile = File(None),
     queries: UserQueries = Depends(),
 ) -> UserResponse:
     """
@@ -47,6 +56,10 @@ async def signup(
     """
     # Hash the password the user sent us
     hashed_password = hash_password(new_user.password)
+
+    # Todo upload the file
+
+    profile_image = "http://changeme.com"
 
     # Create the user in the database
     try:
