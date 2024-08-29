@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import useAuthService from '../hooks/useAuthService';
-import './styles/RandomDestinations.css';
+import './styles/userTravelPlan.css';
 import SmallFooter from './SmallFooter';
 
 export default function UserTravelPlans() {
@@ -89,20 +89,22 @@ export default function UserTravelPlans() {
 
     return (
         <>
-            <div className="profile-container">
-                <h2>Your Travel Plans</h2>
-                <div className="travel-plans">
+            <div className="user-travel-container">
+                <h2 className="user-travel-title">Your Travel Plans</h2>
+                <div className="user-card-container">
                     {trips.map((trip) => (
-                        <div
-                            key={trip.id}
-                            className="travel-plan-card"
-                            onClick={() => handleTripClick(trip.id)}
-                            style={{ cursor: 'pointer' }}
-                        >
-                            <h5>Trip to {trip.city_name}</h5> 
-                            <img src={trip.picture_url} alt={trip.city_name} width="300" />
-                            <p>Start Date: {new Date(trip.start_date).toLocaleDateString()}</p>
-                            <p>End Date: {new Date(trip.end_date).toLocaleDateString()}</p>
+                        <div key={trip.id} className="user-card">
+                            <img src={trip.picture_url} className="user-card-img-top" alt={trip.city_name} />
+                            <div className="user-card-body">
+                                <h5 className="user-card-title">Trip to {trip.city_name}</h5>
+                                <p className="user-card-text">
+                                    Start Date: {new Date(trip.start_date).toLocaleDateString()} <br />
+                                    End Date: {new Date(trip.end_date).toLocaleDateString()}
+                                </p>
+                                <button onClick={() => handleTripClick(trip.id)} className="btn btn-primary">
+                                    View Details
+                                </button>
+                            </div>
                         </div>
                     ))}
                 </div>
@@ -111,3 +113,4 @@ export default function UserTravelPlans() {
         </>
     );
 }
+
