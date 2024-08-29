@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Navigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import useAuthService from '../hooks/useAuthService'
 import AdventureJumbotron from './AdventureJumbotron'
 import './styles/Sign.css'
@@ -8,14 +8,23 @@ export default function SignInForm() {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const { signin, user, error } = useAuthService()
+    const navigate = useNavigate()
+    const location = useLocation()
+
+    useEffect(() => {
+        if (user) {
+            const from = location.state?.from || '/'
+            navigate(from)
+        }
+    }, [user, navigate, location])
 
     async function handleFormSubmit(e) {
         e.preventDefault()
-        await signin({ username, password })
-    }
-
-    if (user) {
-        return <Navigate to="/" />
+        const success = await signin({ username, password })
+        if (success) {
+            const from = location.state?.from || '/'
+            navigate(from)
+        }
     }
 
     return (

@@ -14,6 +14,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import AddStayForm from './components/AddStayForm'
 import ProfilePage from './components/ProfilePage'
 import EditUserProfile from './components/EditUserProfile'
+import CreateNewCity from './components/CreateNewCity'
 
 const BASE_URL = import.meta.env.BASE_URL
 if (!BASE_URL) {
@@ -61,6 +62,10 @@ const router = createBrowserRouter(
                 {
                     path: 'profile/edit',
                     element: <EditUserProfile />,
+                },
+                {
+                    path: 'create-city',
+                    element: <CreateNewCity />,
                 },
                 {
                     path: 'user-travel-plan',
