@@ -26,12 +26,10 @@ const AccommodationForm = () => {
     useEffect(() => {
         const fetchStays = async () => {
             try {
-                const response = await fetch('localhost:8000/api/stays/')
-                if (!response.ok) {
-                    throw new Error('Network response was not ok')
-                }
+                const response = await fetch(
+                    `${import.meta.env.VITE_API_HOST}/api/stays/`
+                )
                 const staysData = await response.json()
-                console.log('Fetched stays:', staysData)
                 setStays(staysData)
             } catch (error) {
                 console.error('Error fetching stays:', error)
