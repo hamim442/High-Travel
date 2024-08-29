@@ -11,6 +11,7 @@ import App from './App'
 import AuthProvider from './components/AuthProvider'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import AddStayForm from './components/AddStayForm'
+import AccommodationForm from './components/Accommodations'
 
 const BASE_URL = import.meta.env.BASE_URL
 if (!BASE_URL) {
@@ -50,6 +51,10 @@ const router = createBrowserRouter(
                 {
                     path: 'create',
                     element: <CreateTravelPlan />,
+                },
+                {
+                    path: 'accommodations',
+                    element: <AccommodationForm />,
                 },
             ],
         },
