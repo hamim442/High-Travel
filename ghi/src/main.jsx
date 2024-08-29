@@ -58,6 +58,14 @@ const router = createBrowserRouter(
                     path: 'create',
                     element: <CreateTravelPlan />,
                 },
+                {
+                    path: 'accommodations',
+                    element: <AccommodationForm />,
+                },
+                {
+                    path: 'profile',
+                    element: <ProfilePage />,
+                },
             ],
         },
     ],

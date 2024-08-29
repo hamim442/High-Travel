@@ -24,7 +24,6 @@ const AccommodationForm = () => {
     const { tripid } = useParams()
 
     useEffect(() => {
-        // Fetch stays from the backend
         const fetchStays = async () => {
             try {
                 const response = await fetch('localhost:8000/api/stays/')
@@ -32,7 +31,7 @@ const AccommodationForm = () => {
                     throw new Error('Network response was not ok')
                 }
                 const staysData = await response.json()
-                console.log('Fetched stays:', staysData) // Log fetched data
+                console.log('Fetched stays:', staysData)
                 setStays(staysData)
             } catch (error) {
                 console.error('Error fetching stays:', error)
