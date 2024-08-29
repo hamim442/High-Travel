@@ -1,5 +1,9 @@
 ## Gerry's Journal
 
+### Thursday 8/29
+
+Built a CreateNewCity component. Assisted my team on several questions.
+
 ### Wednesday 8/28
 
 Completed some unit tests for city_router.py and created a basic README for the project. Helped my team with a couple of questions they had before joining a BR with Amy.

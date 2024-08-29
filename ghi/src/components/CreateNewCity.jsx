@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import AdventureJumbotron from './AdventureJumbotron'
+import SmallFooter from './SmallFooter'
 import './styles/Sign.css'
 
 export default function CreateNewCity() {
@@ -14,6 +15,8 @@ export default function CreateNewCity() {
     const location = useLocation()
 
     useEffect(() => {
+        window.scrollTo(0, 0)
+
         async function checkAuth() {
             const response = await fetch(
                 `${import.meta.env.VITE_API_HOST}/api/auth/authenticate`,
@@ -119,7 +122,7 @@ export default function CreateNewCity() {
                                     id="name"
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
-                                    placeholder="e.g., Seattle"
+                                    placeholder="Gotham City"
                                     required
                                 />
                             </div>
@@ -138,7 +141,7 @@ export default function CreateNewCity() {
                                             e.target.value
                                         )
                                     }
-                                    placeholder="e.g., Washington"
+                                    placeholder="Gotham State"
                                 />
                             </div>
 
@@ -150,7 +153,7 @@ export default function CreateNewCity() {
                                     id="country"
                                     value={country}
                                     onChange={(e) => setCountry(e.target.value)}
-                                    placeholder="e.g., United States"
+                                    placeholder="United States"
                                     required
                                 />
                             </div>
@@ -165,7 +168,7 @@ export default function CreateNewCity() {
                                     onChange={(e) =>
                                         setPictureUrl(e.target.value)
                                     }
-                                    placeholder="e.g., http://www.example.com/seattle.jpg"
+                                    placeholder="http://www.example.com/gotham.jpg"
                                 />
                             </div>
 
@@ -196,6 +199,9 @@ export default function CreateNewCity() {
                 <div className="col-md-6 p-0 h-100">
                     <AdventureJumbotron />
                 </div>
+
+                {/* Footer */}
+                <SmallFooter />
             </div>
         </div>
     )

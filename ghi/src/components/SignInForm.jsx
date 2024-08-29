@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import useAuthService from '../hooks/useAuthService'
 import AdventureJumbotron from './AdventureJumbotron'
+import SmallFooter from './SmallFooter'
 import './styles/Sign.css'
 
 export default function SignInForm() {
@@ -12,6 +13,8 @@ export default function SignInForm() {
     const location = useLocation()
 
     useEffect(() => {
+        window.scrollTo(0, 0)
+
         if (user) {
             const from = location.state?.from || '/'
             navigate(from)
@@ -87,6 +90,8 @@ export default function SignInForm() {
                     <AdventureJumbotron />
                 </div>
             </div>
+            {/* Footer */}
+            <SmallFooter />
         </div>
     )
 }

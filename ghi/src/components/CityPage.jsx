@@ -16,6 +16,8 @@ export default function CityPage() {
     const [error, setError] = useState(null)
 
     useEffect(() => {
+        window.scrollTo(0, 0)
+
         async function fetchCityData() {
             setLoading(true)
             setError(null)
