@@ -133,3 +133,52 @@ class UserQueries:
                 f"Could not create user with username {username}"
             )
         return user
+
+    def edit_user(
+        self,
+        user_id: int,
+        first_name: Optional[str] = None,
+        last_name: Optional[str] = None,
+        profile_image: Optional[str] = None,
+    ) -> UserWithPw:
+        """
+        Updates a user in the database
+
+        Raises an Exception if updating an user fails
+        """
+        try:
+            with pool.connection() as conn:
+                with conn.cursor(row_factory=class_row(UserWithPw)) as cur:
+                    update_users = []
+                    update_values = []
+                    if first_name:
+                        update_users.append("first_name = %s")
+                        update_values.append(first_name)
+                    if last_name:
+                        update_users.append("last_name = %s")
+                        update_values.append(last_name)
+                    if profile_image:
+                        update_users.append("profile_image = %s")
+                        update_values.append(profile_image)
+                    update_values.append(user_id)
+                    sql = f"""--sql
+                        UPDATE Users
+                        SET {', '.join(update_users)}
+                        WHERE id = %s
+                        RETURNING *;
+                        """
+                    print(sql)
+                    cur.execute(
+                        sql,
+                        update_values,
+                    )
+
+                    user = cur.fetchone()
+                    if not user:
+                        raise UserDatabaseException(
+                            f"{user_id} cannot be updated"
+                        )
+        except psycopg.Error as e:
+            print(e)
+            raise UserDatabaseException(f"Could not update user {user_id}")
+        return user
