@@ -22,12 +22,11 @@ export default function CreateTravelPlan() {
                 { credentials: 'include' }
             )
             if (!response.ok) {
-                // if not, send to signin
-                navigate('/signin')
+                navigate('/signin', { state: { from: location.pathname } })
             }
         }
         checkAuth()
-    }, [navigate])
+    }, [navigate, location])
 
     // this runs if we got here from clicking on Create Plan in a CityPage
     useEffect(() => {
