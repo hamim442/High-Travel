@@ -81,26 +81,34 @@ class UserTripCreationError(Exception):
 class FlightDatabaseError(Exception):
     pass
 
+
 class FlightDoesNotExist(Exception):
     pass
+
 
 class FlightCreationError(Exception):
     pass
 
+
 class TrainDatabaseError(Exception):
     pass
+
 
 class TrainDoesNotExist(Exception):
     pass
 
+
 class TrainCreationError(Exception):
     pass
+
 
 class CarDatabaseError(Exception):
     pass
 
+
 class CarDoesNotExist(Exception):
     pass
+
 
 class CarCreationError(Exception):
     pass
