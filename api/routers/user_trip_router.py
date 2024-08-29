@@ -3,7 +3,6 @@ from queries.user_trip_queries import UserTripQueries, UserTripDatabaseError
 from models.user_trip import (
     UserTripRequest,
     UserTripResponse,
-    TripByUserResponse,
 )
 
 router = APIRouter(tags=["UserTrip"], prefix="/api/user-trip")

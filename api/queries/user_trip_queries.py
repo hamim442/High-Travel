@@ -5,7 +5,6 @@ from psycopg.rows import class_row
 from models.user_trip import (
     UserTripRequest,
     UserTripResponse,
-    TripByUserResponse,
 )
 from utils.exceptions import (
     UserTripDatabaseError,
