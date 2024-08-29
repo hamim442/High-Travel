@@ -38,6 +38,6 @@ class UserWithPw(BaseModel):
     username: str
     password: str
     email: EmailStr
-    profile_image: Optional[str] = None
+    profile_image: str
     first_name: str
     last_name: str

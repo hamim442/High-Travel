@@ -10,6 +10,7 @@ import SignInForm from './components/SignInForm'
 import SignUpForm from './components/SignUpForm'
 import MainPage from './components/MainPage'
 import CityPage from './components/CityPage'
+import UserTravelPlans from './components/UsersTravelPlan'
 import CreateTravelPlan from './components/CreateTravelPlan'
 import StaysList from './components/StaysList'
 import AddStayForm from './components/AddStayForm'
@@ -67,6 +68,10 @@ const router = createBrowserRouter(
                 {
                     path: 'create-city',
                     element: <CreateNewCity />,
+                },
+                {
+                    path: 'user-travel-plan',
+                    element: <UserTravelPlans />,
                 },
             ],
         },

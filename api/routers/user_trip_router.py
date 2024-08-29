@@ -1,6 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException
 from queries.user_trip_queries import UserTripQueries, UserTripDatabaseError
-from models.user_trip import UserTripRequest, UserTripResponse
+from models.user_trip import (
+    UserTripRequest,
+    UserTripResponse,
+)
 
 router = APIRouter(tags=["UserTrip"], prefix="/api/user-trip")
 
@@ -35,3 +38,14 @@ def remove_contributor(
         queries.remove_contributor(user_id, trip_id)
     except UserTripDatabaseError as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+# @router.get("/trips/{user_id}")
+# def get_trips_by_userid(
+#     user_id: int, queries: UserTripQueries = Depends()
+# ) -> list[TripByUserResponse]:
+#     try:
+#         trip_by_userid = queries.get_trips_by_userid()
+#         return trip_by_userid
+#     except UserTripDatabaseError as e:
+#         raise HTTPException(status_code=500, detail=str(e))

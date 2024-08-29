@@ -18,6 +18,8 @@ async def get_user_trips(
     user: JWTUserData = Depends(try_get_jwt_user_data),
     queries: TripQueries = Depends(),
 ) -> list[Trip]:
+    print(user)
+
     try:
         trips = queries.get_user_trips(user.id)
         return trips
