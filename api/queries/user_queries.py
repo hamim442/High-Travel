@@ -135,7 +135,6 @@ class UserQueries:
     def edit_user(
         self,
         user_id: int,
-        hashed_password: Optional[str] = None,
         first_name: Optional[str] = None,
         last_name: Optional[str] = None,
         profile_image: Optional[str] = None,
@@ -150,9 +149,6 @@ class UserQueries:
                 with conn.cursor(row_factory=class_row(UserWithPw)) as cur:
                     update_users = []
                     update_values = []
-                    if hashed_password:
-                        update_users.append("password = %s")
-                        update_values.append(hashed_password)
                     if first_name:
                         update_users.append("first_name = %s")
                         update_values.append(first_name)
@@ -163,13 +159,15 @@ class UserQueries:
                         update_users.append("profile_image = %s")
                         update_values.append(profile_image)
                     update_values.append(user_id)
-                    cur.execute(
-                        """--sql
+                    sql = f"""--sql
                         UPDATE Users
-                        SET{', '.join(update_users)}
+                        SET {', '.join(update_users)}
                         WHERE id = %s
                         RETURNING *;
-                        """,
+                        """
+                    print(sql)
+                    cur.execute(
+                        sql,
                         update_values,
                     )
 
@@ -178,6 +176,7 @@ class UserQueries:
                         raise UserDatabaseException(
                             f"{user_id} cannot be updated"
                         )
-        except psycopg.Error:
+        except psycopg.Error as e:
+            print(e)
             raise UserDatabaseException(f"Could not update user {user_id}")
         return user

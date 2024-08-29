@@ -25,6 +25,8 @@ from utils.authentication import (
 
 from models.jwt import JWTUserData
 
+from typing import Optional
+
 # Note we are using a prefix here,
 # This saves us typing in all the routes below
 router = APIRouter(tags=["Authentication"], prefix="/api/auth")
@@ -176,10 +178,9 @@ async def check_username(username: str, queries: UserQueries = Depends()):
 @router.put("/edit-user")
 def update_user(
     user_id: int,
-    new_password: str = None,
-    first_name: str = None,
-    last_name: str = None,
-    profile_image: str = None,
+    first_name: Optional[str] = None,
+    last_name: Optional[str] = None,
+    profile_image: Optional[str] = None,
     queries: UserQueries = Depends(),
 ) -> UserResponse:
     user = queries.get_by_id(user_id)
@@ -188,14 +189,18 @@ def update_user(
             status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
         )
 
-    hashed_password = None
-    if new_password:
-        hashed_password = hashed_password(new_password)
-
-    update_user = user.edit_user(
+    update_user = queries.edit_user(
         user_id=user_id,
-        hashed_password=hashed_password,
         first_name=first_name,
         last_name=last_name,
         profile_image=profile_image,
+    )
+
+    return UserResponse(
+        id=update_user.id,
+        username=update_user.username,
+        email=update_user.email,
+        first_name=update_user.first_name,
+        last_name=update_user.last_name,
+        profile_image=update_user.profile_image,
     )
