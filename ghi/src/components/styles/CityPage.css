@@ -55,6 +55,8 @@
 .city-plan-button:hover {
     background-color: #218838;
 }
+<<<<<<< HEAD
+=======
 
 /* Popular Destinations */
 .popular-destinations-container {
@@ -114,3 +116,31 @@
 .card-text {
     font-size: 0.8rem;
 }
+
+.stays-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 200px;
+    margin-top: 3rem;
+}
+
+.stays {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 5rem;
+}
+
+.stays-id {
+    display: flex;
+    flex-direction: column;
+}
+
+.stays-image {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+>>>>>>> main

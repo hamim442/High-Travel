@@ -25,10 +25,6 @@ class SignupRequest(BaseModel):
 
 
 class UserResponse(BaseModel):
-    """
-    Represents a user, with the password not included
-    """
-
     id: int
     username: str
     email: EmailStr
@@ -38,10 +34,6 @@ class UserResponse(BaseModel):
 
 
 class UserWithPw(BaseModel):
-    """
-    Represents a user with password included
-    """
-
     id: int
     username: str
     password: str

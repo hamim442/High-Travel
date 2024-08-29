@@ -68,8 +68,8 @@ def get_city(id: int, queries: CityQueries = Depends()) -> City:
     try:
         city = queries.get_city(id)
         return city
-    except CityDoesNotExist:
-        raise HTTPException(status_code=404, detail="City not found.")
+    except CityDoesNotExist as e:
+        raise HTTPException(status_code=404, detail=str(e))
     except CityDatabaseError:
         raise HTTPException(status_code=500, detail="Error retrieving city.")
 

@@ -6,9 +6,12 @@ import SignUpForm from './components/SignUpForm'
 import MainPage from './components/MainPage'
 import CityPage from './components/CityPage'
 import UserTravelPlans from './components/UsersTravelPlan'
+import CreateTravelPlan from './components/CreateTravelPlan'
+import StaysList from './components/StaysList'
 import App from './App'
 import AuthProvider from './components/AuthProvider'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import AddStayForm from './components/AddStayForm'
 
 const BASE_URL = import.meta.env.BASE_URL
 if (!BASE_URL) {
@@ -38,8 +41,16 @@ const router = createBrowserRouter(
                     element: <CityPage />,
                 },
                 {
-                    path: 'user-travel-plans',
-                    element: <UserTravelPlans />,
+                    path: 'stays',
+                    element: <StaysList />,
+                },
+                {
+                    path: 'stays',
+                    element: <AddStayForm />,
+                },
+                {
+                    path: 'create',
+                    element: <CreateTravelPlan />,
                 },
             ],
         },
