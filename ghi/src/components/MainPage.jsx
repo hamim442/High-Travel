@@ -22,7 +22,7 @@ export default function MainPage() {
                 <div className="container">
                     <div className="hero-text-container">
                         <h1 className="hero-text">
-                            Your next adventure starts here
+                            Your adventure starts here
                         </h1>
                     </div>
                     <p className="lead">

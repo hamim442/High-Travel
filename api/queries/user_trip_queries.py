@@ -2,7 +2,10 @@ import os
 import psycopg
 from psycopg_pool import ConnectionPool
 from psycopg.rows import class_row
-from models.user_trip import UserTripRequest, UserTripResponse
+from models.user_trip import (
+    UserTripRequest,
+    UserTripResponse,
+)
 from utils.exceptions import (
     UserTripDatabaseError,
     UserTripCreationError,
@@ -80,3 +83,35 @@ class UserTripQueries:
         except psycopg.Error as e:
             print(f"Error removing contributor: {e}.")
             raise UserTripDatabaseError("Error removing contributor.")
+
+    # def get_trips_by_userid(
+    #     self,
+    #     trip_id: int,
+    #     start_date: str,
+    #     end_date: str,
+    #     city_name: str,
+    #     city_picture_url: str,
+    #     country_name: str,
+    # ) -> list[TripByUserResponse]:
+    #     try:
+    #         with pool.connection() as conn:
+    #             with conn.cursor() as cur:
+    #                 cur.execute(
+    #                     """--sql
+    #                     SELECT
+    #                         trips.id AS trip_id,
+    #                         trips.start_date,
+    #                         trips.end_date,
+    #                         cities.name AS city_name,
+    #                         cities.picture_url AS city_picture_url,
+    #                     from trips
+    #                     JOIN cities ON trips.city_id = cities.id
+    #                     WHERE trips.user_id = %s
+    #                     """,
+    #                     (user_id,),
+    #                 )
+    #                 trips = cur.fetchall()
+    #                 return trips
+    #     except psycopg.Error as e:
+    #         print(f"Error retriving trips from user {user_id}: {e}")
+    #         raise UserTripDatabaseError("Error removing contributor.")

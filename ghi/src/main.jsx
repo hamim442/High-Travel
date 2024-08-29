@@ -1,15 +1,18 @@
+import App from './App'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'
+import AuthProvider from './components/AuthProvider'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+
 import SignInForm from './components/SignInForm'
 import SignUpForm from './components/SignUpForm'
 import MainPage from './components/MainPage'
 import CityPage from './components/CityPage'
+import UserTravelPlans from './components/UsersTravelPlan'
 import CreateTravelPlan from './components/CreateTravelPlan'
 import StaysList from './components/StaysList'
-import App from './App'
-import AuthProvider from './components/AuthProvider'
-import 'bootstrap/dist/css/bootstrap.min.css'
 import AddStayForm from './components/AddStayForm'
 import ProfilePage from './components/ProfilePage'
 import EditUserProfile from './components/EditUserProfile'
@@ -65,6 +68,10 @@ const router = createBrowserRouter(
                 {
                     path: 'create-city',
                     element: <CreateNewCity />,
+                },
+                {
+                    path: 'user-travel-plan',
+                    element: <UserTravelPlans />,
                 },
             ],
         },

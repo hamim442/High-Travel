@@ -1,4 +1,16 @@
-/* Nav bar */
+.navbar {
+    padding: 0.5rem 1rem;
+}
+
+.navbar-nav {
+    align-items: center;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+}
+
 .search-container {
     position: relative;
 }
@@ -29,4 +41,10 @@
 
 .search-result-item:hover {
     background-color: #f8f9fa;
+}
+
+@media (max-width: 991px) {
+    .navbar-nav {
+        align-items: flex-start;
+    }
 }

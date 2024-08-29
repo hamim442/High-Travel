@@ -17,6 +17,8 @@ if not DATABASE_URL:
 
 pool = ConnectionPool(DATABASE_URL)
 
+# setup s3 connection
+
 
 class UserQueries:
     """
