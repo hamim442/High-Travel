@@ -24,6 +24,7 @@ Hotel3 = {
     "logo_picture_url": "http://www.example.com/hotel3.jpg",
 }
 
+
 class EmptyStayQueries:
     def get_all_stays(self) -> list[Stay]:
         return []
