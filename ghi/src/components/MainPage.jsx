@@ -2,6 +2,7 @@ import './styles/MainPage.css'
 import MadridHero from '../assets/MadridHero.jpg'
 import BigFooter from './BigFooter'
 import RandomDestinations from './RandomDestinations'
+import CreateCityInvitation from './CreateCityInvite'
 import { useNavigate } from 'react-router-dom'
 
 export default function MainPage() {
@@ -37,6 +38,9 @@ export default function MainPage() {
 
             {/* Random Destinations */}
             <RandomDestinations />
+
+            {/* New City Invite */}
+            <CreateCityInvitation />
 
             {/* Footer */}
             <BigFooter />

@@ -1,6 +1,7 @@
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, useLocation } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import useAuthService from '../hooks/useAuthService'
+import CreateCityInvitation from './CreateCityInvite'
 import SmallFooter from './SmallFooter'
 import './styles/CityPage.css'
 
@@ -8,6 +9,7 @@ export default function CityPage() {
     const { cityId } = useParams()
     const { user } = useAuthService()
     const navigate = useNavigate()
+    const location = useLocation()
     const [city, setCity] = useState(null)
     const [stays, setStays] = useState([])
     const [loading, setLoading] = useState(true)
@@ -30,7 +32,7 @@ export default function CityPage() {
                 const staysResponse = await fetch(
                     `${import.meta.env.VITE_API_HOST}/api/stays`
                 )
-                if (!response.ok) {
+                if (!staysResponse.ok) {
                     throw new Error('Failed to fetch stays data')
                 }
                 const staysData = await staysResponse.json()
@@ -52,7 +54,7 @@ export default function CityPage() {
         if (user) {
             navigate('/create', { state: { city } })
         } else {
-            navigate('/signin')
+            navigate('/signin', { state: { from: location.pathname, city } })
         }
     }
 
@@ -105,6 +107,9 @@ export default function CityPage() {
                     </div>
                 </div>
             </div>
+
+            {/* New City Invite */}
+            <CreateCityInvitation />
 
             {/* Footer */}
             <SmallFooter />
