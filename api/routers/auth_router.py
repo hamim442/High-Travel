@@ -39,6 +39,8 @@ async def signup(
 ) -> UserResponse:
     hashed_password = hash_password(new_user.password)
 
+    # Todo upload the file
+
     try:
         user = queries.create_user(
             new_user.username,
