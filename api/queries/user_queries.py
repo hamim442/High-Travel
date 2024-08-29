@@ -150,7 +150,6 @@ class UserQueries:
                 with conn.cursor(row_factory=class_row(UserWithPw)) as cur:
                     update_users = []
                     update_values = []
-
                     if hashed_password:
                         update_users.append("password = %s")
                         update_values.append(hashed_password)
@@ -163,8 +162,22 @@ class UserQueries:
                     if profile_image:
                         update_users.append("profile_image = %s")
                         update_values.append(profile_image)
-
                     update_values.append(user_id)
-
                     cur.execute(
+                        """--sql
+                        UPDATE Users
+                        SET{', '.join(update_users)}
+                        WHERE id = %s
+                        RETURNING *;
+                        """,
+                        update_values,
                     )
+
+                    user = cur.fetchone()
+                    if not user:
+                        raise UserDatabaseException(
+                            f"{user_id} cannot be updated"
+                        )
+        except psycopg.Error:
+            raise UserDatabaseException(f"Could not update user {user_id}")
+        return user

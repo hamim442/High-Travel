@@ -172,12 +172,30 @@ async def check_username(username: str, queries: UserQueries = Depends()):
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e)
         )
 
+
 @router.put("/edit-user")
 def update_user(
     user_id: int,
-    hashed_password: Optional[str] = None,
-    first_name: Optional[str] = None,
-    last_name: Optional[str] = None,
-    profile_image: Optional[str] = None,
+    new_password: str = None,
+    first_name: str = None,
+    last_name: str = None,
+    profile_image: str = None,
     queries: UserQueries = Depends(),
-)
+) -> UserResponse:
+    user = queries.get_by_id(user_id)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
+        )
+
+    hashed_password = None
+    if new_password:
+        hashed_password = hashed_password(new_password)
+
+    update_user = user.edit_user(
+        user_id=user_id,
+        hashed_password=hashed_password,
+        first_name=first_name,
+        last_name=last_name,
+        profile_image=profile_image,
+    )
