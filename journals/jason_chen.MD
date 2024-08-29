@@ -16,3 +16,11 @@ Gave code to Gerry who then downloaded bootstrap and got us a basic website.
 Made the Create Travel Plans Page and pushed.
 Made a random 5 stays generator for CityPage.
 Going to work on CSS
+
+8/27/2024
+Finished CSS for CityPage.
+Working on Profile page now.
+
+8/28/2024
+Worked on profile page - created a way to change user information:
+profile picture, first and last name
