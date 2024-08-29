@@ -55,6 +55,7 @@ class MockCityQueries:
         return []
 
     def create_city(self, city: CityRequest) -> City:
+        print("Hey inside method")
         return City(id=3, **city.model_dump())
 
 

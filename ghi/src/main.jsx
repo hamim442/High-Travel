@@ -1,21 +1,25 @@
+import App from './App'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'
+import AuthProvider from './components/AuthProvider'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+
 import SignInForm from './components/SignInForm'
 import SignUpForm from './components/SignUpForm'
 import MainPage from './components/MainPage'
 import CityPage from './components/CityPage'
+import UserTravelPlans from './components/UsersTravelPlan'
 import TransportationPage from './components/TransportationPage'
 import MainTravelPlan from './components/MainTravelPlan'
 import CreateTravelPlan from './components/CreateTravelPlan'
 import StaysList from './components/StaysList'
-import App from './App'
-import AuthProvider from './components/AuthProvider'
-import 'bootstrap/dist/css/bootstrap.min.css'
 import AddStayForm from './components/AddStayForm'
 import ProfilePage from './components/ProfilePage'
 import EditUserProfile from './components/EditUserProfile'
 import CreateNewCity from './components/CreateNewCity'
+import AccommodationForm from './components/Accommodations'
 
 const BASE_URL = import.meta.env.BASE_URL
 if (!BASE_URL) {
@@ -66,16 +70,12 @@ const router = createBrowserRouter(
                     element: <CreateTravelPlan />,
                 },
                 {
+                    path: 'accommodations',
+                    element: <AccommodationForm />,
+                },
+                {
                     path: 'profile',
                     element: <ProfilePage />,
-                },
-                {
-                    path: 'profile/edit',
-                    element: <EditUserProfile />,
-                },
-                {
-                    path: 'create-city',
-                    element: <CreateNewCity />,
                 },
             ],
         },

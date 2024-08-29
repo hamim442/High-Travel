@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import useAuthService from '../hooks/useAuthService'
 import './styles/Nav.css'
 
@@ -8,6 +8,26 @@ export default function Nav() {
     const [searchResults, setSearchResults] = useState([])
     const navigate = useNavigate()
     const { user, signout, isLoggedIn } = useAuthService()
+
+    // added this useEffect to handle burger functionality
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth > 991) {
+                const navbarCollapse =
+                    document.getElementById('navbarNavDropdown')
+                if (
+                    navbarCollapse &&
+                    navbarCollapse.classList.contains('show')
+                ) {
+                    navbarCollapse.classList.remove('show')
+                }
+            }
+        }
+        window.addEventListener('resize', handleResize)
+        return () => {
+            window.removeEventListener('resize', handleResize)
+        }
+    }, [])
 
     const handleSearchChange = async (event) => {
         setSearchQuery(event.target.value)
@@ -56,6 +76,7 @@ export default function Nav() {
                 >
                     HighTravel
                 </NavLink>
+
                 <button
                     className="navbar-toggler"
                     type="button"
@@ -103,7 +124,9 @@ export default function Nav() {
                             )}
                         </form>
                     </div>
-                    <ul className="navbar-nav">
+
+                    <ul className="navbar-nav align-items-center">
+                        {' '}
                         {isLoggedIn ? (
                             <>
                                 <li className="nav-item">
