@@ -1,8 +1,8 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import useAuthService from '../hooks/useAuthService'
-import { useNavigate } from 'react-router-dom';
+import useAuthService from '../hooks/useAuthService';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function MainTravelPlan() {
     const { tripId } = useParams();
@@ -12,64 +12,62 @@ export default function MainTravelPlan() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
-    console.log(user)
-    console.log(city)
-    console.log(trip)
+    const location = useLocation();
+
+    console.log(user);
+    console.log(city);
+    console.log(trip);
 
     useEffect(() => {
         async function checkAuth() {
             const response = await fetch(
                 `${import.meta.env.VITE_API_HOST}/api/auth/authenticate`,
                 { credentials: 'include' }
-            )
+            );
             if (!response.ok) {
-                navigate('/signin')
+                navigate('/signin', { state: { from: location.pathname } });
             }
         }
-        checkAuth()
-    }, [navigate])
+        checkAuth();
+    }, [navigate, location]);
 
     useEffect(() => {
-        async function fetchTripData() {
+        async function fetchData() {
             setLoading(true);
             setError(null);
             try {
-                const response = await fetch(
+                // Fetch trip data
+                const tripResponse = await fetch(
                     `${import.meta.env.VITE_API_HOST}/api/trips/${tripId}`,
                     { credentials: 'include' }
                 );
-                if (!response.ok) {
+                if (!tripResponse.ok) {
                     throw new Error('Failed to fetch trip data');
                 }
-                const data = await response.json();
-                console.log('Trip Data:', data);
-                setTrip(data);
+                const tripData = await tripResponse.json();
+                console.log('Trip Data:', tripData);
+                setTrip(tripData);
+
+                // Fetch city data based on trip data
+                const cityResponse = await fetch(
+                    `${import.meta.env.VITE_API_HOST}/api/cities/${tripData.city_id}`,
+                    { credentials: 'include' }
+                );
+                if (!cityResponse.ok) {
+                    throw new Error('Failed to fetch city data');
+                }
+                const cityData = await cityResponse.json();
+                setCity(cityData);
             } catch (error) {
-                console.error('Error fetching trip data: ', error);
-                setError('Failed to load trip data. Please try again later.');
+                console.error('Error fetching data: ', error);
+                setError('Failed to load data. Please try again later.');
             } finally {
                 setLoading(false);
             }
         }
 
-        fetchTripData();
+        fetchData();
     }, [tripId]);
-
-    useEffect(() => {
-        async function fetchCityData() {
-            const response = await fetch(
-                `${import.meta.env.VITE_API_HOST}/api/cities/${trip.city_id}`,
-                { credentials: 'include' }
-            );
-            const cityData = await response.json();
-            setCity(cityData);
-        }
-
-        if (trip) {
-            fetchCityData();
-        }
-    }, [trip]);
-
 
     if (loading) {
         return <p>Loading...</p>;
@@ -86,7 +84,7 @@ export default function MainTravelPlan() {
     return (
         <div className="container">
             <div className="mt-4">
-                <h2>Trip Name (Trip ID: {tripId})</h2> {/* Display the tripId */}
+                <h2>{user.username}'s trip to {city.name}, {city.country}</h2>
                 <div className="row align-items-center mt-3">
                     <div className="col-md-4">
                         <div className="bg-light border" style={{ height: '150px' }}>
@@ -126,7 +124,7 @@ export default function MainTravelPlan() {
                                 <button className="btn btn-secondary">Edit / Delete</button>
                             </div>
                             <div className="card-footer text-right">
-                                <NavLink to="/transportation" className="btn btn-success">
+                                <NavLink to={`/trips/${tripId}/transportation`} className="btn btn-success">
                                     +
                                 </NavLink>
                             </div>

@@ -53,7 +53,7 @@ const router = createBrowserRouter(
                     element: <AddStayForm />,
                 },
                 {
-                    path: 'transportation',
+                    path: 'trips/:tripId/transportation',
                     element: <TransportationPage />,
                 },
                 {
