@@ -41,12 +41,12 @@ def remove_contributor(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.get("/trips/{user_id}")
-def get_trips_by_userid(
-    user_id: int, queries: UserTripQueries = Depends()
-) -> list[TripByUserResponse]:
-    try:
-        trip_by_userid = queries.get_trips_by_userid()
-        return trip_by_userid
-    except UserTripDatabaseError as e:
-        raise HTTPException(status_code=500, detail=str(e))
+# @router.get("/trips/{user_id}")
+# def get_trips_by_userid(
+#     user_id: int, queries: UserTripQueries = Depends()
+# ) -> list[TripByUserResponse]:
+#     try:
+#         trip_by_userid = queries.get_trips_by_userid()
+#         return trip_by_userid
+#     except UserTripDatabaseError as e:
+#         raise HTTPException(status_code=500, detail=str(e))

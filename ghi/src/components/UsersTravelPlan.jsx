@@ -1,76 +1,90 @@
-import { useParams, useNavigate } from "react-router-dom";
-import { useEffect, useState } from 'react'
-import useAuthService from '../hooks/useAuthService'
-import './styles/RandomDestinations.css'
-import SmallFooter from './SmallFooter'
-
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import useAuthService from '../hooks/useAuthService';
+import './styles/RandomDestinations.css';
+import SmallFooter from './SmallFooter';
 
 export default function UserTravelPlans() {
     const { user } = useAuthService();
     const navigate = useNavigate();
     const [trips, setTrips] = useState([]);
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState(null)
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        async function checkAuth() {
+            const response = await fetch(
+                `${import.meta.env.VITE_API_HOST}/api/auth/authenticate`,
+                { credentials: 'include' }
+            );
+            if (!response.ok) {
+                navigate('/signin');
+            }
+        }
+        checkAuth();
+    }, [navigate]);
 
     useEffect(() => {
         async function fetchUserTrips() {
             setLoading(true);
-            setError(null)
+            setError(null);
 
             try {
                 const userTripResponse = await fetch(
-                    `${import.meta.env.VITE_API_HOST}/api/user-trip/${user.id}`,
-                    
+                    `${import.meta.env.VITE_API_HOST}/api/trips/`,
+                    { credentials: 'include' }
                 );
 
-                if(!userTripResponse.ok) {
-                    throw new Error("Failed to fetch user trips")
+                if (!userTripResponse.ok) {
+                    throw new Error("Failed to fetch user trips");
                 }
 
-                const userTrips = await userTripResponse.json();
+                const tripsData = await userTripResponse.json();
 
-                const tripDetailsPromises = userTrips.map(({ trip_id }) =>
-                   fetch(`${import.meta.env.VITE_API_HOST}/api/trips/${trip_id}`)
-                    .then((response) => {
-                        if (response.ok) {
-                            throw new Error("Failed to fetch trip details")
-                        }
-                        return response.json()
-                    })
-            );
-            const tripsData = await Promise.all(tripDetailsPromises)
+                const cityDetailsPromises = tripsData.map(async (trip) => {
+                    const cityResponse = await fetch(
+                        `${import.meta.env.VITE_API_HOST}/api/cities/${trip.city_id}`
+                    );
 
-            setTrips(tripsData)
+                    if (!cityResponse.ok) {
+                        throw new Error("Failed to fetch city details");
+                    }
+
+                    const cityData = await cityResponse.json();
+                    return { ...trip, city_name: cityData.name, picture_url: cityData.picture_url };
+                });
+
+                const tripsWithCityData = await Promise.all(cityDetailsPromises);
+                setTrips(tripsWithCityData);
             } catch (error) {
-                console.error("Error fetching trips: ", error)
-                setError("Failed to load travel plans. Please try again later.")
+                console.error("Error fetching trips: ", error);
+                setError("Failed to load travel plans. Please try again later.");
             } finally {
-                setLoading(false)
+                setLoading(false);
             }
         }
 
         if (user) {
             fetchUserTrips();
         } else {
-            navigate('/signin')
+            navigate('/signin');
         }
-     }, [user, navigate])
+    }, [user, navigate]);
 
     const handleTripClick = (tripId) => {
         navigate(`/trips/${tripId}`);
-     }
-
+    };
 
     if (loading) {
-        return <p>Loading...</p>
+        return <p>Loading...</p>;
     }
 
     if (error) {
-        return <p>{error}</p>
+        return <p>{error}</p>;
     }
 
-    if(!trips.length) {
-        return <p>NO travel plan available </p>
+    if (!trips.length) {
+        return <p>No travel plans available.</p>;
     }
 
     return (
@@ -80,24 +94,20 @@ export default function UserTravelPlans() {
                 <div className="travel-plans">
                     {trips.map((trip) => (
                         <div
-                            key={trip.id} // Unique key for each trip for efficient rendering
+                            key={trip.id}
                             className="travel-plan-card"
-                            onClick={() => handleTripClick(trip.id)} // Make the card clickable
-                            style={{ cursor: 'pointer' }} // Add a pointer cursor on hover to indicate it's clickable
+                            onClick={() => handleTripClick(trip.id)}
+                            style={{ cursor: 'pointer' }}
                         >
-                            <h5>Trip to {trip.city_id}</h5> {/* Display city ID or you may want to fetch city name instead */}
-                            <p>Start Date: {new Date(trip.start_date).toLocaleDateString()}</p> {/* Format the start date */}
-                            <p>End Date: {new Date(trip.end_date).toLocaleDateString()}</p> {/* Format the end date */}
+                            <h5>Trip to {trip.city_name}</h5> 
+                            <img src={trip.picture_url} alt={trip.city_name} width="300" />
+                            <p>Start Date: {new Date(trip.start_date).toLocaleDateString()}</p>
+                            <p>End Date: {new Date(trip.end_date).toLocaleDateString()}</p>
                         </div>
                     ))}
                 </div>
             </div>
-            <SmallFooter /> 
+            <SmallFooter />
         </>
     );
 }
-
-
-
-
-
