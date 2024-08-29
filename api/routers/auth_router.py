@@ -171,3 +171,13 @@ async def check_username(username: str, queries: UserQueries = Depends()):
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e)
         )
+
+@router.put("/edit-user")
+def update_user(
+    user_id: int,
+    hashed_password: Optional[str] = None,
+    first_name: Optional[str] = None,
+    last_name: Optional[str] = None,
+    profile_image: Optional[str] = None,
+    queries: UserQueries = Depends(),
+)
