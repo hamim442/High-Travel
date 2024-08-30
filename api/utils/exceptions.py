@@ -78,6 +78,7 @@ class UserTripDatabaseError(Exception):
 class UserTripCreationError(Exception):
     pass
 
+
 class FlightDatabaseError(Exception):
     pass
 
@@ -112,5 +113,3 @@ class CarDoesNotExist(Exception):
 
 class CarCreationError(Exception):
     pass
-
-
