@@ -7,7 +7,9 @@ from queries.car_queries import (
 )
 from models.cars import Car, CarRequest
 
+
 router = APIRouter(tags=["Car"], prefix="/api/cars")
+
 
 @router.get("/")
 async def get_all_cars(
@@ -21,6 +23,7 @@ async def get_all_cars(
             status_code=500, detail="Failed to retrieve cars."
         )
 
+
 @router.get("/{id}")
 def get_car(id: int, queries: CarQueries = Depends()) -> Car:
     try:
@@ -32,6 +35,7 @@ def get_car(id: int, queries: CarQueries = Depends()) -> Car:
         raise HTTPException(
             status_code=500, detail="Failed to retrieve car."
         )
+
 
 @router.post("/")
 def create_car(

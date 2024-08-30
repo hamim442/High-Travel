@@ -7,7 +7,9 @@ from queries.train_queries import (
 )
 from models.trains import Train, TrainRequest
 
+
 router = APIRouter(tags=["Train"], prefix="/api/trains")
+
 
 @router.get("/")
 async def get_all_trains(
@@ -21,6 +23,7 @@ async def get_all_trains(
             status_code=500, detail="Failed to retrieve trains."
         )
 
+
 @router.get("/{id}")
 def get_train(id: int, queries: TrainQueries = Depends()) -> Train:
     try:
@@ -32,6 +35,7 @@ def get_train(id: int, queries: TrainQueries = Depends()) -> Train:
         raise HTTPException(
             status_code=500, detail="Failed to retrieve train."
         )
+
 
 @router.post("/")
 def create_train(

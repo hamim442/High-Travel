@@ -7,7 +7,9 @@ from queries.flight_queries import (
 )
 from models.flights import Flight, FlightRequest
 
+
 router = APIRouter(tags=["Flight"], prefix="/api/flights")
+
 
 @router.get("/")
 async def get_all_flights(
@@ -21,6 +23,7 @@ async def get_all_flights(
             status_code=500, detail="Failed to retrieve flights."
         )
 
+
 @router.get("/{id}")
 def get_flight(id: int, queries: FlightQueries = Depends()) -> Flight:
     try:
@@ -32,6 +35,7 @@ def get_flight(id: int, queries: FlightQueries = Depends()) -> Flight:
         raise HTTPException(
             status_code=500, detail="Failed to retrieve flights."
         )
+
 
 @router.post("/")
 def create_flight(
