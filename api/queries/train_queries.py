@@ -19,6 +19,7 @@ if database_url is None:
 
 pool = ConnectionPool(database_url)
 
+
 class TrainQueries:
 
     def get_all_trains(self) -> list[Train]:

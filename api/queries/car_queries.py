@@ -19,6 +19,7 @@ if database_url is None:
 
 pool = ConnectionPool(database_url)
 
+
 class CarQueries:
 
     def get_all_cars(self) -> list[Car]:

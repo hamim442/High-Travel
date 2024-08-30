@@ -19,6 +19,7 @@ if database_url is None:
 
 pool = ConnectionPool(database_url)
 
+
 class FlightQueries:
 
     def get_all_flights(self) -> list[Flight]:
