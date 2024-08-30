@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from datetime import datetime
 
+
 class Car(BaseModel):
     id: int
     car_model: str
@@ -11,6 +12,7 @@ class Car(BaseModel):
     dropoff_location: str
     price: int
     trip_id: int
+
 
 class CarRequest(BaseModel):
     car_model: str

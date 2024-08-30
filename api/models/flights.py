@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from datetime import datetime
 
+
 class Flight(BaseModel):
     id: int
     name: str
@@ -13,6 +14,7 @@ class Flight(BaseModel):
     price: int
     airline_id: int
     trip_id: int
+
 
 class FlightRequest(BaseModel):
     name: str
