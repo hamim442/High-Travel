@@ -19,7 +19,7 @@ delta_airlines = {
     "logo_picture_url": "https://logo.clearbit.com/delta.com",
 }
 
-united_airliines = {
+united_airlines = {
     "id": 3,
     "name": "United Airlines",
     "logo_picture_url": "https://logo.clearbit.com/united.com",
@@ -78,10 +78,10 @@ class TestAirlines(TestCase):
     def test_create_airline(self):
         app.dependency_overrides[AirlineQueries] = MockAirlinesQueries
 
-        response = client.post("/api/airlines", json=united_airliines)
+        response = client.post("/api/airlines", json=united_airlines)
         assert response.status_code == 200
         created_airline = response.json()
         self.assertEqual(created_airline["id"], 3)
-        self.assertEqual(created_airline["name"], united_airliines["name"])
+        self.assertEqual(created_airline["name"], united_airlines["name"])
 
         app.dependency_overrides = {}
