@@ -256,7 +256,7 @@ const deleteTrip = async () => {
                 <h2>{user.username}'s trip to {city.name}</h2>
                 <div className="row align-items-center mt-3">
                     <div className="col-md-4">
-                        <div className="bg-light border" style={{ height: '150px' }}>
+                        <div className="bg-light border" style={{ height: '210px' }}>
                             {city?.picture_url && (
                                 <img
                                     src={city.picture_url}
@@ -268,7 +268,7 @@ const deleteTrip = async () => {
                     </div>
                     <div className="col-md-6">
                         <div className="bg-light p-3">
-                            <p>{city.name}, {city.country}</p>
+                            <p>{city.name}, {city.administrative_division}, {city.country}</p>
                             <p>
                                 Start Date: {new Date(trip.start_date).toLocaleDateString()} <br />
                                 End Date: {new Date(trip.end_date).toLocaleDateString()}
@@ -281,7 +281,7 @@ const deleteTrip = async () => {
                     </div>
                     <div className="col-md-2 text-right">
                         <div>
-                            {/* Placeholder for social icons */}
+                            {/* Placeholder for social icons, stretch goal */}
                         </div>
                     </div>
                 </div>
@@ -296,6 +296,8 @@ const deleteTrip = async () => {
                     <AccommodationDetails tripId={tripId} accommodations={accommodations} handleDeleteAccommodation={handleDeleteAccommodation} />
                 </div>
 
+                {/* strech goal */}
+
                 <div className="col-md-4">
                     <div className="card">
                         <div className="card-body">
@@ -303,6 +305,7 @@ const deleteTrip = async () => {
                             <p className="card-text">Details about food/places/others</p>
                         </div>
                         <div className="card-footer text-right">
+                            <p>Total Price: $0</p>
                             <button className="btn btn-success">+</button>
                         </div>
                     </div>
