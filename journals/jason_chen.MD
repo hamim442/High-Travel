@@ -24,3 +24,8 @@ Working on Profile page now.
 8/28/2024
 Worked on profile page - created a way to change user information:
 profile picture, first and last name
+
+9/3/2024
+Added update to authService.js and hook.
+Tried to make update form but unsuccessful with changing fields but backend works.
+Make 2 trips unit tests.

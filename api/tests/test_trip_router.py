@@ -1,0 +1,93 @@
+from unittest import TestCase
+from fastapi.testclient import TestClient
+from main import app
+from queries.trip_queries import TripQueries, TripDoesNotExist
+from models.trips import Trip, TripRequest
+from utils.authentication import hash_password
+
+client = TestClient(app)
+
+fakePassword = "password"
+fakePasswordHash = hash_password(fakePassword)
+
+fakeUser = {
+    "id": 1,
+    "username": "testuser",
+    "password": fakePasswordHash,
+    "email": "testuser@unittest.com",
+    "first_name": "jay",
+    "last_name": "cross",
+    "profile_image": "https://media.istockphoto.com/id/1166057711/vector/biometric-person-identification-facial-recognition-concept-futuristic-low-polygonal-human.jpg?s=1024x1024&w=is&k=20&c=ssO0Cy2Lxim2d6UQ4O8EWRKXS_cjXtQcxI_KgDh4SXo=",
+}
+
+fakeTrip = {
+    "id": 1,
+    "city_id": 1,
+    "start_date": "2020-03-03T00:00:00",
+    "end_date": "2020-03-09T00:00:00",
+    "user_id": 1,
+}
+
+fakeTrip1 = {
+    "city_id": 1,
+    "start_date": "2020-03-03T00:00:00",
+    "end_date": "2020-03-09T00:00:00",
+}
+
+fakeTrip2 = {
+    "city_id": 2,
+    "start_date": "2020-02-02T00:00:00",
+    "end_date": "2020-02-09T00:00:00",
+}
+
+weeTrip = {
+    "city_id": 3,
+    "start_date": "2020-03-03T00:00:00",
+    "end_date": "2020-02-09T00:00:00",
+}
+
+
+class emptyTripQueries:
+    def get_all_trips(self) -> list[Trip]:
+        return []
+
+
+class MockTripQueries:
+    def get_all_trips(self) -> list[Trip]:
+        return [Trip(**fakeTrip1), Trip(**fakeTrip2)]
+
+    def get_trip(self, id: int) -> Trip:
+        if id == 1:
+            return Trip(**fakeTrip1)
+        raise TripDoesNotExist(f"Trip {id} does not exist")
+
+    def create_trip(self, trip: TripRequest) -> Trip:
+        print("We made it")
+        return Trip(id=3, **trip.model_dump())
+
+
+class TestTrips(TestCase):
+    def test_get_all_trips_empty(self):
+        app.dependency_overrides[TripQueries] = emptyTripQueries
+        response = client.get("/api/trips")
+        assert response.status_code == 200
+        self.assertEqual(response.json(), [])
+        app.dependency_overrides = {}
+
+    def test_get_all_trips(self):
+        app.dependency_overrides[TripQueries] = MockTripQueries
+        response = client.get("/api/trips")
+        assert response.status_code == 200
+        self.assertEqual(response.json(), [fakeTrip1, fakeTrip2])
+        app.dependency_overrides = {}
+
+    def test_create_trip(self):
+        app.dependency_overrides[TripQueries] = MockTripQueries
+
+        response = client.post("/api/trips/", json=weeTrip)
+        assert response.status_code == 200
+        created_trip = response.json()
+        self.assertEqual(created_trip["id"], 3)
+        self.assertEqual(created_trip["city_id"], weeTrip["city_id"])
+
+        app.dependency_overrides = {}
