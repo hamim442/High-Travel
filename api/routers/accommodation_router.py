@@ -5,7 +5,11 @@ from queries.accommodation_queries import (
     AccommodationDatabaseError,
     AccommodationCreationError,
 )
-from models.accommodations import Accommodation, AccommodationRequest
+from models.accommodations import (
+    Accommodation,
+    AccommodationRequest,
+    AccommodationUpdate,
+)
 from utils.authentication import try_get_jwt_user_data
 from models.jwt import JWTUserData
 
@@ -77,4 +81,26 @@ def delete_accommodation(
     except AccommodationDatabaseError:
         raise HTTPException(
             status_code=500, detail="Error deleting accommodation."
+        )
+
+
+@router.put("/accommodations/{id}")
+def edit_accommodation(
+    id: int,
+    accommdation_update: AccommodationUpdate,
+    user: JWTUserData = Depends(try_get_jwt_user_data),
+    queries: AccommodationQueries = Depends(),
+) -> Accommodation:
+
+    try:
+        updated_accommodation = queries.update_accommodation(
+            id, user.id, accommdation_update
+        )
+        return updated_accommodation
+    except AccommodationDoesNotExist:
+        raise HTTPException(status_code=404, detail="Accommodation not found.")
+
+    except AccommodationDatabaseError:
+        raise HTTPException(
+            status_code=500, detail="Error updating accommodation."
         )

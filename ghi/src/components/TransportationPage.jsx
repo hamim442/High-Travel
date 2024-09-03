@@ -6,14 +6,14 @@ import CarForm from './CarForm';
 
 export default function TransportationPage() {
   const [selectedTransportation, setSelectedTransportation] = useState('');
-  const navigate = useNavigate(); // Hook for navigation
+  const navigate = useNavigate();
 
   const handleTransportationChange = (e) => {
     setSelectedTransportation(e.target.value);
   };
 
   const handleBackClick = () => {
-    navigate(-1); // Go back to the previous page
+    navigate(-1);
   };
 
   return (
