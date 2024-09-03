@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import useAuthService from '../hooks/useAuthService'
 import AdventureJumbotron from './AdventureJumbotron'
-
+import SmallFooter from './SmallFooter'
 import './styles/Sign.css'
 
 export default function SignUpForm() {
@@ -16,7 +16,14 @@ export default function SignUpForm() {
 
     async function handleFormSubmit(e) {
         e.preventDefault()
-        await signup({ username, password, email, first_name: firstName, last_name: lastName, profile_image: profileImage })
+        await signup({
+            username,
+            password,
+            email,
+            first_name: firstName,
+            last_name: lastName,
+            profile_image: profileImage,
+        })
     }
 
     if (user) {
@@ -33,7 +40,7 @@ export default function SignUpForm() {
                 <div className="col-md-6 d-flex flex-column justify-content-start pt-4">
                     <div className="w-75 mx-auto">
                         <form onSubmit={handleFormSubmit}>
-                            <h2 className="mb-4">Sign In</h2>
+                            <h2 className="mb-4">Sign Up</h2>
                             {error && (
                                 <div className="alert alert-danger">
                                     {error.message}
@@ -55,7 +62,6 @@ export default function SignUpForm() {
                                 />
                             </div>
 
-
                             <div className="form-group mb-3">
                                 <label htmlFor="password">Password</label>
                                 <input
@@ -70,7 +76,6 @@ export default function SignUpForm() {
                                 />
                             </div>
 
-
                             <div className="form-group mb-3">
                                 <label htmlFor="email">Email</label>
                                 <input
@@ -78,10 +83,8 @@ export default function SignUpForm() {
                                     className="form-control"
                                     name="email"
                                     value={email}
-                                    onChange={(e) =>
-                                        setEmail(e.target.value)
-                                    }
-                                    placeholder="Enter Email"
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    placeholder="jane.doe@email.com"
                                     required
                                 />
                             </div>
@@ -96,11 +99,10 @@ export default function SignUpForm() {
                                     onChange={(e) =>
                                         setFirstName(e.target.value)
                                     }
-                                    placeholder="Enter First Name"
+                                    placeholder="Jane"
                                     required
                                 />
                             </div>
-
 
                             <div className="form-group mb-3">
                                 <label htmlFor="lastName">Last Name</label>
@@ -112,11 +114,10 @@ export default function SignUpForm() {
                                     onChange={(e) =>
                                         setLastName(e.target.value)
                                     }
-                                    placeholder="Enter Last Name"
+                                    placeholder="Doe"
                                     required
                                 />
                             </div>
-
 
                             <div className="form-group mb-3">
                                 <label htmlFor="profileImage">
@@ -130,16 +131,15 @@ export default function SignUpForm() {
                                     onChange={(e) =>
                                         setProfileImage(e.target.value)
                                     }
-                                    placeholder="Enter Profile Image URL"
+                                    placeholder="http://www.example.com/janedoe.jpg"
                                 />
                             </div>
-
 
                             <button
                                 type="submit"
                                 className="btn btn-primary w-100"
                             >
-                                Sign In
+                                Sign Up
                             </button>
                         </form>
                     </div>
@@ -150,6 +150,8 @@ export default function SignUpForm() {
                     <AdventureJumbotron />
                 </div>
             </div>
+            {/* Footer */}
+            <SmallFooter />
         </div>
     )
 }

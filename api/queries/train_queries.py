@@ -1,8 +1,10 @@
 import os
 import psycopg
+from typing import Optional
 from psycopg.rows import class_row
 from psycopg_pool import ConnectionPool
 from psycopg.errors import UniqueViolation
+from datetime import datetime
 from models.trains import Train, TrainRequest
 from utils.exceptions import (
     TrainDatabaseError,
@@ -11,11 +13,13 @@ from utils.exceptions import (
     DatabaseURLException,
 )
 
+
 database_url = os.environ.get("DATABASE_URL")
 if database_url is None:
     raise DatabaseURLException(
         "You forgot to define DATABASE_URL in your environment."
     )
+
 
 pool = ConnectionPool(database_url)
 
@@ -111,3 +115,87 @@ class TrainQueries:
         except psycopg.Error as e:
             print(f"Error creating train: {e}")
             raise TrainDatabaseError("Error creating train")
+
+    def delete_train(self, id: int) -> bool:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(
+                        """--sql
+                            DELETE FROM trains
+                            WHERE id = %s;
+                        """,
+                        (id,),
+                    )
+                    return cur.rowcount > 0
+        except psycopg.Error as e:
+            print(f"Error deleting train with id {id}: {e}")
+            raise TrainDatabaseError(f"Error deleting train with id {id}")
+
+    def edit_train(
+        self,
+        train_id: int,
+        train_number: Optional[str] = None,
+        departure_time: Optional[datetime] = None,
+        arrival_time: Optional[datetime] = None,
+        departure_station: Optional[str] = None,
+        arrival_station: Optional[str] = None,
+        trip_id: Optional[int] = None,
+        price: Optional[int] = None
+    ) -> Train:
+
+        try:
+            with pool.connection() as conn:
+                with conn.cursor(row_factory=class_row(Train)) as cur:
+                    update_fields = []
+                    update_values = []
+
+                    if train_number:
+                        update_fields.append("train_number = %s")
+                        update_values.append(train_number)
+                    if departure_time:
+                        update_fields.append("departure_time = %s")
+                        update_values.append(departure_time)
+                    if arrival_time:
+                        update_fields.append("arrival_time = %s")
+                        update_values.append(arrival_time)
+                    if departure_station:
+                        update_fields.append("departure_station = %s")
+                        update_values.append(departure_station)
+                    if arrival_station:
+                        update_fields.append("arrival_station = %s")
+                        update_values.append(arrival_station)
+                    if trip_id:
+                        update_fields.append("trip_id = %s")
+                        update_values.append(trip_id)
+                    if price is not None:
+                        update_fields.append("price = %s")
+                        update_values.append(price)
+
+                    if not update_fields:
+                        raise ValueError("No fields provided for update.")
+
+                    update_values.append(train_id)
+                    sql = f"""--sql
+                        UPDATE trains
+                        SET {', '.join(update_fields)}
+                        WHERE id = %s
+                        RETURNING *;
+                    """
+                    cur.execute(
+                        sql,
+                        update_values,
+                    )
+
+                    train = cur.fetchone()
+                    if not train:
+                        raise TrainDoesNotExist(f"Train with id {train_id} does not exist.")
+
+                    return train
+
+        except psycopg.Error as e:
+            print(e)
+            raise TrainDatabaseError(f"Could not update train {train_id}")
+        except ValueError as e:
+            print(e)
+            raise TrainDatabaseError("No fields provided for update.")

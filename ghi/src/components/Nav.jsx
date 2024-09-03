@@ -130,12 +130,16 @@ export default function Nav() {
                         {isLoggedIn ? (
                             <>
                                 <li className="nav-item">
-                                    <span
+                                    <NavLink
+                                        to="/profile"
                                         className="nav-link fs-6"
-                                        style={{ color: '#212529' }}
+                                        style={{
+                                            color: '#212529',
+                                            textDecoration: 'none',
+                                        }}
                                     >
                                         {user.username}
-                                    </span>
+                                    </NavLink>
                                 </li>
                                 <li className="nav-item">
                                     <button

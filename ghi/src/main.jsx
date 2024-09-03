@@ -20,6 +20,7 @@ import ProfilePage from './components/ProfilePage'
 import EditUserProfile from './components/EditUserProfile'
 import CreateNewCity from './components/CreateNewCity'
 import AccommodationForm from './components/Accommodations'
+import EditTrain from './components/EditTrain'
 
 const BASE_URL = import.meta.env.BASE_URL
 if (!BASE_URL) {
@@ -70,7 +71,7 @@ const router = createBrowserRouter(
                     element: <CreateTravelPlan />,
                 },
                 {
-                    path: 'accommodations',
+                    path: 'trips/:tripId/accommodation',
                     element: <AccommodationForm />,
                 },
                 {
@@ -78,8 +79,17 @@ const router = createBrowserRouter(
                     element: <ProfilePage />,
                 },
                 {
+<<<<<<< HEAD
                     path: 'editprofile',
                     element: <EditUserProfile />,
+=======
+                    path: 'create-city',
+                    element: <CreateNewCity />,
+                },
+                {
+                    path: 'trips/:tripId/trains/:trainId/edit',
+                    element: <EditTrain />,
+>>>>>>> main
                 },
             ],
         },
