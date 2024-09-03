@@ -147,12 +147,12 @@ export async function signout() {
     }
 }
 
-export async function update(UserId, userData) {
+export async function update(userData) {
     try {
         const url = `${baseUrl}/api/auth/edit-user`
         const res = await fetch(url, {
             method: 'PUT',
-            body: JSON.stringify({ user_id: UserId, ...userData }),
+            body: JSON.stringify(userData),
             credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',

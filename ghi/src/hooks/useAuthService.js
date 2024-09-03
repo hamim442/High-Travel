@@ -59,9 +59,9 @@ export default function useAuthService() {
             setUser()
             setIsLoading(false)
         },
-        update: async (userId, userData) => {
+        update: async (userData) => {
             setIsLoading(true)
-            const userUpdate = await update(userId, userData)
+            const userUpdate = await update(userData)
             if (userUpdate instanceof Error) {
                 setError(userUpdate)
                 setIsLoading(false)

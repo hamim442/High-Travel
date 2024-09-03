@@ -30,15 +30,19 @@ fakeTrip = {
 }
 
 fakeTrip1 = {
+    "id": 1,
     "city_id": 1,
     "start_date": "2020-03-03T00:00:00",
     "end_date": "2020-03-09T00:00:00",
+    "user_id": 1,
 }
 
 fakeTrip2 = {
+    "id": 2,
     "city_id": 2,
     "start_date": "2020-02-02T00:00:00",
     "end_date": "2020-02-09T00:00:00",
+    "user_id": 1,
 }
 
 weeTrip = {
@@ -49,34 +53,34 @@ weeTrip = {
 
 
 class FakeUserQueries:
-    def get_by_user(self, id: int) -> Optional[UserWithPw]:
+    def get_by_username(self, id: int) -> Optional[UserWithPw]:
         return UserWithPw(**fakeUser)
 
 
 class emptyTripQueries:
-    def get_all_trips(self) -> list[Trip]:
+    def get_user_trips(self, user_id: int) -> list[Trip]:
         return []
 
 
 class MockTripQueries:
-    def get_all_trips(self) -> list[Trip]:
+    def get_user_trips(self, user_id: int) -> list[Trip]:
         return [Trip(**fakeTrip1), Trip(**fakeTrip2)]
 
-    def get_trip(self, id: int) -> Trip:
+    def get_trip(self, trip: TripRequest, user_id: int) -> Trip:
         if id == 1:
             return Trip(**fakeTrip1)
         raise TripDoesNotExist(f"Trip {id} does not exist")
 
-    def create_trip(self, trip: TripRequest) -> Trip:
+    def create_trip(self, trip: TripRequest, user_id: int) -> Trip:
         print("We made it")
-        return Trip(id=3, **trip.model_dump())
+        return Trip(id=3, user_id=1, **trip.model_dump())
 
 
 class TestTrips(TestCase):
     def setUp(self):
         self.client = TestClient(app)
 
-    def test_get_all_trips_empty(self):
+    def test_get_user_trips_empty(self):
         app.dependency_overrides[UserQueries] = FakeUserQueries
         app.dependency_overrides[TripQueries] = emptyTripQueries
         userResponse = self.client.post(
@@ -89,7 +93,7 @@ class TestTrips(TestCase):
         self.assertEqual(response.json(), [])
         app.dependency_overrides = {}
 
-    def test_get_all_trips(self):
+    def test_get_user_trips(self):
         app.dependency_overrides[UserQueries] = FakeUserQueries
         app.dependency_overrides[TripQueries] = MockTripQueries
         userResponse = self.client.post(
