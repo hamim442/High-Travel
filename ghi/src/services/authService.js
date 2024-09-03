@@ -146,3 +146,24 @@ export async function signout() {
         return new Error('Something Unknown Happened')
     }
 }
+
+export async function update(UserId, userData) {
+    try {
+        const url = `${baseUrl}/api/auth/edit-user`
+        const res = await fetch(url, {
+            method: 'PUT',
+            body: JSON.stringify({ user_id: UserId, ...userData }),
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        if (!res.ok) {
+            throw new Error('Failed to update profile')
+        }
+        const updateUser = await res.json()
+        return updateUser
+    } catch (e) {
+        return new Error('Unknown Error')
+    }
+}
