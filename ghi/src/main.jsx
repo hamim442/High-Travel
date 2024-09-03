@@ -79,17 +79,16 @@ const router = createBrowserRouter(
                     element: <ProfilePage />,
                 },
                 {
-<<<<<<< HEAD
                     path: 'editprofile',
                     element: <EditUserProfile />,
-=======
+                },
+                {
                     path: 'create-city',
                     element: <CreateNewCity />,
                 },
                 {
                     path: 'trips/:tripId/trains/:trainId/edit',
                     element: <EditTrain />,
->>>>>>> main
                 },
             ],
         },
