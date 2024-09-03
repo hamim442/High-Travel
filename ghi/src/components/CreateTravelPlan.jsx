@@ -108,7 +108,7 @@ export default function CreateTravelPlan() {
                 throw new Error(errorData.detail || 'Failed to create trip')
             }
 
-            navigate('/trips')
+            navigate('/trip')
         } catch (error) {
             console.error('Error creating trip:', error)
             setError('Failed to create trip. Please try again.')

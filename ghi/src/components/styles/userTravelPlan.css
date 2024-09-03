@@ -17,13 +17,13 @@
 .user-card-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px; 
+    gap: 20px;
     width: 100%;
 }
 
 .user-card {
-    flex: 1 0 calc(33.33% - 20px); 
-    max-width: calc(33.33% - 20px); 
+    flex: 1 0 calc(33.33% - 20px);
+    max-width: calc(33.33% - 20px);
     border: 1px solid #ddd;
     border-radius: 8px;
     overflow: hidden;
@@ -59,7 +59,7 @@
 
 @media (max-width: 1200px) {
     .user-card {
-        flex: 1 0 calc(50% - 20px); 
+        flex: 1 0 calc(50% - 20px);
         max-width: calc(50% - 20px);
     }
 }
