@@ -11,6 +11,7 @@ steps = [
             departure_airport VARCHAR(100) NOT NULL,
             arrival_airport VARCHAR(100) NOT NULL,
             flight_number INTEGER NULL,
+            price INTEGER NOT NULL,
             airline_id INTEGER NULL REFERENCES airlines (id),
             trip_id INTEGER NOT NULL REFERENCES trips (id)
         );
