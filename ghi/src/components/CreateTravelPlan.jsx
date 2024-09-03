@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import AdventureJumbotron from './AdventureJumbotron'
+import SmallFooter from './SmallFooter'
 import './styles/CreateTravelPlan.css'
 
 export default function CreateTravelPlan() {
@@ -16,6 +17,8 @@ export default function CreateTravelPlan() {
 
     // user authenticated?
     useEffect(() => {
+        window.scrollTo(0, 0)
+
         async function checkAuth() {
             const response = await fetch(
                 `${import.meta.env.VITE_API_HOST}/api/auth/authenticate`,
@@ -217,6 +220,9 @@ export default function CreateTravelPlan() {
                 <div className="col-md-6 p-0 h-100">
                     <AdventureJumbotron />
                 </div>
+
+                {/* Footer */}
+                <SmallFooter />
             </div>
         </div>
     )
