@@ -47,11 +47,8 @@ class MockAirlinesQueries:
 
 class TestAirlines(TestCase):
     def test_get_all_airlines_empty(self):
-        # Arrange
         app.dependency_overrides[AirlineQueries] = EmptyAirlineQueries
-        # Act
         response = client.get("/api/airlines")
-        # Assert
         assert response.status_code == 200
         self.assertEqual(response.json(), [])
         app.dependency_overrides = {}
