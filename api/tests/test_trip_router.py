@@ -83,7 +83,7 @@ class TestTrips(TestCase):
     def test_get_user_trips_empty(self):
         app.dependency_overrides[UserQueries] = FakeUserQueries
         app.dependency_overrides[TripQueries] = emptyTripQueries
-        userResponse = self.client.post(
+        self.client.post(
             "/api/auth/signin",
             json={"username": "testuser", "password": fakePassword},
         )
@@ -96,7 +96,7 @@ class TestTrips(TestCase):
     def test_get_user_trips(self):
         app.dependency_overrides[UserQueries] = FakeUserQueries
         app.dependency_overrides[TripQueries] = MockTripQueries
-        userResponse = self.client.post(
+        self.client.post(
             "/api/auth/signin",
             json={"username": "testuser", "password": fakePassword},
         )
@@ -108,7 +108,7 @@ class TestTrips(TestCase):
     def test_create_trip(self):
         app.dependency_overrides[UserQueries] = FakeUserQueries
         app.dependency_overrides[TripQueries] = MockTripQueries
-        userResponse = self.client.post(
+        self.client.post(
             "/api/auth/signin",
             json={"username": "testuser", "password": fakePassword},
         )
