@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useAuthService from '../hooks/useAuthService'
+import './styles/EditUserProfile.css'
 
 function EditUserProfile() {
     const { user, update } = useAuthService()
@@ -36,13 +37,15 @@ function EditUserProfile() {
     }
 
     return (
-        <div>
-            <h1>Edit Profile</h1>
-            <div>
+        <div className="edit-profile-container">
+            <div className="edit-profile-title">
+                <h1>Edit Profile</h1>
+            </div>
+            <div className="edit-profile-details">
                 <p>Username: {user?.username}</p>
                 <p>Email: {user?.email}</p>
             </div>
-            <form onSubmit={handleEdit}>
+            <form className="edit-profile-form" onSubmit={handleEdit}>
                 <div>
                     <label htmlFor="firstName">First Name</label>
                     <input
