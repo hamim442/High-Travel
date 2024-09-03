@@ -4,8 +4,9 @@ from main import app
 from queries.trip_queries import TripQueries, TripDoesNotExist
 from models.trips import Trip, TripRequest
 from utils.authentication import hash_password
-
-client = TestClient(app)
+from models.users import UserWithPw
+from typing import Optional
+from queries.user_queries import UserQueries
 
 fakePassword = "password"
 fakePasswordHash = hash_password(fakePassword)
@@ -47,6 +48,11 @@ weeTrip = {
 }
 
 
+class FakeUserQueries:
+    def get_by_user(self, id: int) -> Optional[UserWithPw]:
+        return UserWithPw(**fakeUser)
+
+
 class emptyTripQueries:
     def get_all_trips(self) -> list[Trip]:
         return []
@@ -67,24 +73,42 @@ class MockTripQueries:
 
 
 class TestTrips(TestCase):
+    def setUp(self):
+        self.client = TestClient(app)
+
     def test_get_all_trips_empty(self):
+        app.dependency_overrides[UserQueries] = FakeUserQueries
         app.dependency_overrides[TripQueries] = emptyTripQueries
-        response = client.get("/api/trips")
+        userResponse = self.client.post(
+            "/api/auth/signin",
+            json={"username": "testuser", "password": fakePassword},
+        )
+
+        response = self.client.get("/api/trips")
         assert response.status_code == 200
         self.assertEqual(response.json(), [])
         app.dependency_overrides = {}
 
     def test_get_all_trips(self):
+        app.dependency_overrides[UserQueries] = FakeUserQueries
         app.dependency_overrides[TripQueries] = MockTripQueries
-        response = client.get("/api/trips")
+        userResponse = self.client.post(
+            "/api/auth/signin",
+            json={"username": "testuser", "password": fakePassword},
+        )
+        response = self.client.get("/api/trips")
         assert response.status_code == 200
         self.assertEqual(response.json(), [fakeTrip1, fakeTrip2])
         app.dependency_overrides = {}
 
     def test_create_trip(self):
+        app.dependency_overrides[UserQueries] = FakeUserQueries
         app.dependency_overrides[TripQueries] = MockTripQueries
-
-        response = client.post("/api/trips/", json=weeTrip)
+        userResponse = self.client.post(
+            "/api/auth/signin",
+            json={"username": "testuser", "password": fakePassword},
+        )
+        response = self.client.post("/api/trips/", json=weeTrip)
         assert response.status_code == 200
         created_trip = response.json()
         self.assertEqual(created_trip["id"], 3)
