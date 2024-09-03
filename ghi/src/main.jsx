@@ -71,7 +71,7 @@ const router = createBrowserRouter(
                     element: <CreateTravelPlan />,
                 },
                 {
-                    path: 'trips/:tripId/accommodation',
+                    path: 'trips/:tripid/accommodation',
                     element: <AccommodationForm />,
                 },
                 {
@@ -80,8 +80,8 @@ const router = createBrowserRouter(
                 },
                 {
                     path: 'trips/:tripId/trains/:trainId/edit',
-                    element: <EditTrain />
-                }
+                    element: <EditTrain />,
+                },
             ],
         },
     ],

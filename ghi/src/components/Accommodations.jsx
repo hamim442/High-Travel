@@ -6,17 +6,17 @@ const AccommodationForm = () => {
     const [formData, setFormData] = useState({
         address: '',
         city: '',
-        state: '',
-        zipCode: '',
+        state_province: '',
+        zip_code: '',
         country: '',
         phone: '',
         email: '',
-        checkInDate: '',
-        checkOutDate: '',
-        numberOfGuests: '',
-        totalPrice: '',
+        check_in_date: '',
+        check_out_date: '',
+        number_of_guests: '',
+        total_price: '',
         notes: '',
-        stayId: '',
+        stays_id: '',
     })
 
     const [stays, setStays] = useState([])
@@ -46,58 +46,122 @@ const AccommodationForm = () => {
         })
     }
 
+    const convertToDateTime = (dateStr) => {
+        return dateStr ? `${dateStr}T00:00:00Z` : null
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault()
-        if (tripid) {
-            await saveAccommodation({ ...formData, trip: tripid })
+
+        const dataToSubmit = {
+            stays_id: formData.stays_id ? parseInt(formData.stays_id) : null,
+            address: formData.address,
+            city: formData.city,
+            state_province: formData.state_province,
+            zip_code: formData.zip_code,
+            country: formData.country,
+            phone: formData.phone,
+            email: formData.email,
+            check_in_date: convertToDateTime(formData.check_in_date),
+            check_out_date: convertToDateTime(formData.check_out_date),
+            number_of_guests: formData.number_of_guests
+                ? parseInt(formData.number_of_guests, 10)
+                : null,
+            total_price: formData.total_price
+                ? parseFloat(formData.total_price)
+                : null,
+            notes: formData.notes,
+            trip_id: parseInt(tripid, 10),
+        }
+
+        console.log('Data being sent:', dataToSubmit)
+
+        try {
+            const response = await fetch(
+                'http://localhost:8000/api/accommodations/',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(dataToSubmit),
+                }
+            )
+
+            if (!response.ok) {
+                const errorData = await response.json()
+                console.error('Error response:', errorData)
+                throw new Error('Failed to add accommodation')
+            }
+
+            console.log('Accommodation added successfully')
             navigate(`/trips/${tripid}`)
-        } else {
-            console.error('No tripid found')
+        } catch (error) {
+            console.error('Error:', error)
         }
     }
 
     const handleSubmitAndAddAnother = async (e) => {
         e.preventDefault()
-        if (tripid) {
-            await saveAccommodation({ ...formData, trip: tripid })
+
+        const dataToSubmit = {
+            stays_id: formData.stays_id ? parseInt(formData.stays_id) : null,
+            address: formData.address,
+            city: formData.city,
+            state_province: formData.state_province,
+            zip_code: formData.zip_code,
+            country: formData.country,
+            phone: formData.phone,
+            email: formData.email,
+            check_in_date: convertToDateTime(formData.check_in_date),
+            check_out_date: convertToDateTime(formData.check_out_date),
+            number_of_guests: formData.number_of_guests
+                ? parseInt(formData.number_of_guests, 10)
+                : null,
+            total_price: formData.total_price
+                ? parseFloat(formData.total_price)
+                : null,
+            notes: formData.notes || null,
+            trip_id: parseInt(tripid, 10),
+        }
+
+        try {
+            const response = await fetch(
+                'http://localhost:8000/api/accommodations/',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(dataToSubmit),
+                }
+            )
+
+            if (!response.ok) {
+                const errorData = await response.json()
+                console.error('Error response:', errorData)
+                throw new Error('Failed to add accommodation')
+            }
+
+            console.log('Accommodation added successfully')
+
             setFormData({
                 address: '',
                 city: '',
-                state: '',
-                zipCode: '',
+                state_province: '',
+                zip_code: '',
                 country: '',
                 phone: '',
                 email: '',
-                checkInDate: '',
-                checkOutDate: '',
-                numberOfGuests: '',
-                totalPrice: '',
+                check_in_date: '',
+                check_out_date: '',
+                number_of_guests: '',
+                total_price: '',
                 notes: '',
-                stayId: '',
+                stays_id: '',
             })
-        } else {
-            console.error('No tripid found')
-        }
-    }
-
-    const saveAccommodation = async (data) => {
-        try {
-            const response = await fetch('/api/accommodations', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            })
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok')
-            }
-
-            const result = await response.json()
-            console.log('Accommodation saved:', result)
         } catch (error) {
-            console.error('There was a problem with the save operation:', error)
+            console.error('Error:', error)
         }
     }
 
@@ -108,8 +172,8 @@ const AccommodationForm = () => {
                     <Form.Label>Stay</Form.Label>
                     <Form.Control
                         as="select"
-                        name="stayId"
-                        value={formData.stayId}
+                        name="stays_id"
+                        value={formData.stays_id}
                         onChange={handleChange}
                     >
                         <option value="">Select a stay</option>
@@ -151,9 +215,9 @@ const AccommodationForm = () => {
                     <Form.Label>State or Province</Form.Label>
                     <Form.Control
                         type="text"
-                        name="state"
+                        name="state_province"
                         placeholder="Enter state or province"
-                        value={formData.state}
+                        value={formData.state_province}
                         onChange={handleChange}
                     />
                 </Form.Group>
@@ -162,9 +226,9 @@ const AccommodationForm = () => {
                     <Form.Label>Zip Code</Form.Label>
                     <Form.Control
                         type="text"
-                        name="zipCode"
+                        name="zip_code"
                         placeholder="Enter zip code"
-                        value={formData.zipCode}
+                        value={formData.zip_code}
                         onChange={handleChange}
                     />
                 </Form.Group>
@@ -210,9 +274,9 @@ const AccommodationForm = () => {
                     <Form.Label>Number of Guests</Form.Label>
                     <Form.Control
                         type="number"
-                        name="numberOfGuests"
+                        name="number_of_guests"
                         placeholder="Enter number of guests"
-                        value={formData.numberOfGuests}
+                        value={formData.number_of_guests}
                         onChange={handleChange}
                     />
                 </Form.Group>
@@ -223,8 +287,8 @@ const AccommodationForm = () => {
                     <Form.Label>Check-in Date</Form.Label>
                     <Form.Control
                         type="date"
-                        name="checkInDate"
-                        value={formData.checkInDate}
+                        name="check_in_date"
+                        value={formData.check_in_date}
                         onChange={handleChange}
                     />
                 </Form.Group>
@@ -233,8 +297,8 @@ const AccommodationForm = () => {
                     <Form.Label>Check-out Date</Form.Label>
                     <Form.Control
                         type="date"
-                        name="checkOutDate"
-                        value={formData.checkOutDate}
+                        name="check_out_date"
+                        value={formData.check_out_date}
                         onChange={handleChange}
                     />
                 </Form.Group>
@@ -245,9 +309,9 @@ const AccommodationForm = () => {
                     <Form.Label>Total Price</Form.Label>
                     <Form.Control
                         type="number"
-                        name="totalPrice"
+                        name="total_price"
                         placeholder="Enter total price"
-                        value={formData.totalPrice}
+                        value={formData.total_price}
                         onChange={handleChange}
                     />
                 </Form.Group>
