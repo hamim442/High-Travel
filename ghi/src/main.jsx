@@ -10,7 +10,6 @@ import SignInForm from './components/SignInForm'
 import SignUpForm from './components/SignUpForm'
 import MainPage from './components/MainPage'
 import CityPage from './components/CityPage'
-import UserTravelPlans from './components/UsersTravelPlan'
 import TransportationPage from './components/TransportationPage'
 import MainTravelPlan from './components/MainTravelPlan'
 import CreateTravelPlan from './components/CreateTravelPlan'
@@ -77,6 +76,14 @@ const router = createBrowserRouter(
                 {
                     path: 'profile',
                     element: <ProfilePage />,
+                },
+                {
+                    path: 'editprofile',
+                    element: <EditUserProfile />,
+                },
+                {
+                    path: 'create-city',
+                    element: <CreateNewCity />,
                 },
                 {
                     path: 'trips/:tripId/trains/:trainId/edit',

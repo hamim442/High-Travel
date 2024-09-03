@@ -9,9 +9,9 @@ export default function UserProfileInfo() {
         id: '',
         username: '',
         email: '',
-        profile_image: '',
         first_name: '',
         last_name: '',
+        profile_image: '',
     })
 
     useEffect(() => {
@@ -34,7 +34,7 @@ export default function UserProfileInfo() {
     }
     const handleEditProfile = () => {
         if (user) {
-            navigate('/create')
+            navigate('/editprofile')
         } else {
             navigate('/signin')
         }
