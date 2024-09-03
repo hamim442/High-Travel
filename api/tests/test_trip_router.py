@@ -18,7 +18,7 @@ fakeUser = {
     "email": "testuser@unittest.com",
     "first_name": "jay",
     "last_name": "cross",
-    "profile_image": "https://media.istockphoto.com/id/1166057711/vector/biometric-person-identification-facial-recognition-concept-futuristic-low-polygonal-human.jpg?s=1024x1024&w=is&k=20&c=ssO0Cy2Lxim2d6UQ4O8EWRKXS_cjXtQcxI_KgDh4SXo=",
+    "profile_image": "123.jpg",
 }
 
 fakeTrip = {

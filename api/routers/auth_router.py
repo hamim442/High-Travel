@@ -26,7 +26,6 @@ from utils.authentication import (
 
 from models.jwt import JWTUserData
 
-from typing import Optional
 
 # Note we are using a prefix here,
 # This saves us typing in all the routes below
