@@ -1,7 +1,7 @@
 from unittest import TestCase
 from fastapi.testclient import TestClient
 from main import app
-from queries.car_queries import CarQueries, CarDoesNotExist, CarCreationError
+from queries.car_queries import CarQueries, CarDoesNotExist
 from models.cars import Car, CarRequest
 
 client = TestClient(app)
@@ -41,9 +41,11 @@ Car3 = {
     "price": 200,
 }
 
+
 class EmptyCarQueries:
     def get_all_cars(self) -> list[Car]:
         return []
+
 
 class MockCarQueries:
     def get_all_cars(self) -> list[Car]:
@@ -61,6 +63,7 @@ class MockCarQueries:
         if id == 1:
             return True
         return False
+
 
 class TestCars(TestCase):
     def setUp(self):

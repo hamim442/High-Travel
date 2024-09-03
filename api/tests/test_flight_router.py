@@ -1,7 +1,7 @@
 from unittest import TestCase
 from fastapi.testclient import TestClient
 from main import app
-from queries.flight_queries import FlightQueries, FlightDoesNotExist, FlightCreationError
+from queries.flight_queries import FlightQueries, FlightDoesNotExist
 from models.flights import Flight, FlightRequest
 
 client = TestClient(app)
@@ -41,9 +41,11 @@ FLIGHT_REQUEST = {
     "trip_id": 3,
 }
 
+
 class EmptyFlightQueries:
     def get_all_flights(self) -> list[Flight]:
         return []
+
 
 class MockFlightQueries:
     def get_all_flights(self) -> list[Flight]:
@@ -61,6 +63,7 @@ class MockFlightQueries:
         if id == 1:
             return True
         return False
+
 
 class TestFlights(TestCase):
     def test_get_all_flights_empty(self):

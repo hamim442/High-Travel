@@ -1,7 +1,7 @@
 from unittest import TestCase
 from fastapi.testclient import TestClient
 from main import app
-from queries.train_queries import TrainQueries, TrainDoesNotExist, TrainCreationError
+from queries.train_queries import TrainQueries, TrainDoesNotExist
 from models.trains import Train, TrainRequest
 
 client = TestClient(app)
@@ -39,9 +39,11 @@ Train3 = {
     "price": 200
 }
 
+
 class EmptyTrainQueries:
     def get_all_trains(self) -> list[Train]:
         return []
+
 
 class MockTrainQueries:
     def get_all_trains(self) -> list[Train]:
@@ -64,6 +66,7 @@ class MockTrainQueries:
         if train_id == 1:
             return Train(id=1, **kwargs)
         raise TrainDoesNotExist(f"Train with id {train_id} does not exist.")
+
 
 class TestTrains(TestCase):
     def test_get_all_trains_empty(self):
