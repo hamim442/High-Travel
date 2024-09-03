@@ -67,39 +67,33 @@ class FlightQueries:
                     result = cur.execute(
                         """--sql
                             INSERT INTO flights (
-                                name,
-                                description,
+                                flight_number,
                                 departure_time,
                                 arrival_time,
                                 departure_airport,
                                 arrival_airport,
-                                flight_number,
                                 airline_id,
                                 trip_id,
-                                price  -- Added the price field
+                                price
                             )
                             VALUES (
-                                %(name)s,
-                                %(description)s,
+                                %(flight_number)s,
                                 %(departure_time)s,
                                 %(arrival_time)s,
                                 %(departure_airport)s,
                                 %(arrival_airport)s,
-                                %(flight_number)s,
                                 %(airline_id)s,
                                 %(trip_id)s,
-                                %(price)s  -- Added the price value
+                                %(price)s
                             )
                             RETURNING *;
                         """,
                         {
-                            "name": flight.name,
-                            "description": flight.description,
+                            "flight_number": flight.flight_number,
                             "departure_time": flight.departure_time,
                             "arrival_time": flight.arrival_time,
                             "departure_airport": flight.departure_airport,
                             "arrival_airport": flight.arrival_airport,
-                            "flight_number": flight.flight_number,
                             "airline_id": flight.airline_id,
                             "trip_id": flight.trip_id,
                             "price": flight.price
@@ -120,3 +114,19 @@ class FlightQueries:
         except psycopg.Error as e:
             print(f"Error creating flight: {e}")
             raise FlightDatabaseError("Error creating flight")
+
+    def delete_flight(self, id: int) -> bool:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(
+                        """--sql
+                            DELETE FROM flights
+                            WHERE id = %s;
+                        """,
+                        (id,),
+                    )
+                    return cur.rowcount > 0
+        except psycopg.Error as e:
+            print(f"Error deleting flight with id {id}: {e}")
+            raise FlightDatabaseError(f"Error deleting flight with id {id}")

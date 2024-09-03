@@ -1,16 +1,37 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 
 export default function FlightForm() {
+  const { tripId } = useParams();
+  const navigate = useNavigate();
+
+  const [airlines, setAirlines] = useState([]);
   const [formData, setFormData] = useState({
-    name: '',
-    description: '',
+    flight_number: '',
     departure_time: '',
     arrival_time: '',
     departure_airport: '',
     arrival_airport: '',
-    flight_number: '',
-    price: ''
+    price: '',
+    airline_id: ''
   });
+
+  useEffect(() => {
+    const fetchAirlines = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/api/airlines');
+        if (!response.ok) {
+          throw new Error('Failed to fetch airlines');
+        }
+        const data = await response.json();
+        setAirlines(data);
+      } catch (error) {
+        console.error('Error fetching airlines:', error);
+      }
+    };
+
+    fetchAirlines();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,13 +44,15 @@ export default function FlightForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const dataToSubmit = { ...formData, trip_id: tripId };
+
     try {
       const response = await fetch('http://localhost:8000/api/flights', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(dataToSubmit),
       });
 
       if (!response.ok) {
@@ -37,16 +60,18 @@ export default function FlightForm() {
       }
 
       console.log('Flight added successfully');
+
       setFormData({
-        name: '',
-        description: '',
+        flight_number: '',
         departure_time: '',
         arrival_time: '',
         departure_airport: '',
         arrival_airport: '',
-        flight_number: '',
-        price: ''
+        price: '',
+        airline_id: ''
       });
+
+      navigate(`/trips/${tripId}`);
     } catch (error) {
       console.error('Error:', error);
     }
@@ -58,22 +83,11 @@ export default function FlightForm() {
         <h2>Add Flight</h2>
       </div>
       <div className="mb-3">
-        <label className="form-label">Name:</label>
+        <label className="form-label">Flight Number:</label>
         <input
           type="text"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          className="form-control"
-          required
-        />
-      </div>
-      <div className="mb-3">
-        <label className="form-label">Description:</label>
-        <input
-          type="text"
-          name="description"
-          value={formData.description}
+          name="flight_number"
+          value={formData.flight_number}
           onChange={handleChange}
           className="form-control"
           required
@@ -124,17 +138,6 @@ export default function FlightForm() {
         />
       </div>
       <div className="mb-3">
-        <label className="form-label">Flight Number:</label>
-        <input
-          type="number"
-          name="flight_number"
-          value={formData.flight_number}
-          onChange={handleChange}
-          className="form-control"
-          required
-        />
-      </div>
-      <div className="mb-3">
         <label className="form-label">Price:</label>
         <input
           type="number"
@@ -144,6 +147,23 @@ export default function FlightForm() {
           className="form-control"
           required
         />
+      </div>
+      <div className="mb-3">
+        <label className="form-label">Airline:</label>
+        <select
+          name="airline_id"
+          value={formData.airline_id}
+          onChange={handleChange}
+          className="form-control"
+          required
+        >
+          <option value="" disabled>Select an airline</option>
+          {airlines.map((airline) => (
+            <option key={airline.id} value={airline.id}>
+              {airline.name}
+            </option>
+          ))}
+        </select>
       </div>
       <button type="submit" className="btn btn-primary">Add Flight</button>
     </form>

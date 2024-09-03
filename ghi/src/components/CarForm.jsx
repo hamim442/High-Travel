@@ -1,6 +1,10 @@
 import { useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 
 export default function CarForm() {
+  const { tripId } = useParams();
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     car_model: '',
     rental_company: '',
@@ -22,13 +26,15 @@ export default function CarForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const dataToSubmit = { ...formData, trip_id: tripId };
+
     try {
       const response = await fetch('http://localhost:8000/api/cars', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(dataToSubmit),
       });
 
       if (!response.ok) {
@@ -45,6 +51,8 @@ export default function CarForm() {
         dropoff_location: '',
         price: ''
       });
+
+      navigate(`/trips/${tripId}`);
     } catch (error) {
       console.error('Error:', error);
     }

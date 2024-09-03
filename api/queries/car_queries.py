@@ -114,3 +114,19 @@ class CarQueries:
         except psycopg.Error as e:
             print(f"Error creating car: {e}")
             raise CarDatabaseError("Error creating car")
+
+    def delete_car(self, id: int) -> bool:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(
+                        """--sql
+                            DELETE FROM cars
+                            WHERE id = %s;
+                        """,
+                        (id,),
+                    )
+                    return cur.rowcount > 0
+        except psycopg.Error as e:
+            print(f"Error deleting car with id {id}: {e}")
+            raise CarDatabaseError(f"Error deleting car with id {id}")
