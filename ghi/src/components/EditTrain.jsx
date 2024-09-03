@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
-export default function TrainForm() {
-  const { tripId } = useParams();
+export default function EditTrain() {
+  const { trainId, tripId } = useParams();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -14,6 +14,30 @@ export default function TrainForm() {
     price: ''
   });
 
+  useEffect(() => {
+    const fetchTrain = async () => {
+      try {
+        const response = await fetch(`http://localhost:8000/api/trains/${trainId}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch train');
+        }
+        const train = await response.json();
+        setFormData({
+          train_number: train.train_number,
+          departure_time: new Date(train.departure_time).toISOString().slice(0, -1),
+          arrival_time: new Date(train.arrival_time).toISOString().slice(0, -1),
+          departure_station: train.departure_station,
+          arrival_station: train.arrival_station,
+          price: train.price
+        });
+      } catch (error) {
+        console.error('Error fetching train details:', error);
+      }
+    };
+
+    fetchTrain();
+  }, [trainId]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -23,43 +47,42 @@ export default function TrainForm() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    const dataToSubmit = { ...formData, trip_id: tripId };
-
-    try {
-      const response = await fetch('http://localhost:8000/api/trains', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(dataToSubmit),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to add train');
-      }
-
-      console.log('Train added successfully');
-      setFormData({
-        train_number: '',
-        departure_time: '',
-        arrival_time: '',
-        departure_station: '',
-        arrival_station: '',
-        price: ''
-      });
-
-      navigate(`/trips/${tripId}`);
-    } catch (error) {
-      console.error('Error:', error);
-    }
+  const dataToSubmit = {
+    ...formData,
+    trip_id: tripId,
+    train_id: trainId
   };
+
+  console.log('Data to submit:', dataToSubmit);
+
+  try {
+    const response = await fetch(`http://localhost:8000/api/trains/${trainId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(dataToSubmit),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error('Error data:', errorData);
+      throw new Error(`Failed to update train: ${errorData.message || response.statusText}`);
+    }
+
+    console.log('Train updated successfully');
+    navigate(-1);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
 
   return (
     <form onSubmit={handleSubmit} className="container mt-4">
       <div className="mb-3">
-        <h2>Add Train Ride</h2>
+        <h2>Edit Train Ride</h2>
       </div>
       <div className="mb-3">
         <label className="form-label">Train Number:</label>
@@ -127,7 +150,7 @@ export default function TrainForm() {
           required
         />
       </div>
-      <button type="submit" className="btn btn-primary">Add Train</button>
+      <button type="submit" className="btn btn-primary">Update Train</button>
     </form>
   );
 }
