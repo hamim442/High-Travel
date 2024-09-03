@@ -178,14 +178,14 @@ class AccommodationQueries:
                     update_values.append(user_id)
 
                     sql = f"""
-                        UPDATE accommodations
-                        SET {','.join(update_fields)}
-                        FROM trips
-                        WHERE accommodations.id = %s  
-                        AND accommodations.trip_id = trips.id  -- Corrected table name and field
-                        AND trips.user_id = %s
-                        RETURNING accommodations.*;
-                    """
+                            UPDATE accommodations
+                            SET {','.join(update_fields)}
+                            FROM trips
+                            WHERE accommodations.id = %s
+                            AND accommodations.trip_id = trips.id
+                            AND trips.user_id = %s
+                            RETURNING accommodations.*;
+                        """
                     cur.execute(sql, update_values)
 
                     updated_accommodation = cur.fetchone()
