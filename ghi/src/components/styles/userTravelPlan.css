@@ -2,6 +2,7 @@
     width: 60%;
     padding: 20px;
     box-sizing: border-box;
+    margin: 0 auto;
 }
 
 .user-travel-title {
@@ -17,13 +18,13 @@
 .user-card-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 40px;
     width: 100%;
 }
 
 .user-card {
-    flex: 1 0 calc(33.33% - 20px);
-    max-width: calc(33.33% - 20px);
+    flex: 1 0 calc(33.33% - 40px);
+    max-width: calc(33.33% - 40px);
     border: 1px solid #ddd;
     border-radius: 8px;
     overflow: hidden;
@@ -59,14 +60,14 @@
 
 @media (max-width: 1200px) {
     .user-card {
-        flex: 1 0 calc(50% - 20px);
-        max-width: calc(50% - 20px);
+        flex: 1 0 calc(50% - 40px);
+        max-width: calc(50% - 40px);
     }
 }
 
 @media (max-width: 768px) {
     .user-card {
-        flex: 1 0 calc(100% - 20px);
-        max-width: calc(100% - 20px);
+        flex: 1 0 calc(100% - 40px);
+        max-width: calc(100% - 40px);
     }
 }
