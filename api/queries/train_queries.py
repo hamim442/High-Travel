@@ -13,11 +13,13 @@ from utils.exceptions import (
     DatabaseURLException,
 )
 
+
 database_url = os.environ.get("DATABASE_URL")
 if database_url is None:
     raise DatabaseURLException(
         "You forgot to define DATABASE_URL in your environment."
     )
+
 
 pool = ConnectionPool(database_url)
 
