@@ -48,3 +48,19 @@ def create_car(
         raise HTTPException(status_code=400, detail=str(e))
     except CarDatabaseError as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.delete("/{id}")
+def delete_car(
+    id: int,
+    queries: CarQueries = Depends(),
+) -> dict:
+    try:
+        success = queries.delete_car(id)
+        if not success:
+            raise CarDoesNotExist(f"Car with id {id} does not exist.")
+        return {"status": "Car deleted successfully."}
+    except CarDoesNotExist:
+        raise HTTPException(status_code=404, detail="Car not found.")
+    except CarDatabaseError:
+        raise HTTPException(status_code=500, detail="Error deleting car.")

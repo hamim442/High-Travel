@@ -11,11 +11,13 @@ from utils.exceptions import (
     DatabaseURLException,
 )
 
+
 database_url = os.environ.get("DATABASE_URL")
 if database_url is None:
     raise DatabaseURLException(
         "You forgot to define DATABASE_URL in your environment."
     )
+
 
 pool = ConnectionPool(database_url)
 
@@ -114,3 +116,19 @@ class CarQueries:
         except psycopg.Error as e:
             print(f"Error creating car: {e}")
             raise CarDatabaseError("Error creating car")
+
+    def delete_car(self, id: int) -> bool:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(
+                        """--sql
+                            DELETE FROM cars
+                            WHERE id = %s;
+                        """,
+                        (id,),
+                    )
+                    return cur.rowcount > 0
+        except psycopg.Error as e:
+            print(f"Error deleting car with id {id}: {e}")
+            raise CarDatabaseError(f"Error deleting car with id {id}")
