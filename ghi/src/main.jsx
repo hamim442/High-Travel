@@ -70,7 +70,7 @@ const router = createBrowserRouter(
                     element: <CreateTravelPlan />,
                 },
                 {
-                    path: 'trips/:tripId/accommodation',
+                    path: 'trips/:tripid/accommodation',
                     element: <AccommodationForm />,
                 },
                 {
