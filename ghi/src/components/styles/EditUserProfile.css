@@ -1,0 +1,79 @@
+.edit-profile-container {
+    width: 100%;
+    padding: 40px 20px;
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 40px auto;
+}
+
+.edit-profile-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.edit-profile-title h1 {
+    font-size: 30px;
+    font-weight: bold;
+    color: #333;
+}
+
+.edit-profile-details {
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.edit-profile-details p {
+    margin: 5px 0;
+}
+
+.edit-profile-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.edit-profile-form label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
+    width: 100%;
+}
+
+.edit-profile-form input {
+    width: 100%;
+    padding: 10px;
+    font-size: 20px;
+    margin-bottom: 30px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.edit-profile-form input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.edit-profile-form button {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    font-weight: bold;
+    padding: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.edit-profile-form button.hover {
+    background-color: #0056b3;
+}
+
+.edit-profile-form button:focus {
+    outline: none;
+}
