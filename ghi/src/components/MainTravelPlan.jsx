@@ -200,7 +200,7 @@ const deleteTrip = async () => {
                 throw new Error('Failed to delete trip');
             }
 
-            navigate('/');
+            navigate('/profile');
         } catch (error) {
             console.error('Error deleting trip:', error);
             setError('Failed to delete trip. Please try again.');
