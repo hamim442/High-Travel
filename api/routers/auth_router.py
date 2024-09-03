@@ -14,6 +14,7 @@ from models.users import (
     UserResponse,
     SigninRequest,
     SignupRequest,
+    UpdateUserRequest,
 )
 
 from utils.authentication import (
@@ -25,7 +26,6 @@ from utils.authentication import (
 
 from models.jwt import JWTUserData
 
-from typing import Optional
 
 # Note we are using a prefix here,
 # This saves us typing in all the routes below
@@ -179,23 +179,20 @@ async def check_username(username: str, queries: UserQueries = Depends()):
 
 @router.put("/edit-user")
 def update_user(
-    user_id: int,
-    first_name: Optional[str] = None,
-    last_name: Optional[str] = None,
-    profile_image: Optional[str] = None,
+    updaterequest: UpdateUserRequest,
     queries: UserQueries = Depends(),
+    jwtuser: JWTUserData | None = Depends(try_get_jwt_user_data),
 ) -> UserResponse:
-    user = queries.get_by_id(user_id)
-    if not user:
+    if not jwtuser:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
         )
 
     update_user = queries.edit_user(
-        user_id=user_id,
-        first_name=first_name,
-        last_name=last_name,
-        profile_image=profile_image,
+        user_id=jwtuser.id,
+        first_name=updaterequest.first_name,
+        last_name=updaterequest.last_name,
+        profile_image=updaterequest.profile_image,
     )
 
     return UserResponse(

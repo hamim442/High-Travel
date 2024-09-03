@@ -41,3 +41,9 @@ class UserWithPw(BaseModel):
     profile_image: str
     first_name: str
     last_name: str
+
+
+class UpdateUserRequest(BaseModel):
+    profile_image: Optional[str] = None
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None

@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { AuthContext } from '../components/AuthProvider'
-import { signin, signup, signout } from '../services/authService'
+import { signin, signup, signout, update } from '../services/authService'
 
 // This is a custom hook that lets us get access to
 // the info stored in the AuthContext
@@ -57,6 +57,17 @@ export default function useAuthService() {
         signout: async () => {
             await signout()
             setUser()
+            setIsLoading(false)
+        },
+        update: async (userData) => {
+            setIsLoading(true)
+            const userUpdate = await update(userData)
+            if (userUpdate instanceof Error) {
+                setError(userUpdate)
+                setIsLoading(false)
+                return
+            }
+            setUser(userUpdate)
             setIsLoading(false)
         },
     }
