@@ -37,6 +37,8 @@ def get_stay(id: int, queries: StayQueries = Depends()) -> Stay:
 
 @router.post("/")
 def create_stay(stay: StayRequest, queries: StayQueries = Depends()) -> Stay:
+    # The creation of a stay should probably be protected so you must be logged
+    # in in order to create a stay
     try:
         new_stay = queries.create_stay(stay)
         return new_stay

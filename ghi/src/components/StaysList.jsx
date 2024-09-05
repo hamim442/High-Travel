@@ -76,6 +76,7 @@ function StaysList() {
             ) : (
                 <Container>
                     <Row className="mt-4">
+                        {/* Consider doing this filtering on the server instead using SQL */}
                         {stays
                             .filter((stay) =>
                                 search
@@ -89,6 +90,8 @@ function StaysList() {
                                     <Card className="cardHover">
                                         <Card.Img
                                             variant="top"
+                                            // Instead of hard coding this URL, consider storing it in a variable,
+                                            // or making it optional on the backend with a default database value
                                             src={
                                                 stay.logo_picture_url ||
                                                 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMAprBWRbfkDNEBHcqH_ZC_nVbr8ViRh6d-g&s'
@@ -98,6 +101,7 @@ function StaysList() {
                                         />
                                         <Card.Body
                                             className="text-center"
+                                            // Try to avoid using inline styles and put this in CSS
                                             style={{
                                                 backgroundColor: '#B7BFAA',
                                             }}

@@ -91,7 +91,8 @@ def edit_accommodation(
     user: JWTUserData = Depends(try_get_jwt_user_data),
     queries: AccommodationQueries = Depends(),
 ) -> Accommodation:
-
+    # You should probably insert a check here to see if the user exists
+    # so users who aren't logged in can't do this.
     try:
         updated_accommodation = queries.update_accommodation(
             id, user.id, accommdation_update

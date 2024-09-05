@@ -32,6 +32,8 @@ function EditUserProfile() {
                 navigate('/profile')
             }
         } catch (e) {
+            // It would be better if you added an error useState and displayed an error
+            // to the user instead of just printing it to the console
             console.error('Profile update failed', e)
         }
     }

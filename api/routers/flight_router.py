@@ -41,6 +41,8 @@ def get_flight(id: int, queries: FlightQueries = Depends()) -> Flight:
 def create_flight(
     flight: FlightRequest, queries: FlightQueries = Depends()
 ) -> Flight:
+    # Things like creation/deleting and updating need to check to see if a user
+    # is logged in before you can do them.
     try:
         new_flight = queries.create_flight(flight)
         return new_flight

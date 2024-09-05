@@ -26,6 +26,8 @@ export default function UserProfileInfo() {
     }, [user, navigate])
 
     const handleCreatePlan = () => {
+        // It would probably be better if the CreateTravelPlan page handled this,
+        // then you wouldn't need this if statement here.
         if (user) {
             navigate('/create')
         } else {

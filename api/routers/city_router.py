@@ -22,7 +22,6 @@ CACHE_DURATION = 86400  # 24 hours in secs
 def get_random_cities(queries: CityQueries = Depends()) -> list[City]:
     global cached_cities, cache_time
     current_time = time.time()
-
     if current_time - cache_time > CACHE_DURATION or not cached_cities:
         all_cities = queries.get_all_cities()
         if len(all_cities) >= 5:
@@ -87,6 +86,7 @@ def create_city(city: CityRequest, queries: CityQueries = Depends()) -> City:
 
 @router.delete("/{id}")
 def delete_city(id: int, queries: CityQueries = Depends()) -> dict:
+    # Things like deleting and creating new cities should be protected so only a logged in user can do them.
     try:
         success = queries.delete_city(id)
         if not success:

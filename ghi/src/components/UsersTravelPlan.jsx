@@ -11,6 +11,7 @@ export default function UserTravelPlans() {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
 
+    /* You should be using the useAuthService hook for this instead of calling this yourself */
     useEffect(() => {
         async function checkAuth() {
             const response = await fetch(
@@ -98,6 +99,7 @@ export default function UserTravelPlans() {
             <div className="user-travel-container">
                 <h2 className="user-travel-title">Your Travel Plans</h2>
                 <div className="user-card-container">
+                    {/* the user card here could probably be broken out into it's own component */}
                     {trips.map((trip) => (
                         <div key={trip.id} className="user-card">
                             <img
