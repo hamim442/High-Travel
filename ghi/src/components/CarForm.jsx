@@ -59,9 +59,9 @@ export default function CarForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="container mt-4">
+    <form onSubmit={handleSubmit} className="container mt-4 w-50 border rounded mb-3">
       <div className="mb-3">
-        <h2>Add Car</h2>
+        <h2 className="text-center py-3">Add Rental Car</h2>
       </div>
       <div className="mb-3">
         <label className="form-label">Car Model:</label>
@@ -140,7 +140,7 @@ export default function CarForm() {
           required
         />
       </div>
-      <button type="submit" className="btn btn-primary">Add Car</button>
+      <button type="submit" className="btn btn-primary mb-3">Add Car</button>
     </form>
   );
 }
