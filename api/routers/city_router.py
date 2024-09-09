@@ -1,5 +1,6 @@
 import random
 import time
+from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException
 from queries.city_queries import (
     CityQueries,
@@ -96,3 +97,29 @@ def delete_city(id: int, queries: CityQueries = Depends()) -> dict:
         raise HTTPException(status_code=404, detail="City not found.")
     except CityDatabaseError:
         raise HTTPException(status_code=500, detail="Error deleting city.")
+
+
+@router.put("/{id}")
+def update_city(
+    id: int,
+    name: Optional[str] = None,
+    administrative_division: Optional[str] = None,
+    country: Optional[str] = None,
+    picture_url: Optional[str] = None,
+    description: Optional[str] = None,
+    queries: CityQueries = Depends(),
+) -> City:
+    try:
+        updated_city = queries.edit_city(
+            id=id,
+            name=name,
+            administrative_division=administrative_division,
+            country=country,
+            picture_url=picture_url,
+            description=description,
+        )
+        return updated_city
+    except CityDoesNotExist:
+        raise HTTPException(status_code=404, detail="City not found")
+    except CityDatabaseError:
+        raise HTTPException(status_code=500, detail="City Update Error")

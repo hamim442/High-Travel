@@ -1,5 +1,6 @@
 import os
 import psycopg
+from typing import Optional
 from psycopg.rows import class_row
 from psycopg_pool import ConnectionPool
 from psycopg.errors import UniqueViolation
@@ -133,3 +134,60 @@ class CityQueries:
         except psycopg.Error as e:
             print(f"Error deleting city with id {id}: {e}.")
             raise CityDatabaseError(f"Error deleting city with id {id}.")
+
+    def edit_city(
+        self,
+        id: int,
+        name: Optional[str] = None,
+        administrative_division: Optional[str] = None,
+        country: Optional[str] = None,
+        picture_url: Optional[str] = None,
+        description: Optional[str] = None,
+    ) -> City:
+
+        try:
+            with pool.connection() as conn:
+                with conn.cursor(row_factory=class_row(City)) as cur:
+                    update_fields = []
+                    update_values = []
+
+                    if name:
+                        update_fields.append("name = %s")
+                        update_values.append(name)
+                    if administrative_division:
+                        update_fields.append("administrative_division = %s")
+                        update_values.append(administrative_division)
+                    if country:
+                        update_fields.append("country = %s")
+                        update_values.append(country)
+                    if picture_url:
+                        update_fields.append("picture_url = %s")
+                        update_values.append(picture_url)
+                    if description:
+                        update_fields.append("description = %s")
+                        update_values.append(description)
+
+                    update_values.append(id)
+                    sql = f"""--sql
+                        UPDATE cities
+                        SET {', '.join(update_fields)}
+                        WHERE id = %s
+                        RETURNING *;
+                    """
+                    cur.execute(
+                        sql,
+                        update_values,
+                    )
+
+                    city = cur.fetchone()
+                    if not city:
+                        raise CityDoesNotExist(f"{id}")
+
+                    return city
+
+        except psycopg.Error as e:
+            print(e)
+            raise CityDatabaseError(f"could not update {id}")
+        except ValueError as e:
+            print(e)
+            raise CityDatabaseError("No fields for city update")

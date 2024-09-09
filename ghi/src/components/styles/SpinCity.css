@@ -1,0 +1,23 @@
+.spin-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.city {
+    width: 30%;
+    text-align: center;
+    padding: 20px;
+    border: 2px solid #ddd;
+    margin: 0 10px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    transition: transform 0.3s ease-in-out;
+}
+
+.city.winner {
+    transform: scale(1.2);
+    border-color: gold;
+    background-color: #fff8dc;
+}
