@@ -57,9 +57,9 @@ export default function TrainForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="container mt-4">
+    <form onSubmit={handleSubmit} className="container mt-4 border rounded w-50 mb-3 p-4">
       <div className="mb-3">
-        <h2>Add Train Ride</h2>
+        <h2 className="text-center py-3">Add Train Ride</h2>
       </div>
       <div className="mb-3">
         <label className="form-label">Train Number:</label>
