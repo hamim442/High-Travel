@@ -166,7 +166,8 @@ const AccommodationForm = () => {
     }
 
     return (
-        <Form>
+        <Form className="container w-50 border rounded my-4">
+            <h2 className="text-center mt-3">Add Accommodation</h2>
             <Row className="mb-3">
                 <Form.Group as={Col} controlId="formStay">
                     <Form.Label>Stay</Form.Label>
@@ -328,7 +329,7 @@ const AccommodationForm = () => {
                     onChange={handleChange}
                 />
             </Form.Group>
-
+            <div className="mb-3">
             <Button variant="primary" onClick={handleSubmit}>
                 Submit
             </Button>
@@ -340,6 +341,7 @@ const AccommodationForm = () => {
             >
                 Submit and add another accommodation
             </Button>
+            </div>
         </Form>
     )
 }
