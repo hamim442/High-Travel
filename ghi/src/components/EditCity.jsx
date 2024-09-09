@@ -38,14 +38,14 @@ export default function EditCity() {
     }, [cityId])
 
     const handleChange = (e) => {
-        const { id, value } = e.target
+        const { name, value } = e.target
         setCityData({
             ...cityData,
-            [id]: value,
+            [name]: value,
         })
     }
 
-    const handleEdit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
 
         const dataEdit = {
@@ -54,12 +54,13 @@ export default function EditCity() {
             city_id: cityId,
         }
 
-        console.log("Data to edit", dataEdit)
+        console.log('Data to edit:', dataEdit)
 
         try {
-            const response = await fetch(`http://localhost:8000/api/cities/${cityId}`,
+            const response = await fetch(
+                `http://localhost:8000/api/cities/${cityId}`,
                 {
-                    method:'PUT',
+                    method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -68,30 +69,80 @@ export default function EditCity() {
             )
             if (!response.ok) {
                 const fail = await response.json()
-                throw new Error(`Failed to updated City: ${fail.message || response.statusText}`)
-
+                throw new Error(
+                    `Failed to updated City: ${
+                        fail.message || response.statusText
+                    }`
+                )
             }
-            navigate(-1)
+            navigate(`/city/${cityId}`)
         } catch (error) {
             console.error('error', error)
         }
     }
     return (
-        <form onSubmit={handleEdit}>
-                        <div className="mb-3">
-                <h2>Edit Train Ride</h2>
+        <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+                <h2>Edit City Information</h2>
             </div>
             <div className="mb-3">
                 <label>Name:</label>
                 <input
                     type="text"
                     name="name"
-                    value={formData.name}
+                    value={cityData.name}
                     onChange={handleChange}
                     className="form-control"
                     required
                 />
             </div>
+            <div className="mb-3">
+                <label>Administrative Division:</label>
+                <input
+                    type="text"
+                    name="administrative_division"
+                    value={cityData.administrative_division}
+                    onChange={handleChange}
+                    className="form-control"
+                    required
+                />
+            </div>
+            <div className="mb-3">
+                <label>Country:</label>
+                <input
+                    type="text"
+                    name="country"
+                    value={cityData.country}
+                    onChange={handleChange}
+                    className="form-control"
+                    required
+                />
+            </div>
+            <div className="mb-3">
+                <label>Picture URL:</label>
+                <input
+                    type="text"
+                    name="picture_url"
+                    value={cityData.picture_url}
+                    onChange={handleChange}
+                    className="form-control"
+                    required
+                />
+            </div>
+            <div className="mb-3">
+                <label>Description:</label>
+                <input
+                    type="text"
+                    name="description"
+                    value={cityData.description}
+                    onChange={handleChange}
+                    className="form-control"
+                    required
+                />
+            </div>
+            <button type="submit" className="btn btn-primary">
+                Edit City
+            </button>
         </form>
     )
 }
